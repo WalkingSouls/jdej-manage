@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="pro_name" jdbcType="VARCHAR" property="proName" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="pro_pic" jdbcType="VARCHAR" property="proPic" />
+    <result column="is_normed" jdbcType="TINYINT" property="isNormed" />
+    <result column="is_distributed" jdbcType="TINYINT" property="isDistributed" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="delivery_days" jdbcType="INTEGER" property="deliveryDays" />
+    <result column="delivery_type" jdbcType="TINYINT" property="deliveryType" />
+    <result column="onsale_time_type" jdbcType="TINYINT" property="onsaleTimeType" />
+    <result column="onsale_time" jdbcType="TIMESTAMP" property="onsaleTime" />
+    <result column="specimen" jdbcType="TINYINT" property="specimen" />
+    <result column="price_unit" jdbcType="DECIMAL" property="priceUnit" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="product_status" jdbcType="TINYINT" property="productStatus" />
+    <result column="sales_num" jdbcType="INTEGER" property="salesNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.Product">
+    <result column="product_info" jdbcType="LONGVARCHAR" property="productInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    product_id, store_id, pro_name, category_id, category_name, pro_pic, is_normed, is_distributed, 
+    discount, delivery_days, delivery_type, onsale_time_type, onsale_time, specimen, 
+    price_unit, stock, product_status, sales_num, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    product_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.Product">
+    insert into jdej_product (product_id, store_id, pro_name, 
+      category_id, category_name, pro_pic, 
+      is_normed, is_distributed, discount, 
+      delivery_days, delivery_type, onsale_time_type, 
+      onsale_time, specimen, price_unit, 
+      stock, product_status, sales_num, 
+      create_time, update_time, product_info
+      )
+    values (#{productId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{proPic,jdbcType=VARCHAR}, 
+      #{isNormed,jdbcType=TINYINT}, #{isDistributed,jdbcType=TINYINT}, #{discount,jdbcType=DECIMAL}, 
+      #{deliveryDays,jdbcType=INTEGER}, #{deliveryType,jdbcType=TINYINT}, #{onsaleTimeType,jdbcType=TINYINT}, 
+      #{onsaleTime,jdbcType=TIMESTAMP}, #{specimen,jdbcType=TINYINT}, #{priceUnit,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=INTEGER}, #{productStatus,jdbcType=TINYINT}, #{salesNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{productInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Product">
+    insert into jdej_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="proName != null">
+        pro_name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="categoryName != null">
+        category_name,
+      </if>
+      <if test="proPic != null">
+        pro_pic,
+      </if>
+      <if test="isNormed != null">
+        is_normed,
+      </if>
+      <if test="isDistributed != null">
+        is_distributed,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="deliveryDays != null">
+        delivery_days,
+      </if>
+      <if test="deliveryType != null">
+        delivery_type,
+      </if>
+      <if test="onsaleTimeType != null">
+        onsale_time_type,
+      </if>
+      <if test="onsaleTime != null">
+        onsale_time,
+      </if>
+      <if test="specimen != null">
+        specimen,
+      </if>
+      <if test="priceUnit != null">
+        price_unit,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+      <if test="salesNum != null">
+        sales_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="productInfo != null">
+        product_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null">
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null">
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="proPic != null">
+        #{proPic,jdbcType=VARCHAR},
+      </if>
+      <if test="isNormed != null">
+        #{isNormed,jdbcType=TINYINT},
+      </if>
+      <if test="isDistributed != null">
+        #{isDistributed,jdbcType=TINYINT},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryDays != null">
+        #{deliveryDays,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryType != null">
+        #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="onsaleTimeType != null">
+        #{onsaleTimeType,jdbcType=TINYINT},
+      </if>
+      <if test="onsaleTime != null">
+        #{onsaleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="specimen != null">
+        #{specimen,jdbcType=TINYINT},
+      </if>
+      <if test="priceUnit != null">
+        #{priceUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=TINYINT},
+      </if>
+      <if test="salesNum != null">
+        #{salesNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productInfo != null">
+        #{productInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Product">
+    update jdej_product
+    <set>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null">
+        pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryName != null">
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="proPic != null">
+        pro_pic = #{proPic,jdbcType=VARCHAR},
+      </if>
+      <if test="isNormed != null">
+        is_normed = #{isNormed,jdbcType=TINYINT},
+      </if>
+      <if test="isDistributed != null">
+        is_distributed = #{isDistributed,jdbcType=TINYINT},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryDays != null">
+        delivery_days = #{deliveryDays,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryType != null">
+        delivery_type = #{deliveryType,jdbcType=TINYINT},
+      </if>
+      <if test="onsaleTimeType != null">
+        onsale_time_type = #{onsaleTimeType,jdbcType=TINYINT},
+      </if>
+      <if test="onsaleTime != null">
+        onsale_time = #{onsaleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="specimen != null">
+        specimen = #{specimen,jdbcType=TINYINT},
+      </if>
+      <if test="priceUnit != null">
+        price_unit = #{priceUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=TINYINT},
+      </if>
+      <if test="salesNum != null">
+        sales_num = #{salesNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productInfo != null">
+        product_info = #{productInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.Product">
+    update jdej_product
+    set store_id = #{storeId,jdbcType=INTEGER},
+      pro_name = #{proName,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      pro_pic = #{proPic,jdbcType=VARCHAR},
+      is_normed = #{isNormed,jdbcType=TINYINT},
+      is_distributed = #{isDistributed,jdbcType=TINYINT},
+      discount = #{discount,jdbcType=DECIMAL},
+      delivery_days = #{deliveryDays,jdbcType=INTEGER},
+      delivery_type = #{deliveryType,jdbcType=TINYINT},
+      onsale_time_type = #{onsaleTimeType,jdbcType=TINYINT},
+      onsale_time = #{onsaleTime,jdbcType=TIMESTAMP},
+      specimen = #{specimen,jdbcType=TINYINT},
+      price_unit = #{priceUnit,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      product_status = #{productStatus,jdbcType=TINYINT},
+      sales_num = #{salesNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      product_info = #{productInfo,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Product">
+    update jdej_product
+    set store_id = #{storeId,jdbcType=INTEGER},
+      pro_name = #{proName,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      pro_pic = #{proPic,jdbcType=VARCHAR},
+      is_normed = #{isNormed,jdbcType=TINYINT},
+      is_distributed = #{isDistributed,jdbcType=TINYINT},
+      discount = #{discount,jdbcType=DECIMAL},
+      delivery_days = #{deliveryDays,jdbcType=INTEGER},
+      delivery_type = #{deliveryType,jdbcType=TINYINT},
+      onsale_time_type = #{onsaleTimeType,jdbcType=TINYINT},
+      onsale_time = #{onsaleTime,jdbcType=TIMESTAMP},
+      specimen = #{specimen,jdbcType=TINYINT},
+      price_unit = #{priceUnit,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      product_status = #{productStatus,jdbcType=TINYINT},
+      sales_num = #{salesNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

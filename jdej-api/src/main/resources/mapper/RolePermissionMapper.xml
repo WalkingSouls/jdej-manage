@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.RolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.RolePermission">
+    <id column="role_per_id" jdbcType="INTEGER" property="rolePerId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_per_id, role_id, permission_id, valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_role_permission
+    where role_per_id = #{rolePerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_role_permission
+    where role_per_id = #{rolePerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.RolePermission">
+    insert into jdej_role_permission (role_per_id, role_id, permission_id, 
+      valid)
+    values (#{rolePerId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, 
+      #{valid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.RolePermission">
+    insert into jdej_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rolePerId != null">
+        role_per_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="permissionId != null">
+        permission_id,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rolePerId != null">
+        #{rolePerId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.RolePermission">
+    update jdej_role_permission
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null">
+        permission_id = #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where role_per_id = #{rolePerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.RolePermission">
+    update jdej_role_permission
+    set role_id = #{roleId,jdbcType=INTEGER},
+      permission_id = #{permissionId,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=TINYINT}
+    where role_per_id = #{rolePerId,jdbcType=INTEGER}
+  </update>
+</mapper>

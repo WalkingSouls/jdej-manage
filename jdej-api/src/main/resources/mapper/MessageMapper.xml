@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Message">
+    <id column="msg_id" jdbcType="INTEGER" property="msgId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="msg_type" jdbcType="INTEGER" property="msgType" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="readed" jdbcType="TINYINT" property="readed" />
+    <result column="replied" jdbcType="TINYINT" property="replied" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msg_id, user_id, msg_type, sender, receiver, send_time, readed, replied, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_msg
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_msg
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.Message">
+    insert into jdej_msg (msg_id, user_id, msg_type, 
+      sender, receiver, send_time, 
+      readed, replied, status
+      )
+    values (#{msgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, 
+      #{sender,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{readed,jdbcType=TINYINT}, #{replied,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Message">
+    insert into jdej_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="sender != null">
+        sender,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+      <if test="readed != null">
+        readed,
+      </if>
+      <if test="replied != null">
+        replied,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="sender != null">
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readed != null">
+        #{readed,jdbcType=TINYINT},
+      </if>
+      <if test="replied != null">
+        #{replied,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Message">
+    update jdej_msg
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="sender != null">
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readed != null">
+        readed = #{readed,jdbcType=TINYINT},
+      </if>
+      <if test="replied != null">
+        replied = #{replied,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Message">
+    update jdej_msg
+    set user_id = #{userId,jdbcType=INTEGER},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      sender = #{sender,jdbcType=VARCHAR},
+      receiver = #{receiver,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      readed = #{readed,jdbcType=TINYINT},
+      replied = #{replied,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT}
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </update>
+</mapper>

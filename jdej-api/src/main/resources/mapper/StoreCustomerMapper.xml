@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.StoreCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.StoreCustomer">
+    <id column="sto_cus_id" jdbcType="INTEGER" property="stoCusId" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sto_cus_id, store_id, customer_id, valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_store_customer
+    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_store_customer
+    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.StoreCustomer">
+    insert into jdej_store_customer (sto_cus_id, store_id, customer_id, 
+      valid)
+    values (#{stoCusId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, 
+      #{valid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.StoreCustomer">
+    insert into jdej_store_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stoCusId != null">
+        sto_cus_id,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stoCusId != null">
+        #{stoCusId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.StoreCustomer">
+    update jdej_store_customer
+    <set>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.StoreCustomer">
+    update jdej_store_customer
+    set store_id = #{storeId,jdbcType=INTEGER},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=TINYINT}
+    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+  </update>
+</mapper>

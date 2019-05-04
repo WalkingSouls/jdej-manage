@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.MessageTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.MessageTemplate">
+    <id column="msg_tem_id" jdbcType="INTEGER" property="msgTemId" />
+    <result column="tem_name" jdbcType="VARCHAR" property="temName" />
+    <result column="valid" jdbcType="BIT" property="valid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.MessageTemplate">
+    <result column="tem_des" jdbcType="LONGVARCHAR" property="temDes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msg_tem_id, tem_name, valid
+  </sql>
+  <sql id="Blob_Column_List">
+    tem_des
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_msg_tem
+    where msg_tem_id = #{msgTemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_msg_tem
+    where msg_tem_id = #{msgTemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.MessageTemplate">
+    insert into jdej_msg_tem (msg_tem_id, tem_name, valid, 
+      tem_des)
+    values (#{msgTemId,jdbcType=INTEGER}, #{temName,jdbcType=VARCHAR}, #{valid,jdbcType=BIT}, 
+      #{temDes,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.MessageTemplate">
+    insert into jdej_msg_tem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgTemId != null">
+        msg_tem_id,
+      </if>
+      <if test="temName != null">
+        tem_name,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="temDes != null">
+        tem_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgTemId != null">
+        #{msgTemId,jdbcType=INTEGER},
+      </if>
+      <if test="temName != null">
+        #{temName,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=BIT},
+      </if>
+      <if test="temDes != null">
+        #{temDes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.MessageTemplate">
+    update jdej_msg_tem
+    <set>
+      <if test="temName != null">
+        tem_name = #{temName,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=BIT},
+      </if>
+      <if test="temDes != null">
+        tem_des = #{temDes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where msg_tem_id = #{msgTemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.MessageTemplate">
+    update jdej_msg_tem
+    set tem_name = #{temName,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=BIT},
+      tem_des = #{temDes,jdbcType=LONGVARCHAR}
+    where msg_tem_id = #{msgTemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.MessageTemplate">
+    update jdej_msg_tem
+    set tem_name = #{temName,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=BIT}
+    where msg_tem_id = #{msgTemId,jdbcType=INTEGER}
+  </update>
+</mapper>
