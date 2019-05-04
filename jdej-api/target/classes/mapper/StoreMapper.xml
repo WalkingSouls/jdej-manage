@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.StoreMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Store">
+    <id column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="linkmen" jdbcType="VARCHAR" property="linkmen" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="id_card_path1" jdbcType="VARCHAR" property="idCardPath1" />
+    <result column="id_card_path2" jdbcType="VARCHAR" property="idCardPath2" />
+    <result column="license_path" jdbcType="VARCHAR" property="licensePath" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.Store">
+    <result column="store_info" jdbcType="LONGVARCHAR" property="storeInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    store_id, store_name, linkmen, phone, address, major, id_card_path1, id_card_path2, 
+    license_path, status, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    store_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.Store">
+    insert into jdej_store (store_id, store_name, linkmen, 
+      phone, address, major, 
+      id_card_path1, id_card_path2, license_path, 
+      status, create_time, store_info
+      )
+    values (#{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{linkmen,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{idCardPath1,jdbcType=VARCHAR}, #{idCardPath2,jdbcType=VARCHAR}, #{licensePath,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{storeInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Store">
+    insert into jdej_store
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="linkmen != null">
+        linkmen,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="idCardPath1 != null">
+        id_card_path1,
+      </if>
+      <if test="idCardPath2 != null">
+        id_card_path2,
+      </if>
+      <if test="licensePath != null">
+        license_path,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="storeInfo != null">
+        store_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmen != null">
+        #{linkmen,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardPath1 != null">
+        #{idCardPath1,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardPath2 != null">
+        #{idCardPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePath != null">
+        #{licensePath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeInfo != null">
+        #{storeInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Store">
+    update jdej_store
+    <set>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="linkmen != null">
+        linkmen = #{linkmen,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardPath1 != null">
+        id_card_path1 = #{idCardPath1,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardPath2 != null">
+        id_card_path2 = #{idCardPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePath != null">
+        license_path = #{licensePath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeInfo != null">
+        store_info = #{storeInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.Store">
+    update jdej_store
+    set store_name = #{storeName,jdbcType=VARCHAR},
+      linkmen = #{linkmen,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      id_card_path1 = #{idCardPath1,jdbcType=VARCHAR},
+      id_card_path2 = #{idCardPath2,jdbcType=VARCHAR},
+      license_path = #{licensePath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      store_info = #{storeInfo,jdbcType=LONGVARCHAR}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Store">
+    update jdej_store
+    set store_name = #{storeName,jdbcType=VARCHAR},
+      linkmen = #{linkmen,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      id_card_path1 = #{idCardPath1,jdbcType=VARCHAR},
+      id_card_path2 = #{idCardPath2,jdbcType=VARCHAR},
+      license_path = #{licensePath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+</mapper>

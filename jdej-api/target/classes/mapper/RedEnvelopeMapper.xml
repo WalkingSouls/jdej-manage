@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.RedEnvelopeMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.RedEnvelope">
+    <id column="red_env_id" jdbcType="INTEGER" property="redEnvId" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="red_env_name" jdbcType="VARCHAR" property="redEnvName" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="use_limit" jdbcType="TINYINT" property="useLimit" />
+    <result column="min_money" jdbcType="DECIMAL" property="minMoney" />
+    <result column="get_limit" jdbcType="INTEGER" property="getLimit" />
+    <result column="get_start_time" jdbcType="TIMESTAMP" property="getStartTime" />
+    <result column="get_end_time" jdbcType="TIMESTAMP" property="getEndTime" />
+    <result column="use_time_type" jdbcType="TINYINT" property="useTimeType" />
+    <result column="use_start_time" jdbcType="TIMESTAMP" property="useStartTime" />
+    <result column="use_end_time" jdbcType="TIMESTAMP" property="useEndTime" />
+    <result column="limit_days" jdbcType="INTEGER" property="limitDays" />
+    <result column="appoint_type" jdbcType="TINYINT" property="appointType" />
+    <result column="use_cus_types" jdbcType="VARCHAR" property="useCusTypes" />
+    <result column="use_range" jdbcType="TINYINT" property="useRange" />
+    <result column="use_category" jdbcType="VARCHAR" property="useCategory" />
+    <result column="use_product" jdbcType="VARCHAR" property="useProduct" />
+    <result column="used_amount" jdbcType="INTEGER" property="usedAmount" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.RedEnvelope">
+    <result column="use_message" jdbcType="LONGVARCHAR" property="useMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    red_env_id, store_id, red_env_name, amount, money, use_limit, min_money, get_limit, 
+    get_start_time, get_end_time, use_time_type, use_start_time, use_end_time, limit_days, 
+    appoint_type, use_cus_types, use_range, use_category, use_product, used_amount, status, 
+    create_time, creater
+  </sql>
+  <sql id="Blob_Column_List">
+    use_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_red_envelope
+    where red_env_id = #{redEnvId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_red_envelope
+    where red_env_id = #{redEnvId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.RedEnvelope">
+    insert into jdej_red_envelope (red_env_id, store_id, red_env_name, 
+      amount, money, use_limit, 
+      min_money, get_limit, get_start_time, 
+      get_end_time, use_time_type, use_start_time, 
+      use_end_time, limit_days, appoint_type, 
+      use_cus_types, use_range, use_category, 
+      use_product, used_amount, status, 
+      create_time, creater, use_message
+      )
+    values (#{redEnvId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{redEnvName,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, #{useLimit,jdbcType=TINYINT}, 
+      #{minMoney,jdbcType=DECIMAL}, #{getLimit,jdbcType=INTEGER}, #{getStartTime,jdbcType=TIMESTAMP}, 
+      #{getEndTime,jdbcType=TIMESTAMP}, #{useTimeType,jdbcType=TINYINT}, #{useStartTime,jdbcType=TIMESTAMP}, 
+      #{useEndTime,jdbcType=TIMESTAMP}, #{limitDays,jdbcType=INTEGER}, #{appointType,jdbcType=TINYINT}, 
+      #{useCusTypes,jdbcType=VARCHAR}, #{useRange,jdbcType=TINYINT}, #{useCategory,jdbcType=VARCHAR}, 
+      #{useProduct,jdbcType=VARCHAR}, #{usedAmount,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{useMessage,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.RedEnvelope">
+    insert into jdej_red_envelope
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="redEnvId != null">
+        red_env_id,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="redEnvName != null">
+        red_env_name,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="useLimit != null">
+        use_limit,
+      </if>
+      <if test="minMoney != null">
+        min_money,
+      </if>
+      <if test="getLimit != null">
+        get_limit,
+      </if>
+      <if test="getStartTime != null">
+        get_start_time,
+      </if>
+      <if test="getEndTime != null">
+        get_end_time,
+      </if>
+      <if test="useTimeType != null">
+        use_time_type,
+      </if>
+      <if test="useStartTime != null">
+        use_start_time,
+      </if>
+      <if test="useEndTime != null">
+        use_end_time,
+      </if>
+      <if test="limitDays != null">
+        limit_days,
+      </if>
+      <if test="appointType != null">
+        appoint_type,
+      </if>
+      <if test="useCusTypes != null">
+        use_cus_types,
+      </if>
+      <if test="useRange != null">
+        use_range,
+      </if>
+      <if test="useCategory != null">
+        use_category,
+      </if>
+      <if test="useProduct != null">
+        use_product,
+      </if>
+      <if test="usedAmount != null">
+        used_amount,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="useMessage != null">
+        use_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="redEnvId != null">
+        #{redEnvId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="redEnvName != null">
+        #{redEnvName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="useLimit != null">
+        #{useLimit,jdbcType=TINYINT},
+      </if>
+      <if test="minMoney != null">
+        #{minMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="getLimit != null">
+        #{getLimit,jdbcType=INTEGER},
+      </if>
+      <if test="getStartTime != null">
+        #{getStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getEndTime != null">
+        #{getEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useTimeType != null">
+        #{useTimeType,jdbcType=TINYINT},
+      </if>
+      <if test="useStartTime != null">
+        #{useStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useEndTime != null">
+        #{useEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitDays != null">
+        #{limitDays,jdbcType=INTEGER},
+      </if>
+      <if test="appointType != null">
+        #{appointType,jdbcType=TINYINT},
+      </if>
+      <if test="useCusTypes != null">
+        #{useCusTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="useRange != null">
+        #{useRange,jdbcType=TINYINT},
+      </if>
+      <if test="useCategory != null">
+        #{useCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="useProduct != null">
+        #{useProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="usedAmount != null">
+        #{usedAmount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="useMessage != null">
+        #{useMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.RedEnvelope">
+    update jdej_red_envelope
+    <set>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="redEnvName != null">
+        red_env_name = #{redEnvName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="useLimit != null">
+        use_limit = #{useLimit,jdbcType=TINYINT},
+      </if>
+      <if test="minMoney != null">
+        min_money = #{minMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="getLimit != null">
+        get_limit = #{getLimit,jdbcType=INTEGER},
+      </if>
+      <if test="getStartTime != null">
+        get_start_time = #{getStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getEndTime != null">
+        get_end_time = #{getEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useTimeType != null">
+        use_time_type = #{useTimeType,jdbcType=TINYINT},
+      </if>
+      <if test="useStartTime != null">
+        use_start_time = #{useStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useEndTime != null">
+        use_end_time = #{useEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitDays != null">
+        limit_days = #{limitDays,jdbcType=INTEGER},
+      </if>
+      <if test="appointType != null">
+        appoint_type = #{appointType,jdbcType=TINYINT},
+      </if>
+      <if test="useCusTypes != null">
+        use_cus_types = #{useCusTypes,jdbcType=VARCHAR},
+      </if>
+      <if test="useRange != null">
+        use_range = #{useRange,jdbcType=TINYINT},
+      </if>
+      <if test="useCategory != null">
+        use_category = #{useCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="useProduct != null">
+        use_product = #{useProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="usedAmount != null">
+        used_amount = #{usedAmount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="useMessage != null">
+        use_message = #{useMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where red_env_id = #{redEnvId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.RedEnvelope">
+    update jdej_red_envelope
+    set store_id = #{storeId,jdbcType=INTEGER},
+      red_env_name = #{redEnvName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      use_limit = #{useLimit,jdbcType=TINYINT},
+      min_money = #{minMoney,jdbcType=DECIMAL},
+      get_limit = #{getLimit,jdbcType=INTEGER},
+      get_start_time = #{getStartTime,jdbcType=TIMESTAMP},
+      get_end_time = #{getEndTime,jdbcType=TIMESTAMP},
+      use_time_type = #{useTimeType,jdbcType=TINYINT},
+      use_start_time = #{useStartTime,jdbcType=TIMESTAMP},
+      use_end_time = #{useEndTime,jdbcType=TIMESTAMP},
+      limit_days = #{limitDays,jdbcType=INTEGER},
+      appoint_type = #{appointType,jdbcType=TINYINT},
+      use_cus_types = #{useCusTypes,jdbcType=VARCHAR},
+      use_range = #{useRange,jdbcType=TINYINT},
+      use_category = #{useCategory,jdbcType=VARCHAR},
+      use_product = #{useProduct,jdbcType=VARCHAR},
+      used_amount = #{usedAmount,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      use_message = #{useMessage,jdbcType=LONGVARCHAR}
+    where red_env_id = #{redEnvId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.RedEnvelope">
+    update jdej_red_envelope
+    set store_id = #{storeId,jdbcType=INTEGER},
+      red_env_name = #{redEnvName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      use_limit = #{useLimit,jdbcType=TINYINT},
+      min_money = #{minMoney,jdbcType=DECIMAL},
+      get_limit = #{getLimit,jdbcType=INTEGER},
+      get_start_time = #{getStartTime,jdbcType=TIMESTAMP},
+      get_end_time = #{getEndTime,jdbcType=TIMESTAMP},
+      use_time_type = #{useTimeType,jdbcType=TINYINT},
+      use_start_time = #{useStartTime,jdbcType=TIMESTAMP},
+      use_end_time = #{useEndTime,jdbcType=TIMESTAMP},
+      limit_days = #{limitDays,jdbcType=INTEGER},
+      appoint_type = #{appointType,jdbcType=TINYINT},
+      use_cus_types = #{useCusTypes,jdbcType=VARCHAR},
+      use_range = #{useRange,jdbcType=TINYINT},
+      use_category = #{useCategory,jdbcType=VARCHAR},
+      use_product = #{useProduct,jdbcType=VARCHAR},
+      used_amount = #{usedAmount,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR}
+    where red_env_id = #{redEnvId,jdbcType=INTEGER}
+  </update>
+</mapper>

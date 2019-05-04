@@ -1,0 +1,106 @@
+server:
+  port: 8088
+  session:
+    timeout: 3600  # session最大超时时间(分钟)，默认为30，这里设置为6小时
+    cookie:
+      max-age: 216000    # 单位为秒，设置为6小时
+  tomcat:
+    max-threads: 512
+    uri-encoding: utf-8
+spring:
+  application:
+    name: mcollege-prod
+  datasource:
+    primary:
+      url: jdbc:mysql://rm-bp15vaw42uzue21bh.mysql.rds.aliyuncs.com:3306/hcbao?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: Huace!Q2w
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 50
+      min-idle: 50
+      max-idle: 50
+      max-active: 200
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+    secondary:
+      url: jdbc:mysql://rm-bp15vaw42uzue21bh.mysql.rds.aliyuncs.com:3306/hcbao?useUnicode=true&characterEncoding=utf8
+      username: root
+      password: Huace!Q2w
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 50
+      min-idle: 50
+      max-idle: 50
+      max-active: 200
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  mail:
+    host: smtp.mxhichina.com
+    port: 25
+    username: xxx@xxx.com
+    password: xxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: false
+            required: false
+  session:
+    store-type: redis
+  jackson:
+    serialization:
+      indent-output: true
+  redis:
+    host: r-bp1e38f68318f2b4.redis.rds.aliyuncs.com
+    database: 1
+    port: 6379
+    password: r-bp1e38f68318f2b4.redis.rds.aliyuncs.com:Huace123
+    pool:
+      max-active: 3000
+      max-wait: 3000
+      max-idle: 200
+      min-idle: 50
+    timeout: 20000
+logging:
+  file: ./logs/${spring.application.name}.log
+
+security:
+  basic:
+    path: /swagger-ui.html
+    enabled: true
+  user:
+    name: admin
+    password: Huace123
+
+management:
+  port: 8088
+  address: 127.0.0.1
+  context-path: /admin
+  security:
+    role: SUPERUSER
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+    path: /shutdown
+
+aliyun:
+  accessKeyId: LTAIlZRoDngiGC98
+  accessKeySecret: jdEd3dDh20GUCKXJsBbC5P76N7Jiog
+  openSearch:
+    host: http://opensearch-cn-hangzhou.aliyuncs.com
+    appName: withcourt_search
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    bucket: xproject-test

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Order">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_type" jdbcType="TINYINT" property="customerType" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
+    <result column="is_specimen" jdbcType="TINYINT" property="isSpecimen" />
+    <result column="express_com" jdbcType="TINYINT" property="expressCom" />
+    <result column="express_num" jdbcType="VARCHAR" property="expressNum" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, store_id, customer_id, customer_name, customer_type, total_money, order_status, 
+    is_specimen, express_com, express_num, message, order_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from jdej_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.Order">
+    insert into jdej_order (order_id, store_id, customer_id, 
+      customer_name, customer_type, total_money, 
+      order_status, is_specimen, express_com, 
+      express_num, message, order_time, 
+      update_time)
+    values (#{orderId,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerType,jdbcType=TINYINT}, #{totalMoney,jdbcType=DECIMAL}, 
+      #{orderStatus,jdbcType=TINYINT}, #{isSpecimen,jdbcType=TINYINT}, #{expressCom,jdbcType=TINYINT}, 
+      #{expressNum,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Order">
+    insert into jdej_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="customerType != null">
+        customer_type,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="isSpecimen != null">
+        is_specimen,
+      </if>
+      <if test="expressCom != null">
+        express_com,
+      </if>
+      <if test="expressNum != null">
+        express_num,
+      </if>
+      <if test="message != null">
+        message,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        #{customerType,jdbcType=TINYINT},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isSpecimen != null">
+        #{isSpecimen,jdbcType=TINYINT},
+      </if>
+      <if test="expressCom != null">
+        #{expressCom,jdbcType=TINYINT},
+      </if>
+      <if test="expressNum != null">
+        #{expressNum,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Order">
+    update jdej_order
+    <set>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=TINYINT},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isSpecimen != null">
+        is_specimen = #{isSpecimen,jdbcType=TINYINT},
+      </if>
+      <if test="expressCom != null">
+        express_com = #{expressCom,jdbcType=TINYINT},
+      </if>
+      <if test="expressNum != null">
+        express_num = #{expressNum,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Order">
+    update jdej_order
+    set store_id = #{storeId,jdbcType=INTEGER},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=TINYINT},
+      total_money = #{totalMoney,jdbcType=DECIMAL},
+      order_status = #{orderStatus,jdbcType=TINYINT},
+      is_specimen = #{isSpecimen,jdbcType=TINYINT},
+      express_com = #{expressCom,jdbcType=TINYINT},
+      express_num = #{expressNum,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

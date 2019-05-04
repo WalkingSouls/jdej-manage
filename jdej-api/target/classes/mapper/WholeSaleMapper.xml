@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.WholeSaleMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.WholeSale">
+    <id column="sale_id" jdbcType="INTEGER" property="saleId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="start_amount" jdbcType="INTEGER" property="startAmount" />
+    <result column="start_price" jdbcType="DECIMAL" property="startPrice" />
+    <result column="interval_start" jdbcType="INTEGER" property="intervalStart" />
+    <result column="interval_end" jdbcType="INTEGER" property="intervalEnd" />
+    <result column="interval_price" jdbcType="DECIMAL" property="intervalPrice" />
+    <result column="max_amount" jdbcType="INTEGER" property="maxAmount" />
+    <result column="max_disc_price" jdbcType="DECIMAL" property="maxDiscPrice" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sale_id, product_id, start_amount, start_price, interval_start, interval_end, interval_price, 
+    max_amount, max_disc_price, valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_whole_sale
+    where sale_id = #{saleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_whole_sale
+    where sale_id = #{saleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.WholeSale">
+    insert into jdej_whole_sale (sale_id, product_id, start_amount, 
+      start_price, interval_start, interval_end, 
+      interval_price, max_amount, max_disc_price, 
+      valid)
+    values (#{saleId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{startAmount,jdbcType=INTEGER}, 
+      #{startPrice,jdbcType=DECIMAL}, #{intervalStart,jdbcType=INTEGER}, #{intervalEnd,jdbcType=INTEGER}, 
+      #{intervalPrice,jdbcType=DECIMAL}, #{maxAmount,jdbcType=INTEGER}, #{maxDiscPrice,jdbcType=DECIMAL}, 
+      #{valid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.WholeSale">
+    insert into jdej_whole_sale
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="saleId != null">
+        sale_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="startAmount != null">
+        start_amount,
+      </if>
+      <if test="startPrice != null">
+        start_price,
+      </if>
+      <if test="intervalStart != null">
+        interval_start,
+      </if>
+      <if test="intervalEnd != null">
+        interval_end,
+      </if>
+      <if test="intervalPrice != null">
+        interval_price,
+      </if>
+      <if test="maxAmount != null">
+        max_amount,
+      </if>
+      <if test="maxDiscPrice != null">
+        max_disc_price,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="saleId != null">
+        #{saleId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="startAmount != null">
+        #{startAmount,jdbcType=INTEGER},
+      </if>
+      <if test="startPrice != null">
+        #{startPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="intervalStart != null">
+        #{intervalStart,jdbcType=INTEGER},
+      </if>
+      <if test="intervalEnd != null">
+        #{intervalEnd,jdbcType=INTEGER},
+      </if>
+      <if test="intervalPrice != null">
+        #{intervalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        #{maxAmount,jdbcType=INTEGER},
+      </if>
+      <if test="maxDiscPrice != null">
+        #{maxDiscPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.WholeSale">
+    update jdej_whole_sale
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="startAmount != null">
+        start_amount = #{startAmount,jdbcType=INTEGER},
+      </if>
+      <if test="startPrice != null">
+        start_price = #{startPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="intervalStart != null">
+        interval_start = #{intervalStart,jdbcType=INTEGER},
+      </if>
+      <if test="intervalEnd != null">
+        interval_end = #{intervalEnd,jdbcType=INTEGER},
+      </if>
+      <if test="intervalPrice != null">
+        interval_price = #{intervalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        max_amount = #{maxAmount,jdbcType=INTEGER},
+      </if>
+      <if test="maxDiscPrice != null">
+        max_disc_price = #{maxDiscPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where sale_id = #{saleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.WholeSale">
+    update jdej_whole_sale
+    set product_id = #{productId,jdbcType=INTEGER},
+      start_amount = #{startAmount,jdbcType=INTEGER},
+      start_price = #{startPrice,jdbcType=DECIMAL},
+      interval_start = #{intervalStart,jdbcType=INTEGER},
+      interval_end = #{intervalEnd,jdbcType=INTEGER},
+      interval_price = #{intervalPrice,jdbcType=DECIMAL},
+      max_amount = #{maxAmount,jdbcType=INTEGER},
+      max_disc_price = #{maxDiscPrice,jdbcType=DECIMAL},
+      valid = #{valid,jdbcType=TINYINT}
+    where sale_id = #{saleId,jdbcType=INTEGER}
+  </update>
+</mapper>

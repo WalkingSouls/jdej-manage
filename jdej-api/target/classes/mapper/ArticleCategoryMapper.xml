@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.ArticleCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.ArticleCategory">
+    <id column="cat_id" jdbcType="INTEGER" property="catId" />
+    <result column="cat_name" jdbcType="VARCHAR" property="catName" />
+    <result column="art_amount" jdbcType="INTEGER" property="artAmount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="valid" jdbcType="BIT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cat_id, cat_name, art_amount, create_time, valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_arti_cate
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jdej_arti_cate
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.ArticleCategory">
+    insert into jdej_arti_cate (cat_id, cat_name, art_amount, 
+      create_time, valid)
+    values (#{catId,jdbcType=INTEGER}, #{catName,jdbcType=VARCHAR}, #{artAmount,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{valid,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.ArticleCategory">
+    insert into jdej_arti_cate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="catId != null">
+        cat_id,
+      </if>
+      <if test="catName != null">
+        cat_name,
+      </if>
+      <if test="artAmount != null">
+        art_amount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="catId != null">
+        #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="catName != null">
+        #{catName,jdbcType=VARCHAR},
+      </if>
+      <if test="artAmount != null">
+        #{artAmount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.ArticleCategory">
+    update jdej_arti_cate
+    <set>
+      <if test="catName != null">
+        cat_name = #{catName,jdbcType=VARCHAR},
+      </if>
+      <if test="artAmount != null">
+        art_amount = #{artAmount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=BIT},
+      </if>
+    </set>
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.ArticleCategory">
+    update jdej_arti_cate
+    set cat_name = #{catName,jdbcType=VARCHAR},
+      art_amount = #{artAmount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      valid = #{valid,jdbcType=BIT}
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+</mapper>

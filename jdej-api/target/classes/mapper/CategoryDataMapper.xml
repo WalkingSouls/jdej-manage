@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.CategoryDataMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.CategoryData">
+    <id column="cate_date" jdbcType="DATE" property="cateDate" />
+    <result column="cate_name" jdbcType="VARCHAR" property="cateName" />
+    <result column="cate_sales_amount" jdbcType="INTEGER" property="cateSalesAmount" />
+    <result column="cate_deal_money" jdbcType="DECIMAL" property="cateDealMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cate_date, cate_name, cate_sales_amount, cate_deal_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jdej_category_data
+    where cate_date = #{cateDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date">
+    delete from jdej_category_data
+    where cate_date = #{cateDate,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.CategoryData">
+    insert into jdej_category_data (cate_date, cate_name, cate_sales_amount, 
+      cate_deal_money)
+    values (#{cateDate,jdbcType=DATE}, #{cateName,jdbcType=VARCHAR}, #{cateSalesAmount,jdbcType=INTEGER}, 
+      #{cateDealMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.CategoryData">
+    insert into jdej_category_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cateDate != null">
+        cate_date,
+      </if>
+      <if test="cateName != null">
+        cate_name,
+      </if>
+      <if test="cateSalesAmount != null">
+        cate_sales_amount,
+      </if>
+      <if test="cateDealMoney != null">
+        cate_deal_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cateDate != null">
+        #{cateDate,jdbcType=DATE},
+      </if>
+      <if test="cateName != null">
+        #{cateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateSalesAmount != null">
+        #{cateSalesAmount,jdbcType=INTEGER},
+      </if>
+      <if test="cateDealMoney != null">
+        #{cateDealMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.CategoryData">
+    update jdej_category_data
+    <set>
+      <if test="cateName != null">
+        cate_name = #{cateName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateSalesAmount != null">
+        cate_sales_amount = #{cateSalesAmount,jdbcType=INTEGER},
+      </if>
+      <if test="cateDealMoney != null">
+        cate_deal_money = #{cateDealMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where cate_date = #{cateDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.CategoryData">
+    update jdej_category_data
+    set cate_name = #{cateName,jdbcType=VARCHAR},
+      cate_sales_amount = #{cateSalesAmount,jdbcType=INTEGER},
+      cate_deal_money = #{cateDealMoney,jdbcType=DECIMAL}
+    where cate_date = #{cateDate,jdbcType=DATE}
+  </update>
+</mapper>
