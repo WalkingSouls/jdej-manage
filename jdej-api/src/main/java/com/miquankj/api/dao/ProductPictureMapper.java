@@ -2,7 +2,13 @@ package com.miquankj.api.dao;
 
 
 import com.miquankj.api.entity.ProductPicture;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Mapper
+@Component
 public interface ProductPictureMapper {
     int deleteByPrimaryKey(Integer proPicId);
 
@@ -15,4 +21,6 @@ public interface ProductPictureMapper {
     int updateByPrimaryKeySelective(ProductPicture record);
 
     int updateByPrimaryKey(ProductPicture record);
+
+    List<ProductPicture> selectByProId(Integer productId);
 }

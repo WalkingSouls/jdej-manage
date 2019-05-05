@@ -1,16 +1,27 @@
 package com.miquankj.api.entity;
 
-import java.util.Date;
+import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Data
 public class Product {
     private Integer productId;
 
     private Integer storeId;
 
+    @NotEmpty(message = "商品名称必填")
     private String proName;
 
     private Integer categoryId;
 
+    @NotEmpty(message = "商品分类不能为空")
     private String categoryName;
 
     private String proPic;
@@ -19,11 +30,14 @@ public class Product {
 
     private Byte isDistributed;
 
-    private Long discount;
+    @Min(value = 0,message = "折扣最低为0")
+    private BigDecimal discount;
 
     private Integer deliveryDays;
 
     private Byte deliveryType;
+
+    private Integer freightId;
 
     private Byte onsaleTimeType;
 
@@ -31,7 +45,8 @@ public class Product {
 
     private Byte specimen;
 
-    private Long priceUnit;
+    @Min(value = 0,message = "单价应不小于0")
+    private BigDecimal priceUnit;
 
     private Integer stock;
 
@@ -43,173 +58,25 @@ public class Product {
 
     private Date updateTime;
 
+    private Integer startAmount;
+
+    @Min(value = 0,message = "单价应不小于0")
+    private BigDecimal startPrice;
+
+    private Integer intervalStart;
+
+    private Integer intervalEnd;
+
+    @Min(value = 0,message = "单价应不小于0")
+    private BigDecimal intervalPrice;
+
+    private Integer maxAmount;
+
+    @Min(value = 0,message = "单价应不小于0")
+    private BigDecimal maxDiscPrice;
+
     private String productInfo;
 
-    public Integer getProductId() {
-        return productId;
-    }
+    private List<ProductPicture> pictureList = new ArrayList<>();
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getProName() {
-        return proName;
-    }
-
-    public void setProName(String proName) {
-        this.proName = proName;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getProPic() {
-        return proPic;
-    }
-
-    public void setProPic(String proPic) {
-        this.proPic = proPic;
-    }
-
-    public Byte getIsNormed() {
-        return isNormed;
-    }
-
-    public void setIsNormed(Byte isNormed) {
-        this.isNormed = isNormed;
-    }
-
-    public Byte getIsDistributed() {
-        return isDistributed;
-    }
-
-    public void setIsDistributed(Byte isDistributed) {
-        this.isDistributed = isDistributed;
-    }
-
-    public Long getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Long discount) {
-        this.discount = discount;
-    }
-
-    public Integer getDeliveryDays() {
-        return deliveryDays;
-    }
-
-    public void setDeliveryDays(Integer deliveryDays) {
-        this.deliveryDays = deliveryDays;
-    }
-
-    public Byte getDeliveryType() {
-        return deliveryType;
-    }
-
-    public void setDeliveryType(Byte deliveryType) {
-        this.deliveryType = deliveryType;
-    }
-
-    public Byte getOnsaleTimeType() {
-        return onsaleTimeType;
-    }
-
-    public void setOnsaleTimeType(Byte onsaleTimeType) {
-        this.onsaleTimeType = onsaleTimeType;
-    }
-
-    public Date getOnsaleTime() {
-        return onsaleTime;
-    }
-
-    public void setOnsaleTime(Date onsaleTime) {
-        this.onsaleTime = onsaleTime;
-    }
-
-    public Byte getSpecimen() {
-        return specimen;
-    }
-
-    public void setSpecimen(Byte specimen) {
-        this.specimen = specimen;
-    }
-
-    public Long getPriceUnit() {
-        return priceUnit;
-    }
-
-    public void setPriceUnit(Long priceUnit) {
-        this.priceUnit = priceUnit;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Byte getProductStatus() {
-        return productStatus;
-    }
-
-    public void setProductStatus(Byte productStatus) {
-        this.productStatus = productStatus;
-    }
-
-    public Integer getSalesNum() {
-        return salesNum;
-    }
-
-    public void setSalesNum(Integer salesNum) {
-        this.salesNum = salesNum;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getProductInfo() {
-        return productInfo;
-    }
-
-    public void setProductInfo(String productInfo) {
-        this.productInfo = productInfo;
-    }
 }

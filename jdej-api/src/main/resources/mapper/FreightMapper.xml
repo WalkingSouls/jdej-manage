@@ -3,13 +3,13 @@
 <mapper namespace="com.miquankj.api.dao.FreightMapper">
   <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Freight">
     <id column="fre_id" jdbcType="INTEGER" property="freId" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="valid" jdbcType="TINYINT" property="valid" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    fre_id, product_id, name, valid, create_time
+    fre_id, store_id, name, valid, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,9 +22,9 @@
     where fre_id = #{freId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.Freight">
-    insert into jdej_freight (fre_id, product_id, name, 
+    insert into jdej_freight (fre_id, store_id, name, 
       valid, create_time)
-    values (#{freId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{freId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{valid,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.Freight">
@@ -33,8 +33,8 @@
       <if test="freId != null">
         fre_id,
       </if>
-      <if test="productId != null">
-        product_id,
+      <if test="storeId != null">
+        store_id,
       </if>
       <if test="name != null">
         name,
@@ -50,8 +50,8 @@
       <if test="freId != null">
         #{freId,jdbcType=INTEGER},
       </if>
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -67,8 +67,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Freight">
     update jdej_freight
     <set>
-      <if test="productId != null">
-        product_id = #{productId,jdbcType=INTEGER},
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -84,7 +84,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Freight">
     update jdej_freight
-    set product_id = #{productId,jdbcType=INTEGER},
+    set store_id = #{storeId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP}

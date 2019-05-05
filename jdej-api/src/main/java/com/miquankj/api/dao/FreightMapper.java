@@ -1,8 +1,11 @@
 package com.miquankj.api.dao;
 
-
 import com.miquankj.api.entity.Freight;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+@Mapper
+@Component
 public interface FreightMapper {
     int deleteByPrimaryKey(Integer freId);
 
