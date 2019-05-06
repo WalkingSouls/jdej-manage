@@ -14,6 +14,11 @@
   <sql id="Base_Column_List">
     fre_detail_id, freight_id, fre_way, company, range, first_money, other_money, create_time
   </sql>
+
+  <delete id="deleteByFreId" parameterType="java.lang.Integer">
+    delete from jdej_fre_detail
+    where freight_id = #{freId,jdbcType=INTEGER}
+  </delete>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -14,6 +14,14 @@
     category_id, store_id, category_name, description, category_level, parent_cat_id, 
     valid
   </sql>
+
+  <select id="selectCatesByStoreId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jdej_category
+    where store_id = #{storeId} and valid = 1
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

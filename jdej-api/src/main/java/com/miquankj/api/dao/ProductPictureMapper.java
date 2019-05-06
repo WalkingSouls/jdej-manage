@@ -23,4 +23,6 @@ public interface ProductPictureMapper {
     int updateByPrimaryKey(ProductPicture record);
 
     List<ProductPicture> selectByProId(Integer productId);
+
+    int deleteByProId(Integer productId);
 }

@@ -2,6 +2,7 @@ package com.miquankj.api.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -17,6 +18,8 @@ public class Productdto {
     private String proName;
 
     private String proPic;
+
+    private BigDecimal priceUnit;
 
     private Integer stock;
 

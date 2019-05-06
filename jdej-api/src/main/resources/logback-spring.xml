@@ -7,7 +7,10 @@
 	<springProfile name="test,dev">
 		<logger name="org.springframework" level="INFO" />
 		<logger name="org.springboot" level="INFO" />
-		<logger name="com.huace.mcollege" level="debug" />
+		<logger name="com.miquankj" level="debug" />
+		<!--<logger name="mapper" level="debug" additivity="false">-->
+			<!--<appender-ref ref="debug" />-->
+		<!--</logger>-->
 	</springProfile>
 
 

@@ -26,6 +26,10 @@
     delete from jdej_pro_pic
     where pro_pic_id = #{proPicId,jdbcType=INTEGER}
   </delete>
+    <delete id="deleteByProId" parameterType="java.lang.Integer">
+    delete from jdej_pro_pic
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </delete>
     <insert id="insert" parameterType="com.miquankj.api.entity.ProductPicture">
     insert into jdej_pro_pic (pro_pic_id, product_id, pic_path, 
       valid)

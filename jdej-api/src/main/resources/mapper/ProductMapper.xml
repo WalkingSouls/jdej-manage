@@ -13,6 +13,7 @@
         <result column="discount" jdbcType="DECIMAL" property="discount"/>
         <result column="delivery_days" jdbcType="INTEGER" property="deliveryDays"/>
         <result column="delivery_type" jdbcType="TINYINT" property="deliveryType"/>
+        <result column="unified_fre" jdbcType="DECIMAL" property="unifiedFre"/>
         <result column="freight_id" jdbcType="INTEGER" property="freightId"/>
         <result column="onsale_time_type" jdbcType="TINYINT" property="onsaleTimeType"/>
         <result column="onsale_time" jdbcType="TIMESTAMP" property="onsaleTime"/>
@@ -42,16 +43,68 @@
             <result column="valid" jdbcType="TINYINT" property="valid"/>
         </collection>
     </resultMap>
+    <resultMap id="productdto" type="com.miquankj.api.dto.Productdto">
+        <id column="product_id" jdbcType="INTEGER" property="productId"/>
+        <result column="store_id" jdbcType="INTEGER" property="storeId"/>
+        <result column="pro_name" jdbcType="VARCHAR" property="proName"/>
+        <result column="pro_pic" jdbcType="VARCHAR" property="proPic"/>
+        <result column="price_unit" jdbcType="DECIMAL" property="priceUnit"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="product_status" jdbcType="TINYINT" property="productStatus"/>
+    </resultMap>
     <sql id="Base_Column_List">
     product_id, store_id, pro_name, category_id, category_name, pro_pic, is_normed, is_distributed,
-    discount, delivery_days, delivery_type, freight_id, onsale_time_type, onsale_time,
-    specimen, price_unit, stock, product_status, sales_num, create_time, update_time,
-    start_amount, start_price, interval_start, interval_end, interval_price, max_amount,
-    max_disc_price
+    discount, delivery_days, delivery_type, unified_fre, freight_id, onsale_time_type,
+    onsale_time, specimen, price_unit, stock, product_status, sales_num, create_time,
+    update_time, start_amount, start_price, interval_start, interval_end, interval_price,
+    max_amount, max_disc_price
   </sql>
+    <sql id="productdto_list">
+        product_id, store_id, pro_name, pro_pic,  price_unit, stock, create_time, product_status
+    </sql>
     <sql id="Blob_Column_List">
     product_info
   </sql>
+
+
+    <select id="selectByStoreId" parameterType="java.lang.Integer" resultMap="productdto">
+        select
+        <include refid="productdto_list"/>
+        ,
+        <include refid="productdto_list"/>
+        from jdej_product
+        where store_id = #{storeId} and
+        <choose>
+            <when test="#{listType} == 2">
+                product_status != -1
+            </when>
+            <otherwise>
+                product_status == #{listType}
+            </otherwise>
+        </choose>
+        order by create_time desc
+        limit #{startRecord},#{pageSize}
+    </select>
+
+    <select id="selectCountsByStoreId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from jdej_product
+        where store_id = #{storeId} and
+        <choose>
+            <when test="#{listType} == 2">
+                product_status != -1
+            </when>
+            <otherwise>
+                product_status == #{listType}
+            </otherwise>
+        </choose>
+    </select>
+    <update id="changeProStatus" parameterType="java.lang.Integer">
+        update jdej_product
+        set product_status = #{operationType}
+        where product_id = #{productId}
+    </update>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
@@ -62,7 +115,7 @@
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jdej_product
-    where product_id = #{productId,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER};
   </delete>
     <insert id="insert" parameterType="com.miquankj.api.entity.Product">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="productId">
@@ -71,25 +124,30 @@
         insert into jdej_product (product_id, store_id, pro_name,
         category_id, category_name, pro_pic,
         is_normed, is_distributed, discount,
-        delivery_days, delivery_type, freight_id,
-        onsale_time_type, onsale_time, specimen,
-        price_unit, stock, product_status,
-        sales_num, create_time, update_time,
-        start_amount, start_price, interval_start,
-        interval_end, interval_price, max_amount,
-        max_disc_price, product_info)
+        delivery_days, delivery_type, unified_fre,
+        freight_id, onsale_time_type, onsale_time,
+        specimen, price_unit, stock,
+        product_status, sales_num, create_time,
+        update_time, start_amount, start_price,
+        interval_start, interval_end, interval_price,
+        max_amount, max_disc_price, product_info
+        )
         values (#{productId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR},
         #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{proPic,jdbcType=VARCHAR},
         #{isNormed,jdbcType=TINYINT}, #{isDistributed,jdbcType=TINYINT}, #{discount,jdbcType=DECIMAL},
-        #{deliveryDays,jdbcType=INTEGER}, #{deliveryType,jdbcType=TINYINT}, #{freightId,jdbcType=INTEGER},
-        #{onsaleTimeType,jdbcType=TINYINT}, #{onsaleTime,jdbcType=TIMESTAMP}, #{specimen,jdbcType=TINYINT},
-        #{priceUnit,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{productStatus,jdbcType=TINYINT},
-        #{salesNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-        #{startAmount,jdbcType=INTEGER}, #{startPrice,jdbcType=DECIMAL}, #{intervalStart,jdbcType=INTEGER},
-        #{intervalEnd,jdbcType=INTEGER}, #{intervalPrice,jdbcType=DECIMAL}, #{maxAmount,jdbcType=INTEGER},
-        #{maxDiscPrice,jdbcType=DECIMAL}, #{productInfo,jdbcType=LONGVARCHAR})
+        #{deliveryDays,jdbcType=INTEGER}, #{deliveryType,jdbcType=TINYINT}, #{unifiedFre,jdbcType=DECIMAL},
+        #{freightId,jdbcType=INTEGER}, #{onsaleTimeType,jdbcType=TINYINT}, #{onsaleTime,jdbcType=TIMESTAMP},
+        #{specimen,jdbcType=TINYINT}, #{priceUnit,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER},
+        #{productStatus,jdbcType=TINYINT}, #{salesNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{startAmount,jdbcType=INTEGER}, #{startPrice,jdbcType=DECIMAL},
+        #{intervalStart,jdbcType=INTEGER}, #{intervalEnd,jdbcType=INTEGER}, #{intervalPrice,jdbcType=DECIMAL},
+        #{maxAmount,jdbcType=INTEGER}, #{maxDiscPrice,jdbcType=DECIMAL}, #{productInfo,jdbcType=LONGVARCHAR}
+        )
     </insert>
     <insert id="insertSelective" parameterType="com.miquankj.api.entity.Product">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="productId">
+            select last_insert_id()
+        </selectKey>
         insert into jdej_product
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="productId != null">
@@ -124,6 +182,9 @@
             </if>
             <if test="deliveryType != null">
                 delivery_type,
+            </if>
+            <if test="unifiedFre != null">
+                unified_fre,
             </if>
             <if test="freightId != null">
                 freight_id,
@@ -214,6 +275,9 @@
             <if test="deliveryType != null">
                 #{deliveryType,jdbcType=TINYINT},
             </if>
+            <if test="unifiedFre != null">
+                #{unifiedFre,jdbcType=DECIMAL},
+            </if>
             <if test="freightId != null">
                 #{freightId,jdbcType=INTEGER},
             </if>
@@ -303,6 +367,9 @@
             <if test="deliveryType != null">
                 delivery_type = #{deliveryType,jdbcType=TINYINT},
             </if>
+            <if test="unifiedFre != null">
+                unified_fre = #{unifiedFre,jdbcType=DECIMAL},
+            </if>
             <if test="freightId != null">
                 freight_id = #{freightId,jdbcType=INTEGER},
             </if>
@@ -372,6 +439,7 @@
       discount = #{discount,jdbcType=DECIMAL},
       delivery_days = #{deliveryDays,jdbcType=INTEGER},
       delivery_type = #{deliveryType,jdbcType=TINYINT},
+      unified_fre = #{unifiedFre,jdbcType=DECIMAL},
       freight_id = #{freightId,jdbcType=INTEGER},
       onsale_time_type = #{onsaleTimeType,jdbcType=TINYINT},
       onsale_time = #{onsaleTime,jdbcType=TIMESTAMP},
@@ -404,6 +472,7 @@
       discount = #{discount,jdbcType=DECIMAL},
       delivery_days = #{deliveryDays,jdbcType=INTEGER},
       delivery_type = #{deliveryType,jdbcType=TINYINT},
+      unified_fre = #{unifiedFre,jdbcType=DECIMAL},
       freight_id = #{freightId,jdbcType=INTEGER},
       onsale_time_type = #{onsaleTimeType,jdbcType=TINYINT},
       onsale_time = #{onsaleTime,jdbcType=TIMESTAMP},

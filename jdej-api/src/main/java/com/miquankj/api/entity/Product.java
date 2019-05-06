@@ -2,7 +2,6 @@ package com.miquankj.api.entity;
 
 import lombok.Data;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
@@ -37,6 +36,8 @@ public class Product {
 
     private Byte deliveryType = 0;
 
+    private BigDecimal unifiedFre;
+
     private Integer freightId;
 
     private Byte onsaleTimeType = 0;
@@ -45,7 +46,7 @@ public class Product {
 
     private Byte specimen;
 
-//    @Min(value = 0,message = "单价应不小于0")
+    @Min(value = 0,message = "单价应不小于0")
     private BigDecimal priceUnit;
 
     private Integer stock;

@@ -18,4 +18,6 @@ public interface FreightDetailMapper {
     int updateByPrimaryKeySelective(FreightDetail record);
 
     int updateByPrimaryKey(FreightDetail record);
+
+    int deleteByFreId(Integer freId);
 }

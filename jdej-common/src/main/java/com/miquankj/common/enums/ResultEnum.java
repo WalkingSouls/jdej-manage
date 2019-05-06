@@ -11,6 +11,15 @@ import lombok.Getter;
 public enum ResultEnum {
     SUCCESS(0,"成功"),
     PARAM_ERROR(10,"参数不正确"),
+    STORE_STATUS_ERROR(11,"店铺状态异常"),
+    FREIGHT_ERROR(12,"运费模版设置异常"),
+    CATEGORY_ERROR(13,"类目选择出错"),
+    PRODUCT_UPDATE_ERROR(14,"商品更新出错"),
+    PRODUCT_NOT_EXIST(15,"商品不存在"),
+    PRODUCT_STATUS_FAIL(16,"商品状态变更失败"),
+    CATEGORY_NOT_EXIST(17,"类目信息不存在"),
+    FREIGHT_NOT_EXIST(18,"运费模版信息不存在"),
+    FREIGHT_UPDATE_ERROR(18,"运费模版更新失败"),
     ;
     private Integer code;
 

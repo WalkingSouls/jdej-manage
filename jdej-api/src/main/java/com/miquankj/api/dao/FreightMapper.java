@@ -4,6 +4,8 @@ import com.miquankj.api.entity.Freight;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface FreightMapper {
@@ -18,4 +20,6 @@ public interface FreightMapper {
     int updateByPrimaryKeySelective(Freight record);
 
     int updateByPrimaryKey(Freight record);
+
+    List<Freight> selectFresByStoreId(int storeId);
 }
