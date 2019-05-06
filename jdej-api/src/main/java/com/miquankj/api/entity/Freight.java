@@ -11,7 +11,7 @@ public class Freight {
 
     private String name;
 
-    private Byte valid;
+    private Byte valid = 1;
 
     private Date createTime;
 

@@ -26,31 +26,31 @@ public class Product {
 
     private String proPic;
 
-    private Byte isNormed;
+    private Byte isNormed = 0;
 
-    private Byte isDistributed;
+    private Byte isDistributed = 0;
 
     @Min(value = 0,message = "折扣最低为0")
     private BigDecimal discount;
 
     private Integer deliveryDays;
 
-    private Byte deliveryType;
+    private Byte deliveryType = 0;
 
     private Integer freightId;
 
-    private Byte onsaleTimeType;
+    private Byte onsaleTimeType = 0;
 
     private Date onsaleTime;
 
     private Byte specimen;
 
-    @Min(value = 0,message = "单价应不小于0")
+//    @Min(value = 0,message = "单价应不小于0")
     private BigDecimal priceUnit;
 
     private Integer stock;
 
-    private Byte productStatus;
+    private Byte productStatus = 1;
 
     private Integer salesNum;
 

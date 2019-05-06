@@ -65,7 +65,7 @@
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.miquankj.api.entity.Product">
-        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="product_id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="productId">
             select last_insert_id()
         </selectKey>
         insert into jdej_product (product_id, store_id, pro_name,

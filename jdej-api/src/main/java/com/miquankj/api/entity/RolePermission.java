@@ -1,5 +1,8 @@
 package com.miquankj.api.entity;
 
+import lombok.Data;
+
+@Data
 public class RolePermission {
     private Integer rolePerId;
 
@@ -7,37 +10,6 @@ public class RolePermission {
 
     private Integer permissionId;
 
-    private Byte valid;
+    private Byte valid = 1;
 
-    public Integer getRolePerId() {
-        return rolePerId;
-    }
-
-    public void setRolePerId(Integer rolePerId) {
-        this.rolePerId = rolePerId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Integer getPermissionId() {
-        return permissionId;
-    }
-
-    public void setPermissionId(Integer permissionId) {
-        this.permissionId = permissionId;
-    }
-
-    public Byte getValid() {
-        return valid;
-    }
-
-    public void setValid(Byte valid) {
-        this.valid = valid;
-    }
 }

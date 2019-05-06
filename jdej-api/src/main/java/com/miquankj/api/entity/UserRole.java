@@ -1,7 +1,9 @@
 package com.miquankj.api.entity;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class UserRole {
     private Integer userRoleId;
 
@@ -9,47 +11,8 @@ public class UserRole {
 
     private Integer roleId;
 
-    private Byte valid;
+    private Byte valid = 1;
 
     private Date joinTime;
 
-    public Integer getUserRoleId() {
-        return userRoleId;
-    }
-
-    public void setUserRoleId(Integer userRoleId) {
-        this.userRoleId = userRoleId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Byte getValid() {
-        return valid;
-    }
-
-    public void setValid(Byte valid) {
-        this.valid = valid;
-    }
-
-    public Date getJoinTime() {
-        return joinTime;
-    }
-
-    public void setJoinTime(Date joinTime) {
-        this.joinTime = joinTime;
-    }
 }

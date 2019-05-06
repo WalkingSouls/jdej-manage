@@ -10,6 +10,7 @@ import com.miquankj.api.entity.ProductPicture;
 import com.miquankj.api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.Transient;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductPictureMapper productPictureMapper;
 
-    @Transient
+    @Transactional
     @Override
     public void createNewPro(Product product) {
         productMapper.insert(product);
@@ -54,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    @Transient
+    @Transactional
     @Override
     public void updatePro(Product product) {
         productMapper.deleteByPrimaryKey(product.getProductId());

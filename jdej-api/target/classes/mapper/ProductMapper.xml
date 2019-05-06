@@ -65,27 +65,30 @@
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.miquankj.api.entity.Product">
-    insert into jdej_product (product_id, store_id, pro_name,
-      category_id, category_name, pro_pic,
-      is_normed, is_distributed, discount,
-      delivery_days, delivery_type, freight_id,
-      onsale_time_type, onsale_time, specimen,
-      price_unit, stock, product_status,
-      sales_num, create_time, update_time,
-      start_amount, start_price, interval_start,
-      interval_end, interval_price, max_amount,
-      max_disc_price, product_info)
-    values (#{productId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR},
-      #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{proPic,jdbcType=VARCHAR},
-      #{isNormed,jdbcType=TINYINT}, #{isDistributed,jdbcType=TINYINT}, #{discount,jdbcType=DECIMAL},
-      #{deliveryDays,jdbcType=INTEGER}, #{deliveryType,jdbcType=TINYINT}, #{freightId,jdbcType=INTEGER},
-      #{onsaleTimeType,jdbcType=TINYINT}, #{onsaleTime,jdbcType=TIMESTAMP}, #{specimen,jdbcType=TINYINT},
-      #{priceUnit,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{productStatus,jdbcType=TINYINT},
-      #{salesNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-      #{startAmount,jdbcType=INTEGER}, #{startPrice,jdbcType=DECIMAL}, #{intervalStart,jdbcType=INTEGER},
-      #{intervalEnd,jdbcType=INTEGER}, #{intervalPrice,jdbcType=DECIMAL}, #{maxAmount,jdbcType=INTEGER},
-      #{maxDiscPrice,jdbcType=DECIMAL}, #{productInfo,jdbcType=LONGVARCHAR})
-  </insert>
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="productId">
+            select last_insert_id()
+        </selectKey>
+        insert into jdej_product (product_id, store_id, pro_name,
+        category_id, category_name, pro_pic,
+        is_normed, is_distributed, discount,
+        delivery_days, delivery_type, freight_id,
+        onsale_time_type, onsale_time, specimen,
+        price_unit, stock, product_status,
+        sales_num, create_time, update_time,
+        start_amount, start_price, interval_start,
+        interval_end, interval_price, max_amount,
+        max_disc_price, product_info)
+        values (#{productId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR},
+        #{categoryId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, #{proPic,jdbcType=VARCHAR},
+        #{isNormed,jdbcType=TINYINT}, #{isDistributed,jdbcType=TINYINT}, #{discount,jdbcType=DECIMAL},
+        #{deliveryDays,jdbcType=INTEGER}, #{deliveryType,jdbcType=TINYINT}, #{freightId,jdbcType=INTEGER},
+        #{onsaleTimeType,jdbcType=TINYINT}, #{onsaleTime,jdbcType=TIMESTAMP}, #{specimen,jdbcType=TINYINT},
+        #{priceUnit,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{productStatus,jdbcType=TINYINT},
+        #{salesNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+        #{startAmount,jdbcType=INTEGER}, #{startPrice,jdbcType=DECIMAL}, #{intervalStart,jdbcType=INTEGER},
+        #{intervalEnd,jdbcType=INTEGER}, #{intervalPrice,jdbcType=DECIMAL}, #{maxAmount,jdbcType=INTEGER},
+        #{maxDiscPrice,jdbcType=DECIMAL}, #{productInfo,jdbcType=LONGVARCHAR})
+    </insert>
     <insert id="insertSelective" parameterType="com.miquankj.api.entity.Product">
         insert into jdej_product
         <trim prefix="(" suffix=")" suffixOverrides=",">

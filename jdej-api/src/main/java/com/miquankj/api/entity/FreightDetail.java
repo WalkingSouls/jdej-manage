@@ -7,11 +7,11 @@ public class FreightDetail {
 
     private Integer freightId;
 
-    private Byte freWay;
+    private Byte freWay = 0;
 
     private String company;
 
-    private String range;
+    private String range = "全国";
 
     private Long firstMoney;
 

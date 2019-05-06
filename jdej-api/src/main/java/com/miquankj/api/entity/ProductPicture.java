@@ -1,5 +1,8 @@
 package com.miquankj.api.entity;
 
+import lombok.Data;
+
+@Data
 public class ProductPicture {
     private Integer proPicId;
 
@@ -7,37 +10,6 @@ public class ProductPicture {
 
     private String picPath;
 
-    private Byte valid;
+    private Byte valid = 1;
 
-    public Integer getProPicId() {
-        return proPicId;
-    }
-
-    public void setProPicId(Integer proPicId) {
-        this.proPicId = proPicId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getPicPath() {
-        return picPath;
-    }
-
-    public void setPicPath(String picPath) {
-        this.picPath = picPath;
-    }
-
-    public Byte getValid() {
-        return valid;
-    }
-
-    public void setValid(Byte valid) {
-        this.valid = valid;
-    }
 }

@@ -1,7 +1,9 @@
 package com.miquankj.api.entity;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class DealerApplication {
     private Integer num;
 
@@ -21,75 +23,4 @@ public class DealerApplication {
 
     private Date updateTime;
 
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCusType() {
-        return cusType;
-    }
-
-    public void setCusType(String cusType) {
-        this.cusType = cusType;
-    }
-
-    public Date getApplyTime() {
-        return applyTime;
-    }
-
-    public void setApplyTime(Date applyTime) {
-        this.applyTime = applyTime;
-    }
-
-    public String getChecker() {
-        return checker;
-    }
-
-    public void setChecker(String checker) {
-        this.checker = checker;
-    }
-
-    public Byte getApplyStatus() {
-        return applyStatus;
-    }
-
-    public void setApplyStatus(Byte applyStatus) {
-        this.applyStatus = applyStatus;
-    }
-
-    public String getApplyReason() {
-        return applyReason;
-    }
-
-    public void setApplyReason(String applyReason) {
-        this.applyReason = applyReason;
-    }
-
-    public Byte getFinalRemark() {
-        return finalRemark;
-    }
-
-    public void setFinalRemark(Byte finalRemark) {
-        this.finalRemark = finalRemark;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
