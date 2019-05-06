@@ -63,11 +63,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Map<String, Object> findAllPro(Integer storeId, Integer listType, Integer pageNum, Integer pageSize) {
         //todo 分页存在问题
-        Integer productCounts = productMapper.selectCountsByStoreId(storeId, listType);
-        Integer startRecord = pageNum * pageSize;
+        int totalRecord = productMapper.selectCountsByStoreId(storeId, listType);
+        int startRecord = pageNum * pageSize;
         List<Productdto> productList = productMapper.selectByStoreId(storeId,listType, startRecord, pageSize);
         Map<String, Object> map = new HashMap<>();
-        map.put("counts",productCounts);
+        int totalPage = totalRecord%pageSize ==0 ? (totalRecord / pageSize):(totalRecord / pageSize +1);
+        map.put("totalRecord",totalRecord);
+        map.put("totalPage",totalPage);
+        map.put("pageNum",pageNum);
+        map.put("pageSize",pageSize);
         map.put("productList",productList);
         return map;
     }

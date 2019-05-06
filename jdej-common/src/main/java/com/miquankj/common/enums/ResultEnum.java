@@ -19,7 +19,7 @@ public enum ResultEnum {
     PRODUCT_STATUS_FAIL(16,"商品状态变更失败"),
     CATEGORY_NOT_EXIST(17,"类目信息不存在"),
     FREIGHT_NOT_EXIST(18,"运费模版信息不存在"),
-    FREIGHT_UPDATE_ERROR(18,"运费模版更新失败"),
+    FREIGHT_UPDATE_ERROR(19,"运费模版更新失败"),
     ;
     private Integer code;
 
