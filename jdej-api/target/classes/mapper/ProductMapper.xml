@@ -67,38 +67,60 @@
     product_info
   </sql>
 
-
-    <select id="selectByStoreId" parameterType="java.lang.Integer" resultMap="productdto">
+    <select id="selectCountsByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from jdej_product
+        where store_id = #{storeId} and
+        <if test="productName != null and productName != ''">
+            pro_name like #{productName} and
+        </if>
+        create_time between #{startTime} and #{endTime}
+    </select>
+    <select id="selectByCondition" parameterType="java.util.Map" resultMap="productdto">
         select
         <include refid="productdto_list"/>
         ,
         <include refid="productdto_list"/>
         from jdej_product
         where store_id = #{storeId} and
-        <choose>
-            <when test="#{listType} == 2">
-                product_status != -1
-            </when>
-            <otherwise>
-                product_status == #{listType}
-            </otherwise>
-        </choose>
+        <if test="productName != null and productName != ''">
+            pro_name like #{productName} and
+        </if>
+        create_time between #{startTime} and #{endTime}
         order by create_time desc
         limit #{startRecord},#{pageSize}
     </select>
 
-    <select id="selectCountsByStoreId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="selectCountsByStoreId" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(*) from jdej_product
-        where store_id = #{storeId} and
+        where store_id = #{param0} and
         <choose>
-            <when test="#{listType} == 2">
+            <when test="param1 == 2">
                 product_status != -1
             </when>
             <otherwise>
-                product_status == #{listType}
+                product_status == #{param1}
             </otherwise>
         </choose>
     </select>
+    <select id="selectByStoreId" parameterType="java.util.Map" resultMap="productdto">
+        select
+        <include refid="productdto_list"/>
+        ,
+        <include refid="productdto_list"/>
+        from jdej_product
+        where store_id = #{param0} and
+        <choose>
+            <when test="param1 == 2">
+                product_status != -1
+            </when>
+            <otherwise>
+                product_status == #{param1}
+            </otherwise>
+        </choose>
+        order by create_time desc
+        limit #{startRecord},#{param3}
+    </select>
+
     <update id="changeProStatus" parameterType="java.lang.Integer">
         update jdej_product
         set product_status = #{operationType}

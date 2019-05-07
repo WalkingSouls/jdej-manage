@@ -6,11 +6,12 @@ import com.miquankj.api.dto.ProductConditiondto;
 import com.miquankj.api.dto.Productdto;
 import com.miquankj.api.entity.*;
 import com.miquankj.api.service.ProductService;
+import com.miquankj.api.utils.MapUtil;
+import com.miquankj.api.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
 import java.util.*;
 
 @Service
@@ -62,17 +63,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Map<String, Object> findAllPro(Integer storeId, Integer listType, Integer pageNum, Integer pageSize) {
-        //todo 分页存在问题
-        int totalRecord = productMapper.selectCountsByStoreId(storeId, listType);
+        Map<String, Object> countMap = MapUtil.generateMap(storeId, listType);
+        Map<String, Object> productMap = MapUtil.generateMap(storeId, listType, pageNum, pageSize);
         int startRecord = pageNum * pageSize;
-        List<Productdto> productList = productMapper.selectByStoreId(storeId,listType, startRecord, pageSize);
-        Map<String, Object> map = new HashMap<>();
-        int totalPage = totalRecord%pageSize ==0 ? (totalRecord / pageSize):(totalRecord / pageSize +1);
-        map.put("totalRecord",totalRecord);
-        map.put("totalPage",totalPage);
-        map.put("pageNum",pageNum);
-        map.put("pageSize",pageSize);
-        map.put("productList",productList);
+        productMap.put("startRecord",startRecord);
+        int totalRecord = productMapper.selectCountsByStoreId(countMap);
+        List<Productdto> productList = productMapper.selectByStoreId(productMap);
+        Map<String, Object> map = PageUtil.ProductPageToMap(pageNum, pageSize, totalRecord, productList);
         return map;
     }
 
@@ -83,7 +80,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Map<String, Object> findByCondition(ProductConditiondto proCondto) {
-        return null;
+        Map<String, Object> prodtoMap = MapUtil.entityToMap(proCondto);
+        int startRecord = proCondto.getPageNum() * proCondto.getPageSize();
+        prodtoMap.put("startRecord",startRecord);
+        Integer totalRecord = productMapper.selectCountsByCondition(prodtoMap);
+        List<Productdto>  productList = productMapper.selectByCondition(prodtoMap);
+        int pageNum = proCondto.getPageNum();
+        int pageSize = proCondto.getPageSize();
+        Map<String, Object> map = PageUtil.ProductPageToMap(pageNum, pageSize, totalRecord, productList);
+        return map;
     }
 
     @Override

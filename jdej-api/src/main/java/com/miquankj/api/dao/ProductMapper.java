@@ -1,5 +1,6 @@
 package com.miquankj.api.dao;
 
+import com.miquankj.api.dto.ProductConditiondto;
 import com.miquankj.api.dto.Productdto;
 import com.miquankj.api.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
@@ -25,10 +27,13 @@ public interface ProductMapper {
 
     int updateByPrimaryKey(Product record);
 
-    int selectCountsByStoreId(@Param("storeId") Integer storeId, @Param("listType")Integer listType);
+    int selectCountsByStoreId(Map<String, Object> map);
 
-    List<Productdto> selectByStoreId(@Param("storeId") Integer storeId,@Param("listType")Integer listType,
-                                     @Param("startRecord") Integer startRecord,@Param("pageSize") Integer pageSize);
+    List<Productdto> selectByStoreId(Map<String, Object> map);
 
     int changeProStatus(@Param("productId") int productId, @Param("operationType")int operationType);
+
+    Integer selectCountsByCondition(Map<String, Object> map);
+
+    List<Productdto> selectByCondition(Map<String, Object> map);
 }

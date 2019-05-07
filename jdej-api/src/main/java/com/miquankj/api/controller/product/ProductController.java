@@ -12,7 +12,6 @@ import com.miquankj.api.service.StoreService;
 import com.miquankj.api.utils.ResultVOUtil;
 import com.miquankj.api.vo.ResultVO;
 import com.miquankj.common.enums.ResultEnum;
-import com.miquankj.common.exception.JdejException;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +103,6 @@ public class ProductController {
         Product product = productService.findOnePro(productId);
         if (product == null || storeId != product.getStoreId()) {
             log.error("【商品】 商品不存在，product={}", product);
-//            throw new JdejException(ResultEnum.PRODUCT_NOT_EXIST.getCode(),ResultEnum.PRODUCT_NOT_EXIST.getMsg());
             return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST.getCode(), ResultEnum.PRODUCT_NOT_EXIST.getMsg());
         }
         ResultVO resultVO = ResultVOUtil.success(product);
@@ -116,7 +114,7 @@ public class ProductController {
             @ApiImplicitParam(paramType = "path", name = "storeId", value = "店铺id", dataType = "Integer"),
             @ApiImplicitParam(paramType = "path", name = "ListType",
                     value = "列表类型，为0时为下架列表，为1时为上架列表，2时为全部", dataType = "Integer"),
-            @ApiImplicitParam(paramType = "path", name = "pageNum", value = "当前页码，从1开始计数", dataType = "Integer"),
+            @ApiImplicitParam(paramType = "path", name = "pageNum", value = "当前页码，从0开始计数", dataType = "Integer"),
             @ApiImplicitParam(paramType = "path", name = "pageSize", value = "分页大小", dataType = "Integer"),
     })
     @ApiResponse(code = 15, message = "商品不存在")
@@ -133,19 +131,9 @@ public class ProductController {
     }
 
     @ApiOperation(value = "根据条件筛选商品", notes = "根据商品名称和创建时间筛选商品")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "path", name = "storeId", value = "店铺id", dataType = "Integer"),
-            @ApiImplicitParam(paramType = "path", name = "ListType",
-                    value = "列表类型，为0时为下架列表，为1时为上架列表，2时为全部", dataType = "Integer"),
-            @ApiImplicitParam(paramType = "path", name = "pageNum", value = "当前页码，从1开始计数", dataType = "Integer"),
-            @ApiImplicitParam(paramType = "path", name = "pageSize", value = "分页大小", dataType = "Integer"),
-    })
     @ApiResponse(code = 15, message = "商品不存在")
     @GetMapping("/findByCondition")
-    public ResultVO findByCondition(ProductConditiondto productConditiondto
-            /*@RequestParam("storeId") int storeId, @RequestParam("productName")String productName,
-                                    @RequestParam("startTime") Date startTime, @RequestParam("endTime") Date endTime,
-                                    @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize*/) {
+    public ResultVO findByCondition(ProductConditiondto productConditiondto) {
         Map<String, Object> productMap = productService.findByCondition(productConditiondto);
         ResultVO resultVO = ResultVOUtil.success(productMap);
         return resultVO;
