@@ -20,6 +20,8 @@ public enum ResultEnum {
     CATEGORY_NOT_EXIST(17,"类目信息不存在"),
     FREIGHT_NOT_EXIST(18,"运费模版信息不存在"),
     FREIGHT_UPDATE_ERROR(19,"运费模版更新失败"),
+    REDENVELOPE_NOT_EXIST(20,"红包不存在"),
+
     ;
     private Integer code;
 

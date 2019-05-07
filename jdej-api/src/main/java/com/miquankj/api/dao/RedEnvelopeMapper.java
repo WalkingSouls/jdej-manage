@@ -2,7 +2,11 @@ package com.miquankj.api.dao;
 
 
 import com.miquankj.api.entity.RedEnvelope;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+@Mapper
+@Component
 public interface RedEnvelopeMapper {
     int deleteByPrimaryKey(Integer redEnvId);
 

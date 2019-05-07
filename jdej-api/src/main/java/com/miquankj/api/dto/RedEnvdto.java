@@ -1,11 +1,19 @@
-package com.miquankj.api.entity;
+package com.miquankj.api.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+/**
+ * 红包dto
+ * @author liuyadong
+ * @since 2019/5/7
+ */
 @Data
-public class RedEnvelope {
+@ApiModel(value = "红包dto，列表使用")
+public class RedEnvdto {
     private Integer redEnvId;
 
     private Integer storeId;
@@ -15,8 +23,6 @@ public class RedEnvelope {
     private Integer amount;
 
     private BigDecimal money;
-
-    private Byte useLimit = 0;
 
     private BigDecimal minMoney;
 
@@ -34,24 +40,10 @@ public class RedEnvelope {
 
     private Integer limitDays;
 
-    private Byte appointType = 0;
-
-    private String useCusTypes;
-
-    private Byte useRange = 0;
-
-    private String useCategory;
-
-    private String useProduct;
-
     private Integer usedAmount;
 
     private Byte status = 1;
 
     private Date createTime;
-
-    private String creater;
-
-    private String useMessage;
 
 }
