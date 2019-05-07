@@ -113,20 +113,25 @@ public class ProductServiceImpl implements ProductService {
         Integer freId = freight.getFreId();
         freightDetailMapper.deleteByFreId(freId);
         freightMapper.deleteByPrimaryKey(freId);
-        createFreight(freight);
+        freightMapper.insert(freight);
+        createFreDetail(freight);
     }
 
     @Transactional
     @Override
     public void createFreight(Freight freight) {
-        freightMapper.insert(freight);
+        freightMapper.insertSelective(freight);
+        createFreDetail(freight);
+
+    }
+
+    private void createFreDetail(Freight freight) {
         List<FreightDetail> freightDetailList = freight.getFreightDetailList();
         if(freightDetailList != null || freightDetailList.size() != 0){
             for (FreightDetail freightDetail: freightDetailList) {
                 freightDetail.setFreightId(freight.getFreId());
-                freightDetailMapper.insert(freightDetail);
+                freightDetailMapper.insertSelective(freightDetail);
             }
         }
-
     }
 }

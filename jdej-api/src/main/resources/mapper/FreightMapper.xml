@@ -14,7 +14,7 @@
       <result column="freight_id" jdbcType="INTEGER" property="freightId" />
       <result column="fre_way" jdbcType="TINYINT" property="freWay" />
       <result column="company" jdbcType="VARCHAR" property="company" />
-      <result column="range" jdbcType="VARCHAR" property="range" />
+      <result column="fre_range" jdbcType="VARCHAR" property="freRange" />
       <result column="first_money" jdbcType="DECIMAL" property="firstMoney" />
       <result column="other_money" jdbcType="DECIMAL" property="otherMoney" />
       <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -42,15 +42,6 @@
     where fre_id = #{freId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.Freight">
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="freId">
-      select last_insert_id()
-    </selectKey>
-    insert into jdej_freight (fre_id, store_id, name, 
-      valid, create_time)
-    values (#{freId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{valid,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Freight">
     insert into jdej_freight
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="freId != null">
@@ -59,7 +50,7 @@
       <if test="storeId != null">
         store_id,
       </if>
-      <if test="name != null">
+      <if test="name != null and name != ''">
         name,
       </if>
       <if test="valid != null">
@@ -76,7 +67,47 @@
       <if test="storeId != null">
         #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Freight">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="freId">
+      select last_insert_id()
+    </selectKey>
+    insert into jdej_freight
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="freId != null">
+        fre_id,
+      </if>
+      <if test="storeId != null">
+        store_id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="freId != null">
+        #{freId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
@@ -93,7 +124,7 @@
       <if test="storeId != null">
         store_id = #{storeId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
+      <if test="name != null and name != ''">
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">

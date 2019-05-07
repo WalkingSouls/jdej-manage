@@ -1,85 +1,36 @@
 package com.miquankj.api.entity;
 
-import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.Date;
+@ApiModel(value = "运费模版细节")
+@Data
 public class FreightDetail {
+    @ApiModelProperty(value = "运费细节id", required = true)
     private Integer freDetailId;
 
+    @ApiModelProperty(value = "运费模版id", required = true)
     private Integer freightId;
 
+    @ApiModelProperty(value = "运送方式 0 快递 1 快运 2 其他 默认0", required = true)
     private Byte freWay = 0;
 
+    @ApiModelProperty(value = "快递或者快运公司", allowEmptyValue = true)
     private String company;
 
-    private String range = "全国";
+    @ApiModelProperty(value = "运送范围 ， 隔开，默认全国", allowEmptyValue = true)
+    private String freRange = "全国";
 
-    private Long firstMoney;
+    @ApiModelProperty(value = "首件价格", allowEmptyValue = true)
+    private BigDecimal firstMoney;
 
-    private Long otherMoney;
+    @ApiModelProperty(value = "续件价格", allowEmptyValue = true)
+    private BigDecimal otherMoney;
 
+    @ApiModelProperty(value = "创建时间", allowEmptyValue = true)
     private Date createTime;
 
-    public Integer getFreDetailId() {
-        return freDetailId;
-    }
-
-    public void setFreDetailId(Integer freDetailId) {
-        this.freDetailId = freDetailId;
-    }
-
-    public Integer getFreightId() {
-        return freightId;
-    }
-
-    public void setFreightId(Integer freightId) {
-        this.freightId = freightId;
-    }
-
-    public Byte getFreWay() {
-        return freWay;
-    }
-
-    public void setFreWay(Byte freWay) {
-        this.freWay = freWay;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getRange() {
-        return range;
-    }
-
-    public void setRange(String range) {
-        this.range = range;
-    }
-
-    public Long getFirstMoney() {
-        return firstMoney;
-    }
-
-    public void setFirstMoney(Long firstMoney) {
-        this.firstMoney = firstMoney;
-    }
-
-    public Long getOtherMoney() {
-        return otherMoney;
-    }
-
-    public void setOtherMoney(Long otherMoney) {
-        this.otherMoney = otherMoney;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

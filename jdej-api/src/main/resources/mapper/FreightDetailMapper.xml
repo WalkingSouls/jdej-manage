@@ -6,7 +6,7 @@
     <result column="freight_id" jdbcType="INTEGER" property="freightId" />
     <result column="fre_way" jdbcType="TINYINT" property="freWay" />
     <result column="company" jdbcType="VARCHAR" property="company" />
-    <result column="range" jdbcType="VARCHAR" property="range" />
+    <result column="fre_range" jdbcType="VARCHAR" property="freRange" />
     <result column="first_money" jdbcType="DECIMAL" property="firstMoney" />
     <result column="other_money" jdbcType="DECIMAL" property="otherMoney" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -31,10 +31,10 @@
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.FreightDetail">
     insert into jdej_fre_detail (fre_detail_id, freight_id, fre_way, 
-      company, range, first_money, 
+      company, fre_range, first_money,
       other_money, create_time)
     values (#{freDetailId,jdbcType=INTEGER}, #{freightId,jdbcType=INTEGER}, #{freWay,jdbcType=TINYINT}, 
-      #{company,jdbcType=VARCHAR}, #{range,jdbcType=VARCHAR}, #{firstMoney,jdbcType=DECIMAL}, 
+      #{company,jdbcType=VARCHAR}, #{freRange,jdbcType=VARCHAR}, #{firstMoney,jdbcType=DECIMAL},
       #{otherMoney,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.FreightDetail">
@@ -52,8 +52,8 @@
       <if test="company != null">
         company,
       </if>
-      <if test="range != null">
-        range,
+      <if test="freRange != null and freRange != ''">
+        fre_range,
       </if>
       <if test="firstMoney != null">
         first_money,
@@ -78,8 +78,8 @@
       <if test="company != null">
         #{company,jdbcType=VARCHAR},
       </if>
-      <if test="range != null">
-        #{range,jdbcType=VARCHAR},
+      <if test="freRange != null and freRange != ''">
+        #{freRange,jdbcType=VARCHAR},
       </if>
       <if test="firstMoney != null">
         #{firstMoney,jdbcType=DECIMAL},
@@ -104,8 +104,8 @@
       <if test="company != null">
         company = #{company,jdbcType=VARCHAR},
       </if>
-      <if test="range != null">
-        range = #{range,jdbcType=VARCHAR},
+      <if test="freRange != null and freRange!= ''">
+        fre_range = #{freRange,jdbcType=VARCHAR},
       </if>
       <if test="firstMoney != null">
         first_money = #{firstMoney,jdbcType=DECIMAL},
@@ -124,7 +124,7 @@
     set freight_id = #{freightId,jdbcType=INTEGER},
       fre_way = #{freWay,jdbcType=TINYINT},
       company = #{company,jdbcType=VARCHAR},
-      range = #{range,jdbcType=VARCHAR},
+      fre_range = #{freRange,jdbcType=VARCHAR},
       first_money = #{firstMoney,jdbcType=DECIMAL},
       other_money = #{otherMoney,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP}

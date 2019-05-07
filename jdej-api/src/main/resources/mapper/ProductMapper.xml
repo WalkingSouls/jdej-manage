@@ -98,7 +98,7 @@
                 product_status != -1
             </when>
             <otherwise>
-                product_status == #{param1}
+                product_status = #{param1}
             </otherwise>
         </choose>
     </select>
@@ -114,7 +114,7 @@
                 product_status != -1
             </when>
             <otherwise>
-                product_status == #{param1}
+                product_status = #{param1}
             </otherwise>
         </choose>
         order by create_time desc
