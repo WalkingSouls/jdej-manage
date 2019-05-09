@@ -1,6 +1,5 @@
 package com.miquankj.api.dao;
 
-
 import com.miquankj.api.entity.OrderDetail;
 
 public interface OrderDetailMapper {
@@ -13,6 +12,8 @@ public interface OrderDetailMapper {
     OrderDetail selectByPrimaryKey(Long detailId);
 
     int updateByPrimaryKeySelective(OrderDetail record);
+
+    int updateByPrimaryKeyWithBLOBs(OrderDetail record);
 
     int updateByPrimaryKey(OrderDetail record);
 }

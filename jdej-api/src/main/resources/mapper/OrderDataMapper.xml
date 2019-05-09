@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miquankj.api.dao.OrderDataMapper">
   <resultMap id="BaseResultMap" type="com.miquankj.api.entity.OrderData">
-    <id column="order_date" jdbcType="DATE" property="orderDate" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_date" jdbcType="DATE" property="orderDate" />
     <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="order_deal" jdbcType="INTEGER" property="orderDeal" />
     <result column="deal_money" jdbcType="DECIMAL" property="dealMoney" />
@@ -10,29 +11,32 @@
     <result column="deal_people" jdbcType="INTEGER" property="dealPeople" />
   </resultMap>
   <sql id="Base_Column_List">
-    order_date, store_id, order_deal, deal_money, order_amount, deal_people
+    id, order_date, store_id, order_deal, deal_money, order_amount, deal_people
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.util.Date" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from jdej_order_data
-    where order_date = #{orderDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.util.Date">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jdej_order_data
-    where order_date = #{orderDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.OrderData">
-    insert into jdej_order_data (order_date, store_id, order_deal, 
-      deal_money, order_amount, deal_people
-      )
-    values (#{orderDate,jdbcType=DATE}, #{storeId,jdbcType=INTEGER}, #{orderDeal,jdbcType=INTEGER}, 
-      #{dealMoney,jdbcType=DECIMAL}, #{orderAmount,jdbcType=INTEGER}, #{dealPeople,jdbcType=INTEGER}
-      )
+    insert into jdej_order_data (id, order_date, store_id, 
+      order_deal, deal_money, order_amount, 
+      deal_people)
+    values (#{id,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{storeId,jdbcType=INTEGER}, 
+      #{orderDeal,jdbcType=INTEGER}, #{dealMoney,jdbcType=DECIMAL}, #{orderAmount,jdbcType=INTEGER}, 
+      #{dealPeople,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.OrderData">
     insert into jdej_order_data
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="orderDate != null">
         order_date,
       </if>
@@ -53,6 +57,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="orderDate != null">
         #{orderDate,jdbcType=DATE},
       </if>
@@ -76,6 +83,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.OrderData">
     update jdej_order_data
     <set>
+      <if test="orderDate != null">
+        order_date = #{orderDate,jdbcType=DATE},
+      </if>
       <if test="storeId != null">
         store_id = #{storeId,jdbcType=INTEGER},
       </if>
@@ -92,15 +102,16 @@
         deal_people = #{dealPeople,jdbcType=INTEGER},
       </if>
     </set>
-    where order_date = #{orderDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.OrderData">
     update jdej_order_data
-    set store_id = #{storeId,jdbcType=INTEGER},
+    set order_date = #{orderDate,jdbcType=DATE},
+      store_id = #{storeId,jdbcType=INTEGER},
       order_deal = #{orderDeal,jdbcType=INTEGER},
       deal_money = #{dealMoney,jdbcType=DECIMAL},
       order_amount = #{orderAmount,jdbcType=INTEGER},
       deal_people = #{dealPeople,jdbcType=INTEGER}
-    where order_date = #{orderDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

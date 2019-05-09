@@ -1,18 +1,15 @@
 package com.miquankj.api.dao;
 
-
 import com.miquankj.api.entity.OrderData;
 
-import java.util.Date;
-
 public interface OrderDataMapper {
-    int deleteByPrimaryKey(Date orderDate);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(OrderData record);
 
     int insertSelective(OrderData record);
 
-    OrderData selectByPrimaryKey(Date orderDate);
+    OrderData selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(OrderData record);
 
