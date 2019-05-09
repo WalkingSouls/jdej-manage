@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.BrandInfoMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.BrandInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="grp_id" jdbcType="VARCHAR" property="grpId" />
+    <result column="sub_id" jdbcType="VARCHAR" property="subId" />
+    <result column="brandno" jdbcType="VARCHAR" property="brandno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="brandtype" jdbcType="CHAR" property="brandtype" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_edit" jdbcType="CHAR" property="isEdit" />
+    <result column="add_operid" jdbcType="VARCHAR" property="addOperid" />
+    <result column="adddate_time" jdbcType="DATE" property="adddateTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <resultMap id="branddto" type="com.miquankj.api.dto.Branddto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sub_id" jdbcType="VARCHAR" property="subId" />
+    <result column="brandtype" jdbcType="CHAR" property="brandType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Branddto_List">
+    id, sub_id, brandtype, name
+  </sql>
+  <sql id="Base_Column_List">
+    id, grp_id, sub_id, brandno, name, imgurl, state, brandtype, remark, is_edit, add_operid, 
+    adddate_time, version
+  </sql>
+
+  <select id="selectAllBrands" resultMap="branddto">
+    select
+    <include refid="Branddto_List"/>
+    from stk_brand_info
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stk_brand_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stk_brand_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.BrandInfo">
+    insert into stk_brand_info (id, grp_id, sub_id, 
+      brandno, name, imgurl, 
+      state, brandtype, remark, 
+      is_edit, add_operid, adddate_time, 
+      version)
+    values (#{id,jdbcType=INTEGER}, #{grpId,jdbcType=VARCHAR}, #{subId,jdbcType=VARCHAR}, 
+      #{brandno,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{brandtype,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{isEdit,jdbcType=CHAR}, #{addOperid,jdbcType=VARCHAR}, #{adddateTime,jdbcType=DATE}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.BrandInfo">
+    insert into stk_brand_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="grpId != null">
+        grp_id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="brandno != null">
+        brandno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="imgurl != null">
+        imgurl,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="brandtype != null">
+        brandtype,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isEdit != null">
+        is_edit,
+      </if>
+      <if test="addOperid != null">
+        add_operid,
+      </if>
+      <if test="adddateTime != null">
+        adddate_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="grpId != null">
+        #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandno != null">
+        #{brandno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="brandtype != null">
+        #{brandtype,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEdit != null">
+        #{isEdit,jdbcType=CHAR},
+      </if>
+      <if test="addOperid != null">
+        #{addOperid,jdbcType=VARCHAR},
+      </if>
+      <if test="adddateTime != null">
+        #{adddateTime,jdbcType=DATE},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.BrandInfo">
+    update stk_brand_info
+    <set>
+      <if test="grpId != null">
+        grp_id = #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandno != null">
+        brandno = #{brandno,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="brandtype != null">
+        brandtype = #{brandtype,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEdit != null">
+        is_edit = #{isEdit,jdbcType=CHAR},
+      </if>
+      <if test="addOperid != null">
+        add_operid = #{addOperid,jdbcType=VARCHAR},
+      </if>
+      <if test="adddateTime != null">
+        adddate_time = #{adddateTime,jdbcType=DATE},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.BrandInfo">
+    update stk_brand_info
+    set grp_id = #{grpId,jdbcType=VARCHAR},
+      sub_id = #{subId,jdbcType=VARCHAR},
+      brandno = #{brandno,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      brandtype = #{brandtype,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_edit = #{isEdit,jdbcType=CHAR},
+      add_operid = #{addOperid,jdbcType=VARCHAR},
+      adddate_time = #{adddateTime,jdbcType=DATE},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

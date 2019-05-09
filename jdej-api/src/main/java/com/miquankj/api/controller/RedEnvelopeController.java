@@ -1,4 +1,4 @@
-package com.miquankj.api.controller.marketing;
+package com.miquankj.api.controller;
 
 import com.miquankj.api.dto.RedEnvdto;
 import com.miquankj.api.entity.RedEnvelope;

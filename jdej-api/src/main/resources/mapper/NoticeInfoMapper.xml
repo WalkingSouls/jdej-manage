@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.NoticeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.NoticeInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="notic_type" jdbcType="CHAR" property="noticType" />
+    <result column="notic_state" jdbcType="CHAR" property="noticState" />
+    <result column="sender_id" jdbcType="VARCHAR" property="senderId" />
+    <result column="sender_date" jdbcType="TIMESTAMP" property="senderDate" />
+    <result column="receiver_id" jdbcType="VARCHAR" property="receiverId" />
+    <result column="receiver_date" jdbcType="TIMESTAMP" property="receiverDate" />
+    <result column="state" jdbcType="CHAR" property="state" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.NoticeInfoWithBLOBs">
+    <result column="notic_content" jdbcType="LONGVARCHAR" property="noticContent" />
+    <result column="notic_red_countent" jdbcType="LONGVARCHAR" property="noticRedCountent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, notice_title, notic_type, notic_state, sender_id, sender_date, receiver_id, receiver_date, 
+    state
+  </sql>
+  <sql id="Blob_Column_List">
+    notic_content, notic_red_countent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.NoticeInfoWithBLOBs">
+    insert into notice_info (id, notice_title, notic_type, 
+      notic_state, sender_id, sender_date, 
+      receiver_id, receiver_date, state, 
+      notic_content, notic_red_countent)
+    values (#{id,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{noticType,jdbcType=CHAR}, 
+      #{noticState,jdbcType=CHAR}, #{senderId,jdbcType=VARCHAR}, #{senderDate,jdbcType=TIMESTAMP}, 
+      #{receiverId,jdbcType=VARCHAR}, #{receiverDate,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR}, 
+      #{noticContent,jdbcType=LONGVARCHAR}, #{noticRedCountent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.NoticeInfoWithBLOBs">
+    insert into notice_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="noticeTitle != null">
+        notice_title,
+      </if>
+      <if test="noticType != null">
+        notic_type,
+      </if>
+      <if test="noticState != null">
+        notic_state,
+      </if>
+      <if test="senderId != null">
+        sender_id,
+      </if>
+      <if test="senderDate != null">
+        sender_date,
+      </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="receiverDate != null">
+        receiver_date,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="noticContent != null">
+        notic_content,
+      </if>
+      <if test="noticRedCountent != null">
+        notic_red_countent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticType != null">
+        #{noticType,jdbcType=CHAR},
+      </if>
+      <if test="noticState != null">
+        #{noticState,jdbcType=CHAR},
+      </if>
+      <if test="senderId != null">
+        #{senderId,jdbcType=VARCHAR},
+      </if>
+      <if test="senderDate != null">
+        #{senderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverDate != null">
+        #{receiverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="noticContent != null">
+        #{noticContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="noticRedCountent != null">
+        #{noticRedCountent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.NoticeInfoWithBLOBs">
+    update notice_info
+    <set>
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticType != null">
+        notic_type = #{noticType,jdbcType=CHAR},
+      </if>
+      <if test="noticState != null">
+        notic_state = #{noticState,jdbcType=CHAR},
+      </if>
+      <if test="senderId != null">
+        sender_id = #{senderId,jdbcType=VARCHAR},
+      </if>
+      <if test="senderDate != null">
+        sender_date = #{senderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverDate != null">
+        receiver_date = #{receiverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="noticContent != null">
+        notic_content = #{noticContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="noticRedCountent != null">
+        notic_red_countent = #{noticRedCountent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.NoticeInfoWithBLOBs">
+    update notice_info
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notic_type = #{noticType,jdbcType=CHAR},
+      notic_state = #{noticState,jdbcType=CHAR},
+      sender_id = #{senderId,jdbcType=VARCHAR},
+      sender_date = #{senderDate,jdbcType=TIMESTAMP},
+      receiver_id = #{receiverId,jdbcType=VARCHAR},
+      receiver_date = #{receiverDate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=CHAR},
+      notic_content = #{noticContent,jdbcType=LONGVARCHAR},
+      notic_red_countent = #{noticRedCountent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.NoticeInfo">
+    update notice_info
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notic_type = #{noticType,jdbcType=CHAR},
+      notic_state = #{noticState,jdbcType=CHAR},
+      sender_id = #{senderId,jdbcType=VARCHAR},
+      sender_date = #{senderDate,jdbcType=TIMESTAMP},
+      receiver_id = #{receiverId,jdbcType=VARCHAR},
+      receiver_date = #{receiverDate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

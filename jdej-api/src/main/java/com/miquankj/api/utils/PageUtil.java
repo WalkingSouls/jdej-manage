@@ -1,5 +1,6 @@
 package com.miquankj.api.utils;
 
+import com.miquankj.api.dto.Goodsdto;
 import com.miquankj.api.dto.Productdto;
 
 import java.util.HashMap;
@@ -19,6 +20,16 @@ public class PageUtil<T> {
         map.put("pageNum",pageNum);
         map.put("pageSize",pageSize);
         map.put("productList",productList);
+        return map;
+    }
+    public static Map<String,Object> goodsPageToMap(int pageNum, int pageSize, int totalRecord, List<Goodsdto> goodsList){
+        Map<String, Object> map = new HashMap<>();
+        int totalPage = totalRecord%pageSize ==0 ? (totalRecord / pageSize):(totalRecord / pageSize +1);
+        map.put("totalRecord",totalRecord);
+        map.put("totalPage",totalPage);
+        map.put("pageNum",pageNum);
+        map.put("pageSize",pageSize);
+        map.put("goodsList",goodsList);
         return map;
     }
 }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.GoodsPriceMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.GoodsPrice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="seq_no" jdbcType="INTEGER" property="seqNo" />
+    <result column="cms_id" jdbcType="INTEGER" property="cmsId" />
+    <result column="price_type" jdbcType="CHAR" property="priceType" />
+    <result column="min_num" jdbcType="INTEGER" property="minNum" />
+    <result column="max_num" jdbcType="INTEGER" property="maxNum" />
+    <result column="cms_price" jdbcType="DOUBLE" property="cmsPrice" />
+    <result column="cms_stock" jdbcType="INTEGER" property="cmsStock" />
+    <result column="cms_model" jdbcType="VARCHAR" property="cmsModel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, seq_no, cms_id, price_type, min_num, max_num, cms_price, cms_stock, cms_model
+  </sql>
+  <select id="selectByGoodsId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cms_goods_price
+    where cms_id = #{goodsId}
+  </select>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_goods_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cms_goods_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.GoodsPrice">
+    insert into cms_goods_price (id, seq_no, cms_id, 
+      price_type, min_num, max_num, 
+      cms_price, cms_stock, cms_model
+      )
+    values (#{id,jdbcType=INTEGER}, #{seqNo,jdbcType=INTEGER}, #{cmsId,jdbcType=INTEGER}, 
+      #{priceType,jdbcType=CHAR}, #{minNum,jdbcType=INTEGER}, #{maxNum,jdbcType=INTEGER}, 
+      #{cmsPrice,jdbcType=DOUBLE}, #{cmsStock,jdbcType=INTEGER}, #{cmsModel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.GoodsPrice">
+    insert into cms_goods_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="seqNo != null">
+        seq_no,
+      </if>
+      <if test="cmsId != null">
+        cms_id,
+      </if>
+      <if test="priceType != null">
+        price_type,
+      </if>
+      <if test="minNum != null">
+        min_num,
+      </if>
+      <if test="maxNum != null">
+        max_num,
+      </if>
+      <if test="cmsPrice != null">
+        cms_price,
+      </if>
+      <if test="cmsStock != null">
+        cms_stock,
+      </if>
+      <if test="cmsModel != null">
+        cms_model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="seqNo != null">
+        #{seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="cmsId != null">
+        #{cmsId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=CHAR},
+      </if>
+      <if test="minNum != null">
+        #{minNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxNum != null">
+        #{maxNum,jdbcType=INTEGER},
+      </if>
+      <if test="cmsPrice != null">
+        #{cmsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cmsStock != null">
+        #{cmsStock,jdbcType=INTEGER},
+      </if>
+      <if test="cmsModel != null">
+        #{cmsModel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.GoodsPrice">
+    update cms_goods_price
+    <set>
+      <if test="seqNo != null">
+        seq_no = #{seqNo,jdbcType=INTEGER},
+      </if>
+      <if test="cmsId != null">
+        cms_id = #{cmsId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType,jdbcType=CHAR},
+      </if>
+      <if test="minNum != null">
+        min_num = #{minNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxNum != null">
+        max_num = #{maxNum,jdbcType=INTEGER},
+      </if>
+      <if test="cmsPrice != null">
+        cms_price = #{cmsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cmsStock != null">
+        cms_stock = #{cmsStock,jdbcType=INTEGER},
+      </if>
+      <if test="cmsModel != null">
+        cms_model = #{cmsModel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.GoodsPrice">
+    update cms_goods_price
+    set seq_no = #{seqNo,jdbcType=INTEGER},
+      cms_id = #{cmsId,jdbcType=INTEGER},
+      price_type = #{priceType,jdbcType=CHAR},
+      min_num = #{minNum,jdbcType=INTEGER},
+      max_num = #{maxNum,jdbcType=INTEGER},
+      cms_price = #{cmsPrice,jdbcType=DOUBLE},
+      cms_stock = #{cmsStock,jdbcType=INTEGER},
+      cms_model = #{cmsModel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
