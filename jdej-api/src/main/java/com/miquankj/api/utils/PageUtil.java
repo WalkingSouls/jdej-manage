@@ -12,14 +12,14 @@ import java.util.Map;
  * @since 2019/5/7
  */
 public class PageUtil<T> {
-    public static Map<String,Object> ProductPageToMap(int pageNum, int pageSize, int totalRecord, List<Productdto> productList){
+    public Map<String,Object> objectPageToMap(int pageNum, int pageSize, int totalRecord, List<T> list){
         Map<String, Object> map = new HashMap<>();
         int totalPage = totalRecord%pageSize ==0 ? (totalRecord / pageSize):(totalRecord / pageSize +1);
         map.put("totalRecord",totalRecord);
         map.put("totalPage",totalPage);
         map.put("pageNum",pageNum);
         map.put("pageSize",pageSize);
-        map.put("productList",productList);
+        map.put("list",list);
         return map;
     }
     public static Map<String,Object> goodsPageToMap(int pageNum, int pageSize, int totalRecord, List<Goodsdto> goodsList){

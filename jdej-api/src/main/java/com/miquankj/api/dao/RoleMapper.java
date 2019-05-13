@@ -1,8 +1,11 @@
 package com.miquankj.api.dao;
 
-
 import com.miquankj.api.entity.Role;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
+@Mapper
+@Component
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer roleId);
 

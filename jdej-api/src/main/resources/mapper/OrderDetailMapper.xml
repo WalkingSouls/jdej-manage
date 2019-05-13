@@ -23,6 +23,31 @@
   <sql id="Blob_Column_List">
     pro_pic
   </sql>
+  <select id="selectByOrderCondition" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_order_detail
+    where 1=1
+    <if test="orderNum != null and orderNum != ''">
+      and order_num = #{order_num} and
+    </if>
+    <if test="proName != null and proName != ''">
+      pro_num = #{proName}
+    </if>
+  </select>
+
+  <select id="selectByOrderId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_order_detail
+    where order_id = #{orderId}
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

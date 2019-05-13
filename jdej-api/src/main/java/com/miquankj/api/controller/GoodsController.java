@@ -28,7 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/goods")
 @Slf4j
-@Api(value = "商品controller，对商品的操作和列表")
+@Api(value = "商品controller，对商品的操作和列表",description = "商品controller，对商品的操作和列表")
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
@@ -113,7 +113,7 @@ public class GoodsController {
     @GetMapping("/findAll")
     public ResultVO findAllGoodsByCondition(GoodsConditiondto conditiondto) {
         Map<String, Object> goodsMap = goodsService.findAllPro(conditiondto);
-        if (goodsMap.get("goodsList") == null) {
+        if (goodsMap.get("list") == null) {
             log.error("【商品】 商品不存在，goodsMap={}", goodsMap);
             return ResultVOUtil.error(ResultEnum.GOODS_NOT_EXIST.getCode(), ResultEnum.GOODS_NOT_EXIST.getMsg());
         }

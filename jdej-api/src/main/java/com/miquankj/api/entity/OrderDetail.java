@@ -1,115 +1,45 @@
 package com.miquankj.api.entity;
 
-import java.math.BigDecimal;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+import java.math.BigDecimal;
+@Data
+@ApiModel(value ="订单详情")
 public class OrderDetail {
+
+    @ApiModelProperty(value = "订单详情id",required = true)
     private Long detailId;
 
+    @ApiModelProperty(value = "订单编号", required = true)
     private String orderNum;
 
+    @ApiModelProperty(value = "订单id",required = true)
     private Integer orderId;
 
+    @ApiModelProperty(value = "商品id",required = true)
     private Integer productId;
 
+    @ApiModelProperty(value = "商品名称",required = true)
     private String proName;
 
+    @ApiModelProperty(value = "商品分类",required = true)
     private String proCategory;
 
+    @ApiModelProperty(value = "商品单价",required = true)
     private BigDecimal price;
 
+    @ApiModelProperty(value = "数量",required = true)
     private Integer num;
 
+    @ApiModelProperty(value = "订单合计金额",required = true)
     private BigDecimal amount;
 
+    @ApiModelProperty(value = "订单商品状态 -1 删除 1 存在",required = true)
     private Byte status;
 
+    @ApiModelProperty(value = "商品缩略图",required = true)
     private String proPic;
 
-    public Long getDetailId() {
-        return detailId;
-    }
-
-    public void setDetailId(Long detailId) {
-        this.detailId = detailId;
-    }
-
-    public String getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getProName() {
-        return proName;
-    }
-
-    public void setProName(String proName) {
-        this.proName = proName;
-    }
-
-    public String getProCategory() {
-        return proCategory;
-    }
-
-    public void setProCategory(String proCategory) {
-        this.proCategory = proCategory;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
-    public String getProPic() {
-        return proPic;
-    }
-
-    public void setProPic(String proPic) {
-        this.proPic = proPic;
-    }
 }

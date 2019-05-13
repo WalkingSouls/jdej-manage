@@ -3,22 +3,56 @@
 <mapper namespace="com.miquankj.api.dao.OrderDetailMapper">
   <resultMap id="BaseResultMap" type="com.miquankj.api.entity.OrderDetail">
     <id column="detail_id" jdbcType="BIGINT" property="detailId" />
-    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="pro_name" jdbcType="VARCHAR" property="proName" />
     <result column="pro_category" jdbcType="VARCHAR" property="proCategory" />
-    <result column="pro_pic" jdbcType="VARCHAR" property="proPic" />
-    <result column="price_unit" jdbcType="DECIMAL" property="priceUnit" />
-    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.OrderDetail">
+    <result column="pro_pic" jdbcType="LONGVARCHAR" property="proPic" />
+  </resultMap>
   <sql id="Base_Column_List">
-    detail_id, order_id, product_id, pro_name, pro_category, pro_pic, price_unit, amount, 
+    detail_id, order_num, order_id, product_id, pro_name, pro_category, price, num, amount, 
     status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    pro_pic
+  </sql>
+  <select id="selectByOrderCondition" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_order_detail
+    where 1=1
+    <if test="orderNum != null and orderNum != ''">
+      and order_num = #{order_num} and
+    </if>
+    <if test="proName != null and proName != ''">
+      pro_num = #{proName}
+    </if>
+  </select>
+
+  <select id="selectByOrderId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jdej_order_detail
+    where order_id = #{orderId}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from jdej_order_detail
     where detail_id = #{detailId,jdbcType=BIGINT}
   </select>
@@ -27,20 +61,23 @@
     where detail_id = #{detailId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.OrderDetail">
-    insert into jdej_order_detail (detail_id, order_id, product_id, 
-      pro_name, pro_category, pro_pic, 
-      price_unit, amount, status
-      )
-    values (#{detailId,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
-      #{proName,jdbcType=VARCHAR}, #{proCategory,jdbcType=VARCHAR}, #{proPic,jdbcType=VARCHAR}, 
-      #{priceUnit,jdbcType=DECIMAL}, #{amount,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}
-      )
+    insert into jdej_order_detail (detail_id, order_num, order_id, 
+      product_id, pro_name, pro_category, 
+      price, num, amount, 
+      status, pro_pic)
+    values (#{detailId,jdbcType=BIGINT}, #{orderNum,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR}, #{proCategory,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{num,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+      #{status,jdbcType=TINYINT}, #{proPic,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.OrderDetail">
     insert into jdej_order_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="detailId != null">
         detail_id,
+      </if>
+      <if test="orderNum != null">
+        order_num,
       </if>
       <if test="orderId != null">
         order_id,
@@ -54,11 +91,11 @@
       <if test="proCategory != null">
         pro_category,
       </if>
-      <if test="proPic != null">
-        pro_pic,
+      <if test="price != null">
+        price,
       </if>
-      <if test="priceUnit != null">
-        price_unit,
+      <if test="num != null">
+        num,
       </if>
       <if test="amount != null">
         amount,
@@ -66,13 +103,19 @@
       <if test="status != null">
         status,
       </if>
+      <if test="proPic != null">
+        pro_pic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="detailId != null">
         #{detailId,jdbcType=BIGINT},
       </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
       <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
+        #{orderId,jdbcType=INTEGER},
       </if>
       <if test="productId != null">
         #{productId,jdbcType=INTEGER},
@@ -83,25 +126,31 @@
       <if test="proCategory != null">
         #{proCategory,jdbcType=VARCHAR},
       </if>
-      <if test="proPic != null">
-        #{proPic,jdbcType=VARCHAR},
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
       </if>
-      <if test="priceUnit != null">
-        #{priceUnit,jdbcType=DECIMAL},
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
       </if>
       <if test="amount != null">
-        #{amount,jdbcType=INTEGER},
+        #{amount,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
+      </if>
+      <if test="proPic != null">
+        #{proPic,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.OrderDetail">
     update jdej_order_detail
     <set>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
       <if test="orderId != null">
-        order_id = #{orderId,jdbcType=VARCHAR},
+        order_id = #{orderId,jdbcType=INTEGER},
       </if>
       <if test="productId != null">
         product_id = #{productId,jdbcType=INTEGER},
@@ -112,30 +161,48 @@
       <if test="proCategory != null">
         pro_category = #{proCategory,jdbcType=VARCHAR},
       </if>
-      <if test="proPic != null">
-        pro_pic = #{proPic,jdbcType=VARCHAR},
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
       </if>
-      <if test="priceUnit != null">
-        price_unit = #{priceUnit,jdbcType=DECIMAL},
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
       </if>
       <if test="amount != null">
-        amount = #{amount,jdbcType=INTEGER},
+        amount = #{amount,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
       </if>
+      <if test="proPic != null">
+        pro_pic = #{proPic,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where detail_id = #{detailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.OrderDetail">
+    update jdej_order_detail
+    set order_num = #{orderNum,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      pro_name = #{proName,jdbcType=VARCHAR},
+      pro_category = #{proCategory,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      num = #{num,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      pro_pic = #{proPic,jdbcType=LONGVARCHAR}
     where detail_id = #{detailId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.OrderDetail">
     update jdej_order_detail
-    set order_id = #{orderId,jdbcType=VARCHAR},
+    set order_num = #{orderNum,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=INTEGER},
       product_id = #{productId,jdbcType=INTEGER},
       pro_name = #{proName,jdbcType=VARCHAR},
       pro_category = #{proCategory,jdbcType=VARCHAR},
-      pro_pic = #{proPic,jdbcType=VARCHAR},
-      price_unit = #{priceUnit,jdbcType=DECIMAL},
-      amount = #{amount,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      num = #{num,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT}
     where detail_id = #{detailId,jdbcType=BIGINT}
   </update>

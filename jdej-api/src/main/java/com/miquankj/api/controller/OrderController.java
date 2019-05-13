@@ -7,7 +7,10 @@ import com.miquankj.api.service.OrderService;
 import com.miquankj.api.utils.ResultVOUtil;
 import com.miquankj.api.vo.ResultVO;
 import com.miquankj.common.enums.ResultEnum;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,7 @@ import java.util.Map;
  * @author liuyadong
  * @since 2019/5/9
  */
+@Api(value = "订单controller",description = "订单controller，对订单的创建、更新、列表等")
 @RestController
 @Slf4j
 @RequestMapping("/order")
@@ -34,6 +38,10 @@ public class OrderController {
     @GetMapping("/findOrder/{storeId}/{orderId}")
     public ResultVO findOrder(@PathVariable Integer storeId, @PathVariable Integer orderId) {
         Order order = orderService.findOrder(storeId, orderId);
+        if(order == null || order.getStoreId() != storeId){
+            log.error("【订单】 订单不存在，order={}", order);
+            return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST.getCode(), ResultEnum.ORDER_NOT_EXIST.getMsg());
+        }
         return ResultVOUtil.success(order);
     }
 
@@ -41,13 +49,22 @@ public class OrderController {
     @GetMapping("/findOrders")
     public ResultVO findOrdersByCondition(OrderConditiondto orderCondition) {
         Map<String, Object> orderMap = orderService.findOrderByCondition(orderCondition);
+        if(orderMap.get("orderList") == null){
+
+        }
         return ResultVOUtil.success(orderMap);
     }
 
     @ApiOperation(value = "更改订单状态", notes = "确认订单、发货、取消订单")
+    @ApiResponse(code = 22, message = "订单更新出错")
     @GetMapping("/changeOrderStatus")
     public ResultVO changeOrderStatus(OrderStatusdto orderStatusdto) {
-        orderService.changeOrderStatus(orderStatusdto);
+        try{
+            orderService.changeOrderStatus(orderStatusdto);
+        }catch (RuntimeException e){
+            log.error("【订单】 订单更新出错，order={}", orderStatusdto.getId());
+            return ResultVOUtil.error(ResultEnum.ORDER_UPDATE_ERROR.getCode(), ResultEnum.ORDER_UPDATE_ERROR.getMsg());
+        }
         return ResultVOUtil.success();
     }
 

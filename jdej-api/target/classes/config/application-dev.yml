@@ -3,8 +3,23 @@ server:
   tomcat:
     max-threads: 128
     uri-encoding: utf-8
+  servlet:
+    context-path: /merchant
 
 spring:
+  redis:
+    host: localhost
+    database: 0
+    port: 6679
+    password:
+    jedis:
+      pool:
+         max-active: 100
+         max-idle: 20
+         min-idle: 10
+         max-wait:
+    timeout:
+
   application:
     name: jdej-manage-dev
 #  datasource:
@@ -24,7 +39,7 @@ spring:
 #      test-on-borrow: false
 #      test-on-return: false
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/ej?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/jdej_merchant?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -42,3 +57,4 @@ logging:
   file: ./logs/${spring.application.name}.log
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+

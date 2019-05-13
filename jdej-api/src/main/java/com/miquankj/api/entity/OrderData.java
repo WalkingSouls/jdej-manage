@@ -1,76 +1,34 @@
 package com.miquankj.api.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Data
+@ApiModel(value = "订单数据统计")
 public class OrderData {
+
+    @ApiModelProperty(value = "id",required = true)
     private Integer id;
 
+    @ApiModelProperty(value = "订单日期",required = true)
     private Date orderDate;
 
+    @ApiModelProperty(value = "商铺ID",required = true)
     private Integer storeId;
 
+    @ApiModelProperty(value = "成交订单数",required = true)
     private Integer orderDeal;
 
+    @ApiModelProperty(value = "成交额",required = true)
     private BigDecimal dealMoney;
 
+    @ApiModelProperty(value = "下单笔数",required = true)
     private Integer orderAmount;
 
+    @ApiModelProperty(value = "下单人数",required = true)
     private Integer dealPeople;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public Integer getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
-    }
-
-    public Integer getOrderDeal() {
-        return orderDeal;
-    }
-
-    public void setOrderDeal(Integer orderDeal) {
-        this.orderDeal = orderDeal;
-    }
-
-    public BigDecimal getDealMoney() {
-        return dealMoney;
-    }
-
-    public void setDealMoney(BigDecimal dealMoney) {
-        this.dealMoney = dealMoney;
-    }
-
-    public Integer getOrderAmount() {
-        return orderAmount;
-    }
-
-    public void setOrderAmount(Integer orderAmount) {
-        this.orderAmount = orderAmount;
-    }
-
-    public Integer getDealPeople() {
-        return dealPeople;
-    }
-
-    public void setDealPeople(Integer dealPeople) {
-        this.dealPeople = dealPeople;
-    }
 }
