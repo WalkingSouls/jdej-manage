@@ -18,5 +18,5 @@ public interface GoodsService {
 
     Map<String,Object> findAllPro(GoodsConditiondto conditiondto);
 
-    Integer changetGoodsStatus(int storeId, int goodsId, int operationType);
+    Integer changeGoodsStatus(int storeId, int goodsId, int operationType);
 }

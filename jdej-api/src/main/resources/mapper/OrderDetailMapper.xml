@@ -23,6 +23,8 @@
   <sql id="Blob_Column_List">
     pro_pic
   </sql>
+
+
   <select id="selectByOrderCondition" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
@@ -31,10 +33,10 @@
     from jdej_order_detail
     where 1=1
     <if test="orderNum != null and orderNum != ''">
-      and order_num = #{order_num} and
+      and order_num = #{orderNum}
     </if>
     <if test="proName != null and proName != ''">
-      pro_num = #{proName}
+     and  pro_name = #{proName}
     </if>
   </select>
 

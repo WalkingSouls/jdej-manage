@@ -3,13 +3,13 @@ package com.miquankj.api.controller;
 import com.miquankj.api.dto.GoodsConditiondto;
 import com.miquankj.api.dto.Goodsdto;
 import com.miquankj.api.entity.*;
+import com.miquankj.api.enums.ResultEnum;
 import com.miquankj.api.service.BrandInfoService;
 import com.miquankj.api.service.GoodsPriceService;
 import com.miquankj.api.service.GoodsService;
 import com.miquankj.api.service.StoreService;
 import com.miquankj.api.utils.ResultVOUtil;
 import com.miquankj.api.vo.ResultVO;
-import com.miquankj.common.enums.ResultEnum;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +113,7 @@ public class GoodsController {
     @GetMapping("/findAll")
     public ResultVO findAllGoodsByCondition(GoodsConditiondto conditiondto) {
         Map<String, Object> goodsMap = goodsService.findAllPro(conditiondto);
-        if (goodsMap.get("list") == null) {
+        if (goodsMap.get("goodsList") == null) {
             log.error("【商品】 商品不存在，goodsMap={}", goodsMap);
             return ResultVOUtil.error(ResultEnum.GOODS_NOT_EXIST.getCode(), ResultEnum.GOODS_NOT_EXIST.getMsg());
         }
@@ -131,7 +131,7 @@ public class GoodsController {
     @GetMapping("/changeGoodsStatus/{storeId}/{goodsId}/{operationType}")
     public ResultVO changeGoodsStatus(@PathVariable int storeId, @PathVariable int goodsId, @PathVariable int operationType) {
         try {
-            goodsService.changetGoodsStatus(storeId, goodsId, operationType);
+            goodsService.changeGoodsStatus(storeId, goodsId, operationType);
         } catch (RuntimeException e) {
             log.error("【商品】 商品状态变更失败，goodsId={}", goodsId);
             return ResultVOUtil.error(ResultEnum.GOODS_STATUS_FAIL.getCode(), ResultEnum.GOODS_STATUS_FAIL.getMsg());

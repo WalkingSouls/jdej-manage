@@ -1,5 +1,6 @@
 package com.miquankj.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,10 +35,12 @@ public class OrderConditiondto {
 
     @ApiModelProperty(value = "下单区间开始时间",required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTimeStart;
 
     @ApiModelProperty(value = "下单区间结束时间",required = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTimeEnd;
 
     @ApiModelProperty(value = "当前页码.从0开始", required = true)

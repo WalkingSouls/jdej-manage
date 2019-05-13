@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author liuyadong
@@ -53,11 +51,12 @@ public class OrderServiceImpl implements OrderService {
             order.setAddrInfo(addrInfo);
         return order;
     }
+
     @Transactional
     @Override
     public Map<String, Object> findOrderByCondition(OrderConditiondto orderCondition) {
         Map<String, Object> map = MapUtil.entityToMap(orderCondition);
-        int startRecord = orderCondition.getPageNum() * orderCondition.getPageSize();
+        Integer startRecord = orderCondition.getPageNum() * orderCondition.getPageSize();
         map.put("startRecord", startRecord);
         Integer totalRecord = 0;
         List<Order> orderList = orderMapper.selectByCondition(map);
@@ -68,23 +67,49 @@ public class OrderServiceImpl implements OrderService {
             if (orderDetailList != null) {
                 orderList.forEach((x) -> {
                     orderDetailList.forEach((y) -> {
-                        if (y.getOrderId().equals(x.getId()))
+                        if (y.getOrderId().equals(x.getId())) {
                             x.getOrderDetailList().add(y);
                             orderTemp.add(x);
+                        }
                     });
                 });
             }
             orderList = orderTemp;
-            totalRecord = orderMapper.selectCountsByCondition(map);
-//            List<Order> ordersDB = orderMapper.selectOrdersByCondition(map);
-
+            totalRecord = getTotalRecords(map, orderDetailList);
         } else {
             totalRecord = orderMapper.selectCountsByCondition(map);
+            orderList.forEach((x) -> {
+                List<OrderDetail> orderDetailList = orderDetailMapper.selectByOrderId(x.getId());
+                x.setOrderDetailList(orderDetailList);
+            });
         }
         int pageNum = orderCondition.getPageNum();
         int pageSize = orderCondition.getPageSize();
         Map<String, Object> orderMap = new PageUtil<Order>().objectPageToMap(pageNum, pageSize, totalRecord, orderList);
         return orderMap;
+    }
+
+    /**
+     * 得到总记录数
+     *
+     * @param map
+     * @param orderDetailList
+     * @return
+     */
+    private Integer getTotalRecords(Map<String, Object> map, List<OrderDetail> orderDetailList) {
+        Integer totalRecord;
+        List<Order> ordersDB = orderMapper.selectOrdersByCondition(map);
+        Set<Integer> orderDetailIds = new HashSet<>();
+        Set<Integer> orderIds = new HashSet<>();
+        orderDetailList.forEach(
+                x -> orderDetailIds.add(x.getOrderId())
+        );
+        ordersDB.forEach(
+                x -> orderIds.add(x.getId())
+        );
+        orderDetailIds.retainAll(orderIds);
+        totalRecord = orderDetailIds.size();
+        return totalRecord;
     }
 
     @Override

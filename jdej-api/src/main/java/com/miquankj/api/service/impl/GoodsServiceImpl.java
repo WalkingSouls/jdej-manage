@@ -93,12 +93,13 @@ public class GoodsServiceImpl implements GoodsService {
         int pageNum = conditiondto.getPageNum();
         int pageSize = conditiondto.getPageSize();
         Map<String, Object> map = PageUtil.goodsPageToMap(pageNum, pageSize, totalRecord, goodsList);
+        System.out.println("_____________________"+map.size());
         return map;
     }
 
     @Transactional
     @Override
-    public Integer changetGoodsStatus(int storeId, int goodsId, int operationType) {
+    public Integer changeGoodsStatus(int storeId, int goodsId, int operationType) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("storeId", storeId);
         map.put("goodsId", goodsId);

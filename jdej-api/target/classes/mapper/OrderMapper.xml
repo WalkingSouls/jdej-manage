@@ -41,13 +41,31 @@
         </collection>
     </resultMap>
 
-
     <sql id="Base_Column_List">
     id, order_num, store_id, store_name, customer_id, customer_name, customer_type, addr_id,
     total_money, actual_price, red_env_id, red_price, order_status, is_specimen, express_com,
     express_num, freight_price, message, order_time, update_time, update_operid, version
   </sql>
 
+    <select id="selectOrdersByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from jdej_order
+        where store_id = #{storeId} and
+        <if test="orderNum != null and orderNum != ''">
+            order_num = #{orderNum} and
+        </if>
+        <if test="customerName != null and customerName!= ''">
+            customer_name = #{customerName} and
+        </if>
+        <if test="orderStatus != null">
+            order_status = #{orderStatus} and
+        </if>
+        <if test="isSpecimen != null">
+            is_specimen = #{isSpecimen} and
+        </if>
+        order_time between #{orderTimeStart} and #{orderTimeEnd}
+        order by order_time desc
+    </select>
     <select id="selectCountsByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
         select
         count(*)
@@ -60,12 +78,12 @@
             customer_name = #{customerName} and
         </if>
         <if test="orderStatus != null">
-            order_status = #{order_status} and
+            order_status = #{orderStatus} and
         </if>
         <if test="isSpecimen != null">
             is_specimen = #{isSpecimen} and
         </if>
-        and order_time between #{orderTimeStart} and #{orderTimeEnd}
+        order_time between #{orderTimeStart} and #{orderTimeEnd}
     </select>
 
     <select id="selectByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -79,14 +97,14 @@
             customer_name = #{customerName} and
         </if>
         <if test="orderStatus != null">
-            order_status = #{order_status} and
+            order_status = #{orderStatus} and
         </if>
         <if test="isSpecimen != null">
             is_specimen = #{isSpecimen} and
         </if>
-        and order_time between #{orderTimeStart} and #{orderTimeEnd}
+         order_time between #{orderTimeStart} and #{orderTimeEnd}
         order by order_time desc
-        limit #{startRecord},#{pageSize}
+        limit #{startRecord,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>
 
     <update id="changetOrderStatus" parameterType="java.util.Map">

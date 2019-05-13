@@ -1,9 +1,11 @@
 package com.miquankj.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -68,9 +70,13 @@ public class Order {
     private String message;
 
     @ApiModelProperty(value = "下单时间",allowEmptyValue = true)
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
 
     @ApiModelProperty(value = "订单更新时间",allowEmptyValue = true)
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty(value = "订单操作账户",allowEmptyValue = true)

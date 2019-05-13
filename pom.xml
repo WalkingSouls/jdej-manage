@@ -5,9 +5,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>jdej-api</module>
-        <module>jdej-cloud</module>
-        <module>jdej-common</module>
-        <module>jdej-deploy</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

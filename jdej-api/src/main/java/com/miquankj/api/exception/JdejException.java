@@ -1,6 +1,6 @@
 package com.miquankj.api.exception;
 
-import com.miquankj.common.enums.ResultEnum;
+import com.miquankj.api.enums.ResultEnum;
 import lombok.Data;
 
 /**

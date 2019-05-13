@@ -1,6 +1,6 @@
 package com.miquankj.api;
 
-import com.miquankj.common.yaml.YamlProperties;
+import com.miquankj.api.config.YamlProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
