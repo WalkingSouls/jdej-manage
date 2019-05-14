@@ -6,6 +6,7 @@ import com.miquankj.api.entity.Order;
 import com.miquankj.api.enums.ResultEnum;
 import com.miquankj.api.service.OrderService;
 import com.miquankj.api.utils.ResultVOUtil;
+import com.miquankj.api.utils.TimeUtil;
 import com.miquankj.api.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +29,7 @@ import java.util.Map;
  * @author liuyadong
  * @since 2019/5/9
  */
-@Api(value = "订单controller",description = "订单controller，对订单的创建、更新、列表等")
+@Api(value = "订单controller", description = "订单controller，对订单的创建、更新、列表等")
 @RestController
 @Slf4j
 @RequestMapping("/order")
@@ -38,7 +41,7 @@ public class OrderController {
     @GetMapping("/findOrder/{storeId}/{orderId}")
     public ResultVO findOrder(@PathVariable Integer storeId, @PathVariable Integer orderId) {
         Order order = orderService.findOrder(storeId, orderId);
-        if(order == null || order.getStoreId() != storeId){
+        if (order == null || order.getStoreId() != storeId) {
             log.error("【订单】 订单不存在，order={}", order);
             return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST.getCode(), ResultEnum.ORDER_NOT_EXIST.getMsg());
         }
@@ -49,8 +52,9 @@ public class OrderController {
     @GetMapping("/findOrders")
     public ResultVO findOrdersByCondition(OrderConditiondto orderCondition) {
         Map<String, Object> orderMap = orderService.findOrderByCondition(orderCondition);
-        if(orderMap.get("orderList") == null){
-
+        if (orderMap.get("orderList") == null) {
+            log.error("【订单】 订单不存在，order={}", orderMap);
+            return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST.getCode(), ResultEnum.ORDER_NOT_EXIST.getMsg());
         }
         return ResultVOUtil.success(orderMap);
     }
@@ -59,13 +63,29 @@ public class OrderController {
     @ApiResponse(code = 22, message = "订单更新出错")
     @GetMapping("/changeOrderStatus")
     public ResultVO changeOrderStatus(OrderStatusdto orderStatusdto) {
-        try{
+        try {
             orderService.changeOrderStatus(orderStatusdto);
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             log.error("【订单】 订单更新出错，order={}", orderStatusdto.getId());
             return ResultVOUtil.error(ResultEnum.ORDER_UPDATE_ERROR.getCode(), ResultEnum.ORDER_UPDATE_ERROR.getMsg());
         }
         return ResultVOUtil.success();
+    }
+
+    @ApiOperation(value = "查看某消费者所有订单", notes = "根据客户id查看消费者订单列表")
+    @GetMapping("/findOrdersByMember/{customerId}")
+    public ResultVO findOrdersByMember(@PathVariable Integer customerId) {
+        OrderConditiondto orderConditiondto = new OrderConditiondto();
+        try {
+            orderConditiondto.setCustomerId(customerId);
+            Date dateStart = TimeUtil.StringToDate("1970-01-01 01:01:01");
+            Date dateEnd = TimeUtil.StringToDate("2039-01-01 01:01:01");
+            orderConditiondto.setOrderTimeStart(dateStart);
+            orderConditiondto.setOrderTimeEnd(dateEnd);
+        } catch (ParseException e) {
+            return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST.getCode(), ResultEnum.ORDER_NOT_EXIST.getMsg());
+        }
+        return findOrdersByCondition(orderConditiondto);
     }
 
     @ApiOperation(value = "创建订单")

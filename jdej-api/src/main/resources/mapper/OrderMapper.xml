@@ -54,6 +54,9 @@
         <if test="orderNum != null and orderNum != ''">
             order_num = #{orderNum} and
         </if>
+        <if test="customerId != null">
+            customer_id = #{customerId} and
+        </if>
         <if test="customerName != null and customerName!= ''">
             customer_name = #{customerName} and
         </if>
@@ -77,6 +80,9 @@
         <if test="customerName != null and customerName!= ''">
             customer_name = #{customerName} and
         </if>
+        <if test="customerId != null">
+            customer_id = #{customerId} and
+        </if>
         <if test="orderStatus != null">
             order_status = #{orderStatus} and
         </if>
@@ -95,6 +101,9 @@
         </if>
         <if test="customerName != null and customerName!= ''">
             customer_name = #{customerName} and
+        </if>
+        <if test="customerId != null">
+            customer_id = #{customerId} and
         </if>
         <if test="orderStatus != null">
             order_status = #{orderStatus} and

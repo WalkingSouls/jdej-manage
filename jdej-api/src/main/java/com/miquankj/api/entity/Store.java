@@ -9,6 +9,8 @@ public class Store {
 
     private String storeName;
 
+    private Integer grpId;
+
     private String linkmen;
 
     private String phone;
@@ -23,10 +25,9 @@ public class Store {
 
     private String licensePath;
 
-    private Byte status = 1;
+    private Byte status;
 
     private Date createTime;
 
     private String storeInfo;
-
 }

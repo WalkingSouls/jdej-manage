@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.GrpInfoMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.GrpInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cli_id" jdbcType="INTEGER" property="cliId" />
+    <result column="cli_name" jdbcType="VARCHAR" property="cliName" />
+    <result column="cli_tel" jdbcType="VARCHAR" property="cliTel" />
+    <result column="cli_addr" jdbcType="VARCHAR" property="cliAddr" />
+    <result column="cli_area" jdbcType="VARCHAR" property="cliArea" />
+    <result column="grp_id" jdbcType="VARCHAR" property="grpId" />
+    <result column="grp_name" jdbcType="VARCHAR" property="grpName" />
+    <result column="abbr" jdbcType="VARCHAR" property="abbr" />
+    <result column="grp_add" jdbcType="VARCHAR" property="grpAdd" />
+    <result column="grp_link_name" jdbcType="VARCHAR" property="grpLinkName" />
+    <result column="grp_link_tel" jdbcType="VARCHAR" property="grpLinkTel" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="sub_type" jdbcType="CHAR" property="subType" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+    <result column="sfz_zm" jdbcType="VARCHAR" property="sfzZm" />
+    <result column="sfz_fm" jdbcType="VARCHAR" property="sfzFm" />
+    <result column="which_city" jdbcType="VARCHAR" property="whichCity" />
+    <result column="mng_opr_id" jdbcType="VARCHAR" property="mngOprId" />
+    <result column="add_opr_id" jdbcType="VARCHAR" property="addOprId" />
+    <result column="add_date" jdbcType="VARCHAR" property="addDate" />
+    <result column="cls_opr_id" jdbcType="VARCHAR" property="clsOprId" />
+    <result column="cls_date" jdbcType="VARCHAR" property="clsDate" />
+    <result column="deptid" jdbcType="VARCHAR" property="deptid" />
+    <result column="dbcode" jdbcType="VARCHAR" property="dbcode" />
+    <result column="sheng" jdbcType="INTEGER" property="sheng" />
+    <result column="shi" jdbcType="INTEGER" property="shi" />
+    <result column="qu" jdbcType="INTEGER" property="qu" />
+    <result column="street" jdbcType="INTEGER" property="street" />
+    <result column="check_man" jdbcType="VARCHAR" property="checkMan" />
+    <result column="check_time" jdbcType="VARCHAR" property="checkTime" />
+    <result column="state" jdbcType="CHAR" property="state" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="cumul" jdbcType="DOUBLE" property="cumul" />
+    <result column="cum_dem" jdbcType="INTEGER" property="cumDem" />
+    <result column="cum_ord" jdbcType="INTEGER" property="cumOrd" />
+    <result column="integ" jdbcType="DOUBLE" property="integ" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.miquankj.api.entity.GrpInfo">
+    <result column="com_introduction" jdbcType="LONGVARCHAR" property="comIntroduction" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, cli_id, cli_name, cli_tel, cli_addr, cli_area, grp_id, grp_name, abbr, grp_add, 
+    grp_link_name, grp_link_tel, type, sub_type, note, add_time, update_time, p_id, status, 
+    business_license, sfz_zm, sfz_fm, which_city, mng_opr_id, add_opr_id, add_date, cls_opr_id, 
+    cls_date, deptid, dbcode, sheng, shi, qu, street, check_man, check_time, state, remark, 
+    photo, nick_name, cumul, cum_dem, cum_ord, integ
+  </sql>
+  <sql id="Blob_Column_List">
+    com_introduction
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_grp_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_grp_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.GrpInfo">
+    insert into sys_grp_info (id, cli_id, cli_name, 
+      cli_tel, cli_addr, cli_area, 
+      grp_id, grp_name, abbr, 
+      grp_add, grp_link_name, grp_link_tel, 
+      type, sub_type, note, add_time, 
+      update_time, p_id, status, 
+      business_license, sfz_zm, sfz_fm, 
+      which_city, mng_opr_id, add_opr_id, 
+      add_date, cls_opr_id, cls_date, 
+      deptid, dbcode, sheng, 
+      shi, qu, street, check_man, 
+      check_time, state, remark, 
+      photo, nick_name, cumul, 
+      cum_dem, cum_ord, integ, 
+      com_introduction)
+    values (#{id,jdbcType=INTEGER}, #{cliId,jdbcType=INTEGER}, #{cliName,jdbcType=VARCHAR}, 
+      #{cliTel,jdbcType=VARCHAR}, #{cliAddr,jdbcType=VARCHAR}, #{cliArea,jdbcType=VARCHAR}, 
+      #{grpId,jdbcType=VARCHAR}, #{grpName,jdbcType=VARCHAR}, #{abbr,jdbcType=VARCHAR}, 
+      #{grpAdd,jdbcType=VARCHAR}, #{grpLinkName,jdbcType=VARCHAR}, #{grpLinkTel,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{subType,jdbcType=CHAR}, #{note,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{pId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{businessLicense,jdbcType=VARCHAR}, #{sfzZm,jdbcType=VARCHAR}, #{sfzFm,jdbcType=VARCHAR}, 
+      #{whichCity,jdbcType=VARCHAR}, #{mngOprId,jdbcType=VARCHAR}, #{addOprId,jdbcType=VARCHAR}, 
+      #{addDate,jdbcType=VARCHAR}, #{clsOprId,jdbcType=VARCHAR}, #{clsDate,jdbcType=VARCHAR}, 
+      #{deptid,jdbcType=VARCHAR}, #{dbcode,jdbcType=VARCHAR}, #{sheng,jdbcType=INTEGER}, 
+      #{shi,jdbcType=INTEGER}, #{qu,jdbcType=INTEGER}, #{street,jdbcType=INTEGER}, #{checkMan,jdbcType=VARCHAR}, 
+      #{checkTime,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{cumul,jdbcType=DOUBLE}, 
+      #{cumDem,jdbcType=INTEGER}, #{cumOrd,jdbcType=INTEGER}, #{integ,jdbcType=DOUBLE}, 
+      #{comIntroduction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.GrpInfo">
+    insert into sys_grp_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cliId != null">
+        cli_id,
+      </if>
+      <if test="cliName != null">
+        cli_name,
+      </if>
+      <if test="cliTel != null">
+        cli_tel,
+      </if>
+      <if test="cliAddr != null">
+        cli_addr,
+      </if>
+      <if test="cliArea != null">
+        cli_area,
+      </if>
+      <if test="grpId != null">
+        grp_id,
+      </if>
+      <if test="grpName != null">
+        grp_name,
+      </if>
+      <if test="abbr != null">
+        abbr,
+      </if>
+      <if test="grpAdd != null">
+        grp_add,
+      </if>
+      <if test="grpLinkName != null">
+        grp_link_name,
+      </if>
+      <if test="grpLinkTel != null">
+        grp_link_tel,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="businessLicense != null">
+        business_license,
+      </if>
+      <if test="sfzZm != null">
+        sfz_zm,
+      </if>
+      <if test="sfzFm != null">
+        sfz_fm,
+      </if>
+      <if test="whichCity != null">
+        which_city,
+      </if>
+      <if test="mngOprId != null">
+        mng_opr_id,
+      </if>
+      <if test="addOprId != null">
+        add_opr_id,
+      </if>
+      <if test="addDate != null">
+        add_date,
+      </if>
+      <if test="clsOprId != null">
+        cls_opr_id,
+      </if>
+      <if test="clsDate != null">
+        cls_date,
+      </if>
+      <if test="deptid != null">
+        deptid,
+      </if>
+      <if test="dbcode != null">
+        dbcode,
+      </if>
+      <if test="sheng != null">
+        sheng,
+      </if>
+      <if test="shi != null">
+        shi,
+      </if>
+      <if test="qu != null">
+        qu,
+      </if>
+      <if test="street != null">
+        street,
+      </if>
+      <if test="checkMan != null">
+        check_man,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="cumul != null">
+        cumul,
+      </if>
+      <if test="cumDem != null">
+        cum_dem,
+      </if>
+      <if test="cumOrd != null">
+        cum_ord,
+      </if>
+      <if test="integ != null">
+        integ,
+      </if>
+      <if test="comIntroduction != null">
+        com_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cliId != null">
+        #{cliId,jdbcType=INTEGER},
+      </if>
+      <if test="cliName != null">
+        #{cliName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTel != null">
+        #{cliTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cliAddr != null">
+        #{cliAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cliArea != null">
+        #{cliArea,jdbcType=VARCHAR},
+      </if>
+      <if test="grpId != null">
+        #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="grpName != null">
+        #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbr != null">
+        #{abbr,jdbcType=VARCHAR},
+      </if>
+      <if test="grpAdd != null">
+        #{grpAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="grpLinkName != null">
+        #{grpLinkName,jdbcType=VARCHAR},
+      </if>
+      <if test="grpLinkTel != null">
+        #{grpLinkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null">
+        #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzZm != null">
+        #{sfzZm,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzFm != null">
+        #{sfzFm,jdbcType=VARCHAR},
+      </if>
+      <if test="whichCity != null">
+        #{whichCity,jdbcType=VARCHAR},
+      </if>
+      <if test="mngOprId != null">
+        #{mngOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="addOprId != null">
+        #{addOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        #{addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="clsOprId != null">
+        #{clsOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="clsDate != null">
+        #{clsDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="dbcode != null">
+        #{dbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="sheng != null">
+        #{sheng,jdbcType=INTEGER},
+      </if>
+      <if test="shi != null">
+        #{shi,jdbcType=INTEGER},
+      </if>
+      <if test="qu != null">
+        #{qu,jdbcType=INTEGER},
+      </if>
+      <if test="street != null">
+        #{street,jdbcType=INTEGER},
+      </if>
+      <if test="checkMan != null">
+        #{checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cumul != null">
+        #{cumul,jdbcType=DOUBLE},
+      </if>
+      <if test="cumDem != null">
+        #{cumDem,jdbcType=INTEGER},
+      </if>
+      <if test="cumOrd != null">
+        #{cumOrd,jdbcType=INTEGER},
+      </if>
+      <if test="integ != null">
+        #{integ,jdbcType=DOUBLE},
+      </if>
+      <if test="comIntroduction != null">
+        #{comIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.GrpInfo">
+    update sys_grp_info
+    <set>
+      <if test="cliId != null">
+        cli_id = #{cliId,jdbcType=INTEGER},
+      </if>
+      <if test="cliName != null">
+        cli_name = #{cliName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTel != null">
+        cli_tel = #{cliTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cliAddr != null">
+        cli_addr = #{cliAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cliArea != null">
+        cli_area = #{cliArea,jdbcType=VARCHAR},
+      </if>
+      <if test="grpId != null">
+        grp_id = #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="grpName != null">
+        grp_name = #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="abbr != null">
+        abbr = #{abbr,jdbcType=VARCHAR},
+      </if>
+      <if test="grpAdd != null">
+        grp_add = #{grpAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="grpLinkName != null">
+        grp_link_name = #{grpLinkName,jdbcType=VARCHAR},
+      </if>
+      <if test="grpLinkTel != null">
+        grp_link_tel = #{grpLinkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=CHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicense != null">
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzZm != null">
+        sfz_zm = #{sfzZm,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzFm != null">
+        sfz_fm = #{sfzFm,jdbcType=VARCHAR},
+      </if>
+      <if test="whichCity != null">
+        which_city = #{whichCity,jdbcType=VARCHAR},
+      </if>
+      <if test="mngOprId != null">
+        mng_opr_id = #{mngOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="addOprId != null">
+        add_opr_id = #{addOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="addDate != null">
+        add_date = #{addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="clsOprId != null">
+        cls_opr_id = #{clsOprId,jdbcType=VARCHAR},
+      </if>
+      <if test="clsDate != null">
+        cls_date = #{clsDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        deptid = #{deptid,jdbcType=VARCHAR},
+      </if>
+      <if test="dbcode != null">
+        dbcode = #{dbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="sheng != null">
+        sheng = #{sheng,jdbcType=INTEGER},
+      </if>
+      <if test="shi != null">
+        shi = #{shi,jdbcType=INTEGER},
+      </if>
+      <if test="qu != null">
+        qu = #{qu,jdbcType=INTEGER},
+      </if>
+      <if test="street != null">
+        street = #{street,jdbcType=INTEGER},
+      </if>
+      <if test="checkMan != null">
+        check_man = #{checkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cumul != null">
+        cumul = #{cumul,jdbcType=DOUBLE},
+      </if>
+      <if test="cumDem != null">
+        cum_dem = #{cumDem,jdbcType=INTEGER},
+      </if>
+      <if test="cumOrd != null">
+        cum_ord = #{cumOrd,jdbcType=INTEGER},
+      </if>
+      <if test="integ != null">
+        integ = #{integ,jdbcType=DOUBLE},
+      </if>
+      <if test="comIntroduction != null">
+        com_introduction = #{comIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.miquankj.api.entity.GrpInfo">
+    update sys_grp_info
+    set cli_id = #{cliId,jdbcType=INTEGER},
+      cli_name = #{cliName,jdbcType=VARCHAR},
+      cli_tel = #{cliTel,jdbcType=VARCHAR},
+      cli_addr = #{cliAddr,jdbcType=VARCHAR},
+      cli_area = #{cliArea,jdbcType=VARCHAR},
+      grp_id = #{grpId,jdbcType=VARCHAR},
+      grp_name = #{grpName,jdbcType=VARCHAR},
+      abbr = #{abbr,jdbcType=VARCHAR},
+      grp_add = #{grpAdd,jdbcType=VARCHAR},
+      grp_link_name = #{grpLinkName,jdbcType=VARCHAR},
+      grp_link_tel = #{grpLinkTel,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      sub_type = #{subType,jdbcType=CHAR},
+      note = #{note,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=VARCHAR},
+      sfz_zm = #{sfzZm,jdbcType=VARCHAR},
+      sfz_fm = #{sfzFm,jdbcType=VARCHAR},
+      which_city = #{whichCity,jdbcType=VARCHAR},
+      mng_opr_id = #{mngOprId,jdbcType=VARCHAR},
+      add_opr_id = #{addOprId,jdbcType=VARCHAR},
+      add_date = #{addDate,jdbcType=VARCHAR},
+      cls_opr_id = #{clsOprId,jdbcType=VARCHAR},
+      cls_date = #{clsDate,jdbcType=VARCHAR},
+      deptid = #{deptid,jdbcType=VARCHAR},
+      dbcode = #{dbcode,jdbcType=VARCHAR},
+      sheng = #{sheng,jdbcType=INTEGER},
+      shi = #{shi,jdbcType=INTEGER},
+      qu = #{qu,jdbcType=INTEGER},
+      street = #{street,jdbcType=INTEGER},
+      check_man = #{checkMan,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      cumul = #{cumul,jdbcType=DOUBLE},
+      cum_dem = #{cumDem,jdbcType=INTEGER},
+      cum_ord = #{cumOrd,jdbcType=INTEGER},
+      integ = #{integ,jdbcType=DOUBLE},
+      com_introduction = #{comIntroduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.GrpInfo">
+    update sys_grp_info
+    set cli_id = #{cliId,jdbcType=INTEGER},
+      cli_name = #{cliName,jdbcType=VARCHAR},
+      cli_tel = #{cliTel,jdbcType=VARCHAR},
+      cli_addr = #{cliAddr,jdbcType=VARCHAR},
+      cli_area = #{cliArea,jdbcType=VARCHAR},
+      grp_id = #{grpId,jdbcType=VARCHAR},
+      grp_name = #{grpName,jdbcType=VARCHAR},
+      abbr = #{abbr,jdbcType=VARCHAR},
+      grp_add = #{grpAdd,jdbcType=VARCHAR},
+      grp_link_name = #{grpLinkName,jdbcType=VARCHAR},
+      grp_link_tel = #{grpLinkTel,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      sub_type = #{subType,jdbcType=CHAR},
+      note = #{note,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      business_license = #{businessLicense,jdbcType=VARCHAR},
+      sfz_zm = #{sfzZm,jdbcType=VARCHAR},
+      sfz_fm = #{sfzFm,jdbcType=VARCHAR},
+      which_city = #{whichCity,jdbcType=VARCHAR},
+      mng_opr_id = #{mngOprId,jdbcType=VARCHAR},
+      add_opr_id = #{addOprId,jdbcType=VARCHAR},
+      add_date = #{addDate,jdbcType=VARCHAR},
+      cls_opr_id = #{clsOprId,jdbcType=VARCHAR},
+      cls_date = #{clsDate,jdbcType=VARCHAR},
+      deptid = #{deptid,jdbcType=VARCHAR},
+      dbcode = #{dbcode,jdbcType=VARCHAR},
+      sheng = #{sheng,jdbcType=INTEGER},
+      shi = #{shi,jdbcType=INTEGER},
+      qu = #{qu,jdbcType=INTEGER},
+      street = #{street,jdbcType=INTEGER},
+      check_man = #{checkMan,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=VARCHAR},
+      state = #{state,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      cumul = #{cumul,jdbcType=DOUBLE},
+      cum_dem = #{cumDem,jdbcType=INTEGER},
+      cum_ord = #{cumOrd,jdbcType=INTEGER},
+      integ = #{integ,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

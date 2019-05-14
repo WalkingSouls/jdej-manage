@@ -1,6 +1,5 @@
 package com.miquankj.api.dao;
 
-
 import com.miquankj.api.entity.Store;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;

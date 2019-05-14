@@ -5,13 +5,75 @@
     <id column="sto_cus_id" jdbcType="INTEGER" property="stoCusId" />
     <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="cli_id" jdbcType="INTEGER" property="cliId" />
+    <result column="customer_type" jdbcType="CHAR" property="customerType" />
+    <result column="is_apply" jdbcType="TINYINT" property="isApply" />
+    <result column="grp_name" jdbcType="VARCHAR" property="grpName" />
+    <result column="cli_name" jdbcType="VARCHAR" property="cliName" />
+    <result column="cli_tel" jdbcType="VARCHAR" property="cliTel" />
+    <result column="sub_type" jdbcType="CHAR" property="subType" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="valid" jdbcType="TINYINT" property="valid" />
   </resultMap>
   <sql id="Base_Column_List">
-    sto_cus_id, store_id, customer_id, valid
+    sto_cus_id, store_id, customer_id, cli_id, customer_type, is_apply, grp_name, cli_name,
+    cli_tel, sub_type, status, add_time, valid
   </sql>
+
+  <select id="selectCusByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select customer_id from dej_store_customer
+    where
+    <trim suffixOverrides="and">
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER} and
+      </if>
+      <if test="cliId != null">
+        cli_id = #{cliId,jdbcType=INTEGER} and
+      </if>
+      <if test="customerType != null">
+        customer_type = #{type,jdbcType=CHAR} and
+      </if>
+      <if test="grpName != null">
+        grp_name = #{grpName,jdbcType=VARCHAR} and
+      </if>
+      <if test="cliName != null">
+        cli_name = #{cliName,jdbcType=VARCHAR} and
+      </if>
+      <if test="cliTel != null">
+        cli_tel = #{cliTel,jdbcType=VARCHAR} and
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=CHAR} and
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR} and
+      </if>
+      <if test="timeStart != null and timeEnd != null">
+        add_time between  #{timeStart} and #{timeEnd}
+      </if>
+    </trim>
+  </select>
+
+  <select id="selectCusIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select customer_id from dej_store_customer
+    where store_id= #{storeId} and valid = 1 and
+    <choose>
+      <when test="listType == 0">
+        customer_type = "0"
+      </when>
+      <when test="listType == 1">
+        customer_type != "0"
+      </when>
+      <otherwise>
+        is_apply = 1
+      </otherwise>
+    </choose>
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from jdej_store_customer
     where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
@@ -21,9 +83,15 @@
     where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.StoreCustomer">
-    insert into jdej_store_customer (sto_cus_id, store_id, customer_id, 
+    insert into jdej_store_customer (sto_cus_id, store_id, customer_id,
+      cli_id, customer_type, is_apply,
+      grp_name, cli_name, cli_tel,
+      sub_type, status, add_time,
       valid)
-    values (#{stoCusId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, 
+    values (#{stoCusId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER},
+      #{cliId,jdbcType=INTEGER}, #{customerType,jdbcType=CHAR}, #{isApply,jdbcType=TINYINT},
+      #{grpName,jdbcType=VARCHAR}, #{cliName,jdbcType=VARCHAR}, #{cliTel,jdbcType=VARCHAR},
+      #{subType,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{addTime,jdbcType=TIMESTAMP},
       #{valid,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.StoreCustomer">
@@ -37,6 +105,33 @@
       </if>
       <if test="customerId != null">
         customer_id,
+      </if>
+      <if test="cliId != null">
+        cli_id,
+      </if>
+      <if test="customerType != null">
+        customer_type,
+      </if>
+      <if test="isApply != null">
+        is_apply,
+      </if>
+      <if test="grpName != null">
+        grp_name,
+      </if>
+      <if test="cliName != null">
+        cli_name,
+      </if>
+      <if test="cliTel != null">
+        cli_tel,
+      </if>
+      <if test="subType != null">
+        sub_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="addTime != null">
+        add_time,
       </if>
       <if test="valid != null">
         valid,
@@ -52,6 +147,33 @@
       <if test="customerId != null">
         #{customerId,jdbcType=INTEGER},
       </if>
+      <if test="cliId != null">
+        #{cliId,jdbcType=INTEGER},
+      </if>
+      <if test="customerType != null">
+        #{customerType,jdbcType=CHAR},
+      </if>
+      <if test="isApply != null">
+        #{isApply,jdbcType=TINYINT},
+      </if>
+      <if test="grpName != null">
+        #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliName != null">
+        #{cliName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTel != null">
+        #{cliTel,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        #{subType,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="valid != null">
         #{valid,jdbcType=TINYINT},
       </if>
@@ -66,6 +188,33 @@
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=INTEGER},
       </if>
+      <if test="cliId != null">
+        cli_id = #{cliId,jdbcType=INTEGER},
+      </if>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=CHAR},
+      </if>
+      <if test="isApply != null">
+        is_apply = #{isApply,jdbcType=TINYINT},
+      </if>
+      <if test="grpName != null">
+        grp_name = #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliName != null">
+        cli_name = #{cliName,jdbcType=VARCHAR},
+      </if>
+      <if test="cliTel != null">
+        cli_tel = #{cliTel,jdbcType=VARCHAR},
+      </if>
+      <if test="subType != null">
+        sub_type = #{subType,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=TINYINT},
       </if>
@@ -76,6 +225,15 @@
     update jdej_store_customer
     set store_id = #{storeId,jdbcType=INTEGER},
       customer_id = #{customerId,jdbcType=INTEGER},
+      cli_id = #{cliId,jdbcType=INTEGER},
+      customer_type = #{customerType,jdbcType=CHAR},
+      is_apply = #{isApply,jdbcType=TINYINT},
+      grp_name = #{grpName,jdbcType=VARCHAR},
+      cli_name = #{cliName,jdbcType=VARCHAR},
+      cli_tel = #{cliTel,jdbcType=VARCHAR},
+      sub_type = #{subType,jdbcType=CHAR},
+      status = #{status,jdbcType=CHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
       valid = #{valid,jdbcType=TINYINT}
     where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
   </update>

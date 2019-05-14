@@ -27,6 +27,9 @@ public class OrderConditiondto {
     @ApiModelProperty(value = "买家姓名")
     private String customerName;
 
+    @ApiModelProperty(value = "买家id")
+    private Integer customerId;
+
     @ApiModelProperty(value = "订单状态 0 已取消 1 待确认 2 已确认 3 已发货")
     private Byte orderStatus;
 

@@ -1,7 +1,6 @@
 package com.miquankj.api.service;
 
 import com.miquankj.api.entity.BrandInfo;
-import com.miquankj.api.entity.Store;
 
 import java.util.Map;
 
