@@ -33,22 +33,22 @@ public class OrderConditiondto {
     @ApiModelProperty(value = "订单状态 0 已取消 1 待确认 2 已确认 3 已发货")
     private Byte orderStatus;
 
-    @ApiModelProperty(value = "是否样品订单 0 否 1 是",required = true)
+    @ApiModelProperty(value = "是否样品订单 0 否 1 是")
     private Byte isSpecimen;
 
-    @ApiModelProperty(value = "下单区间开始时间",required = true)
+    @ApiModelProperty(value = "下单区间开始时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTimeStart;
 
-    @ApiModelProperty(value = "下单区间结束时间",required = true)
+    @ApiModelProperty(value = "下单区间结束时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date orderTimeEnd;
 
-    @ApiModelProperty(value = "当前页码.从0开始", required = true)
+    @ApiModelProperty(value = "当前页码.从0开始")
     private int pageNum = 0;
 
-    @ApiModelProperty(value = "分页大小", required = true)
+    @ApiModelProperty(value = "分页大小")
     private int pageSize = 10;
 }

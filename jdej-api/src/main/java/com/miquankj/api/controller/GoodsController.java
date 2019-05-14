@@ -13,6 +13,7 @@ import com.miquankj.api.vo.ResultVO;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,6 +113,10 @@ public class GoodsController {
     @ApiResponse(code = 15, message = "商品不存在")
     @GetMapping("/findAll")
     public ResultVO findAllGoodsByCondition(GoodsConditiondto conditiondto) {
+//        if (StringUtils.isEmpty(conditiondto.getPageNum()) || StringUtils.isEmpty(conditiondto.getPageSize())) {
+//            conditiondto.setPageNum(0);
+//            conditiondto.setPageSize(10);
+//        }
         Map<String, Object> goodsMap = goodsService.findAllPro(conditiondto);
         if (goodsMap.get("goodsList") == null) {
             log.error("【商品】 商品不存在，goodsMap={}", goodsMap);

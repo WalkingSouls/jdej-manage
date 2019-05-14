@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -45,7 +46,7 @@ public class test {
 //            e.printStackTrace();
 //        }
 
-        test2();
+        test3();
     }
     public static void test(){
         int a = 1;
@@ -65,11 +66,17 @@ public class test {
         keySet.forEach(x-> System.out.println(x.toString()));
     }
     public static void test1(){
-        String encrypt = MD5Util.encrypt("zs789123ZS");
+        String encrypt = MD5Util.encrypt("admin");
         System.out.println(encrypt);
     }
     public static void test2(){
         boolean verifyPass = MD5Util.verifyPass("zs789123ZS", "6365F82AF70FF4B6CBA7EB63112CD3DA");
         System.out.println(verifyPass);
+    }
+    public static void test3(){
+        String today = TimeUtil.getToday();
+        System.out.println(today);
+        String nextDay = TimeUtil.getNextDay(today, "-3");
+        System.out.println(nextDay);
     }
 }

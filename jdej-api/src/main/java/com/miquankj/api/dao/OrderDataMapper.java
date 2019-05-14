@@ -4,6 +4,9 @@ import com.miquankj.api.entity.OrderData;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.util.List;
+
 @Mapper
 @Component
 public interface OrderDataMapper {
@@ -18,4 +21,8 @@ public interface OrderDataMapper {
     int updateByPrimaryKeySelective(OrderData record);
 
     int updateByPrimaryKey(OrderData record);
+
+    OrderData selectByDate(int storeId, Date yesterday);
+
+    List<OrderData> selectByDates(int storeId, Date begin, Date end);
 }

@@ -20,4 +20,6 @@ public interface OrderService {
     Integer createOrder(Order order);
 
     Integer updateOrder(Order order);
+
+    int findCounts(Order order);
 }

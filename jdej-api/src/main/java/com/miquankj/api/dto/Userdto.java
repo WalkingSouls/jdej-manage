@@ -18,7 +18,7 @@ public class Userdto {
     private String password;
 
     @ApiModelProperty(value = "记住我功能，0 否 1 是")
-    private Byte rememberMe;
+    private Byte rememberMe = 0;
 
     @ApiModelProperty(value = "回调")
     private String callback;

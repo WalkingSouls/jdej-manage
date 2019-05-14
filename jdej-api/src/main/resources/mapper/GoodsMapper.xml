@@ -1,562 +1,569 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miquankj.api.dao.GoodsMapper">
-  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Goods">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="com_main_pic" jdbcType="VARCHAR" property="comMainPic" />
-    <result column="com_name" jdbcType="VARCHAR" property="comName" />
-    <result column="com_type" jdbcType="INTEGER" property="comType" />
-    <result column="rule" jdbcType="CHAR" property="rule" />
-    <result column="distribution" jdbcType="CHAR" property="distribution" />
-    <result column="discount" jdbcType="DOUBLE" property="discount" />
-    <result column="delivery_days" jdbcType="INTEGER" property="deliveryDays" />
-    <result column="shipping_state" jdbcType="CHAR" property="shippingState" />
-    <result column="freight" jdbcType="DOUBLE" property="freight" />
-    <result column="sample_state" jdbcType="CHAR" property="sampleState" />
-    <result column="shelf_state" jdbcType="CHAR" property="shelfState" />
-    <result column="shelf_timed" jdbcType="TIMESTAMP" property="shelfTimed" />
-    <result column="roof_state" jdbcType="CHAR" property="roofState" />
-    <result column="add_date" jdbcType="TIMESTAMP" property="addDate" />
-    <result column="add_bis" jdbcType="VARCHAR" property="addBis" />
-    <result column="add_cli" jdbcType="VARCHAR" property="addCli" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="stock" jdbcType="INTEGER" property="stock" />
-    <result column="update_cli" jdbcType="VARCHAR" property="updateCli" />
-    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="num" jdbcType="INTEGER" property="num" />
-    <result column="seq_no" jdbcType="INTEGER" property="seqNo" />
-    <result column="recommend" jdbcType="CHAR" property="recommend" />
-    <result column="state" jdbcType="CHAR" property="state" />
-    <result column="com_deta_pic" jdbcType="LONGVARCHAR" property="comDetaPic" />
-    <result column="cms_remark" jdbcType="LONGVARCHAR" property="cmsRemark" />
-  </resultMap>
-  <resultMap id="goodsPrice" type="com.miquankj.api.entity.Goods" extends="BaseResultMap">
-    <collection property="list" javaType="List" ofType="com.miquankj.api.entity.GoodsPrice">
-      <id column="id" jdbcType="INTEGER" property="id" />
-      <result column="seq_no" jdbcType="INTEGER" property="seqNo" />
-      <result column="cms_id" jdbcType="INTEGER" property="cmsId" />
-      <result column="price_type" jdbcType="CHAR" property="priceType" />
-      <result column="min_num" jdbcType="INTEGER" property="minNum" />
-      <result column="max_num" jdbcType="INTEGER" property="maxNum" />
-      <result column="cms_price" jdbcType="DOUBLE" property="cmsPrice" />
-      <result column="cms_stock" jdbcType="INTEGER" property="cmsStock" />
-      <result column="cms_model" jdbcType="VARCHAR" property="cmsModel" />
-    </collection>
-  </resultMap>
-  <resultMap id="goodsdto" type="com.miquankj.api.dto.Goodsdto">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="com_name" jdbcType="VARCHAR" property="comName" />
-    <result column="add_bis" jdbcType="VARCHAR" property="addBis" />
-    <result column="com_main_pic" jdbcType="VARCHAR" property="comMainPic" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="stock" jdbcType="INTEGER" property="stock" />
-    <result column="add_date" jdbcType="TIMESTAMP" property="addDate" />
-    <result column="state" jdbcType="CHAR" property="state" />
-    <result column="recommend" jdbcType="CHAR" property="recommend" />
-  </resultMap>
-  <sql id="Goodsdto_List">
+    <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Goods">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="com_main_pic" jdbcType="VARCHAR" property="comMainPic"/>
+        <result column="com_name" jdbcType="VARCHAR" property="comName"/>
+        <result column="com_type" jdbcType="INTEGER" property="comType"/>
+        <result column="rule" jdbcType="CHAR" property="rule"/>
+        <result column="distribution" jdbcType="CHAR" property="distribution"/>
+        <result column="discount" jdbcType="DOUBLE" property="discount"/>
+        <result column="delivery_days" jdbcType="INTEGER" property="deliveryDays"/>
+        <result column="shipping_state" jdbcType="CHAR" property="shippingState"/>
+        <result column="freight" jdbcType="DOUBLE" property="freight"/>
+        <result column="sample_state" jdbcType="CHAR" property="sampleState"/>
+        <result column="shelf_state" jdbcType="CHAR" property="shelfState"/>
+        <result column="shelf_timed" jdbcType="TIMESTAMP" property="shelfTimed"/>
+        <result column="roof_state" jdbcType="CHAR" property="roofState"/>
+        <result column="add_date" jdbcType="TIMESTAMP" property="addDate"/>
+        <result column="add_bis" jdbcType="VARCHAR" property="addBis"/>
+        <result column="add_cli" jdbcType="VARCHAR" property="addCli"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="update_cli" jdbcType="VARCHAR" property="updateCli"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="seq_no" jdbcType="INTEGER" property="seqNo"/>
+        <result column="recommend" jdbcType="CHAR" property="recommend"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="com_deta_pic" jdbcType="LONGVARCHAR" property="comDetaPic"/>
+        <result column="cms_remark" jdbcType="LONGVARCHAR" property="cmsRemark"/>
+    </resultMap>
+    <resultMap id="goodsPrice" type="com.miquankj.api.entity.Goods" extends="BaseResultMap">
+        <collection property="list" javaType="List" ofType="com.miquankj.api.entity.GoodsPrice">
+            <id column="id" jdbcType="INTEGER" property="id"/>
+            <result column="seq_no" jdbcType="INTEGER" property="seqNo"/>
+            <result column="cms_id" jdbcType="INTEGER" property="cmsId"/>
+            <result column="price_type" jdbcType="CHAR" property="priceType"/>
+            <result column="min_num" jdbcType="INTEGER" property="minNum"/>
+            <result column="max_num" jdbcType="INTEGER" property="maxNum"/>
+            <result column="cms_price" jdbcType="DOUBLE" property="cmsPrice"/>
+            <result column="cms_stock" jdbcType="INTEGER" property="cmsStock"/>
+            <result column="cms_model" jdbcType="VARCHAR" property="cmsModel"/>
+        </collection>
+    </resultMap>
+    <resultMap id="goodsdto" type="com.miquankj.api.dto.Goodsdto">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="com_name" jdbcType="VARCHAR" property="comName"/>
+        <result column="add_bis" jdbcType="VARCHAR" property="addBis"/>
+        <result column="com_main_pic" jdbcType="VARCHAR" property="comMainPic"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="add_date" jdbcType="TIMESTAMP" property="addDate"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="recommend" jdbcType="CHAR" property="recommend"/>
+    </resultMap>
+    <sql id="Goodsdto_List">
     id, com_name, add_bis, com_main_pic, price, stock, add_date, state, recommend
   </sql>
-  <sql id="Base_Column_List">
-    id, com_main_pic, com_name, com_type, rule, distribution, discount, delivery_days, 
-    shipping_state, freight, sample_state, shelf_state, shelf_timed, roof_state, add_date, 
-    add_bis, add_cli, price, stock, update_cli, update_date, num, seq_no, recommend, 
+    <sql id="Base_Column_List">
+    id, com_main_pic, com_name, com_type, rule, distribution, discount, delivery_days,
+    shipping_state, freight, sample_state, shelf_state, shelf_timed, roof_state, add_date,
+    add_bis, add_cli, price, stock, update_cli, update_date, num, seq_no, recommend,
     state, com_deta_pic, cms_remark
   </sql>
 
-  <select id="selectCountsByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(*) from cms_goods
-    where add_bis = #{addBis} and
-    <if test="comName != null and comName != ''">
-      com_name = #{comName} and
-    </if>
-    <if test="state != null and state != ''">
-      state = #{state} and
-    </if>
-    <if test="recommend != null and recommend != ''">
-      recommend = #{recommend} and
-    </if>
-    add_date between #{startTime} and #{endTime}
-  </select>
-  <select id="selectByCondition" parameterType="java.util.Map" resultMap="goodsdto">
-    select
-    <include refid="Goodsdto_List"/>
-    ,
-    <include refid="Goodsdto_List"/>
-    from cms_goods
-    where add_bis = #{addBis} and
-    <if test="comName != null and comName != ''">
-      com_name = #{comName} and
-    </if>
-    <if test="state != null and state != ''">
-      state = #{state} and
-    </if>
-    <if test="recommend != null and recommend != ''">
-      recommend = #{recommend} and
-    </if>
-    add_date between #{startTime} and #{endTime}
-    order by add_date desc
-    limit #{startRecord},#{pageSize}
-  </select>
-  <update id="changetGoodsStatus" parameterType="java.util.Map">
-    update cms_goods
-    <set>
-      <if test="state != null">
-        state = #{state},
-      </if>
-      <if test="recommend != null and recommend != ''">
-        recommend = #{recommend},
-      </if>
-      <if test="updateMan != null and updateMan != ''">
-        update_cli = #{updateMan},
-      </if>
-      <if test="updateTime != null">
-        update_date = #{updateTime}
-      </if>
-    </set>
-    where id = #{goodsId} and add_bis = #{storeId}
-  </update>
+    <select id="selectCountsByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from cms_goods
+        where add_bis = #{addBis}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="comName != null and comName != ''">
+                com_name = #{comName} and
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state} and
+            </if>
+            <if test="recommend != null and recommend != ''">
+                recommend = #{recommend} and
+            </if>
+            <if test="startTime != null and endTime != null">
+                add_date between #{startTime} and #{endTime}
+            </if>
+        </trim>
+    </select>
+    <select id="selectByCondition" parameterType="java.util.Map" resultMap="goodsdto">
+        select
+        <include refid="Goodsdto_List"/>
+        ,
+        <include refid="Goodsdto_List"/>
+        from cms_goods
+        where add_bis = #{addBis}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="comName != null and comName != ''">
+                com_name = #{comName} and
+            </if>
+            <if test="state != null and state != ''">
+                state = #{state} and
+            </if>
+            <if test="recommend != null and recommend != ''">
+                recommend = #{recommend} and
+            </if>
+            <if test="startTime != null and endTime != null">
+                add_date between #{startTime} and #{endTime}
+            </if>
+        </trim>
+        order by add_date desc
+        limit #{startRecord},#{pageSize}
+    </select>
+    <update id="changetGoodsStatus" parameterType="java.util.Map">
+        update cms_goods
+        <set>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="recommend != null and recommend != ''">
+                recommend = #{recommend},
+            </if>
+            <if test="updateMan != null and updateMan != ''">
+                update_cli = #{updateMan},
+            </if>
+            <if test="updateTime != null">
+                update_date = #{updateTime}
+            </if>
+        </set>
+        where id = #{goodsId} and add_bis = #{storeId}
+    </update>
 
 
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Base_Column_List" />
-    from cms_goods
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Base_Column_List"/>
+        from cms_goods
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from cms_goods
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.miquankj.api.entity.Goods">
-    insert into cms_goods
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="comMainPic != null">
-        com_main_pic,
-      </if>
-      <if test="comName != null">
-        com_name,
-      </if>
-      <if test="comType != null">
-        com_type,
-      </if>
-      <if test="rule != null">
-        rule,
-      </if>
-      <if test="distribution != null">
-        distribution,
-      </if>
-      <if test="discount != null">
-        discount,
-      </if>
-      <if test="deliveryDays != null">
-        delivery_days,
-      </if>
-      <if test="shippingState != null">
-        shipping_state,
-      </if>
-      <if test="freight != null">
-        freight,
-      </if>
-      <if test="sampleState != null">
-        sample_state,
-      </if>
-      <if test="shelfState != null">
-        shelf_state,
-      </if>
-      <if test="shelfTimed != null">
-        shelf_timed,
-      </if>
-      <if test="roofState != null">
-        roof_state,
-      </if>
-      <if test="addDate != null">
-        add_date,
-      </if>
-      <if test="addBis != null">
-        add_bis,
-      </if>
-      <if test="addCli != null">
-        add_cli,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="stock != null">
-        stock,
-      </if>
-      <if test="updateCli != null">
-        update_cli,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="num != null">
-        num,
-      </if>
-      <if test="seqNo != null">
-        seq_no,
-      </if>
-      <if test="recommend != null">
-        recommend,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="comDetaPic != null">
-        com_deta_pic,
-      </if>
-      <if test="cmsRemark != null">
-        cms_remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="comMainPic != null">
-        #{comMainPic,jdbcType=VARCHAR},
-      </if>
-      <if test="comName != null">
-        #{comName,jdbcType=VARCHAR},
-      </if>
-      <if test="comType != null">
-        #{comType,jdbcType=INTEGER},
-      </if>
-      <if test="rule != null">
-        #{rule,jdbcType=CHAR},
-      </if>
-      <if test="distribution != null">
-        #{distribution,jdbcType=CHAR},
-      </if>
-      <if test="discount != null">
-        #{discount,jdbcType=DOUBLE},
-      </if>
-      <if test="deliveryDays != null">
-        #{deliveryDays,jdbcType=INTEGER},
-      </if>
-      <if test="shippingState != null">
-        #{shippingState,jdbcType=CHAR},
-      </if>
-      <if test="freight != null">
-        #{freight,jdbcType=DOUBLE},
-      </if>
-      <if test="sampleState != null">
-        #{sampleState,jdbcType=CHAR},
-      </if>
-      <if test="shelfState != null">
-        #{shelfState,jdbcType=CHAR},
-      </if>
-      <if test="shelfTimed != null">
-        #{shelfTimed,jdbcType=TIMESTAMP},
-      </if>
-      <if test="roofState != null">
-        #{roofState,jdbcType=CHAR},
-      </if>
-      <if test="addDate != null">
-        #{addDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addBis != null">
-        #{addBis,jdbcType=VARCHAR},
-      </if>
-      <if test="addCli != null">
-        #{addCli,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="updateCli != null">
-        #{updateCli,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="seqNo != null">
-        #{seqNo,jdbcType=INTEGER},
-      </if>
-      <if test="recommend != null">
-        #{recommend,jdbcType=CHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=CHAR},
-      </if>
-      <if test="comDetaPic != null">
-        #{comDetaPic,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="cmsRemark != null">
-        #{cmsRemark,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Goods">
-    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-      select last_insert_id()
-    </selectKey>
-    insert into cms_goods
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="comMainPic != null">
-        com_main_pic,
-      </if>
-      <if test="comName != null">
-        com_name,
-      </if>
-      <if test="comType != null">
-        com_type,
-      </if>
-      <if test="rule != null">
-        rule,
-      </if>
-      <if test="distribution != null">
-        distribution,
-      </if>
-      <if test="discount != null">
-        discount,
-      </if>
-      <if test="deliveryDays != null">
-        delivery_days,
-      </if>
-      <if test="shippingState != null">
-        shipping_state,
-      </if>
-      <if test="freight != null">
-        freight,
-      </if>
-      <if test="sampleState != null">
-        sample_state,
-      </if>
-      <if test="shelfState != null">
-        shelf_state,
-      </if>
-      <if test="shelfTimed != null">
-        shelf_timed,
-      </if>
-      <if test="roofState != null">
-        roof_state,
-      </if>
-      <if test="addDate != null">
-        add_date,
-      </if>
-      <if test="addBis != null">
-        add_bis,
-      </if>
-      <if test="addCli != null">
-        add_cli,
-      </if>
-      <if test="price != null">
-        price,
-      </if>
-      <if test="stock != null">
-        stock,
-      </if>
-      <if test="updateCli != null">
-        update_cli,
-      </if>
-      <if test="updateDate != null">
-        update_date,
-      </if>
-      <if test="num != null">
-        num,
-      </if>
-      <if test="seqNo != null">
-        seq_no,
-      </if>
-      <if test="recommend != null">
-        recommend,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="comDetaPic != null">
-        com_deta_pic,
-      </if>
-      <if test="cmsRemark != null">
-        cms_remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="comMainPic != null">
-        #{comMainPic,jdbcType=VARCHAR},
-      </if>
-      <if test="comName != null">
-        #{comName,jdbcType=VARCHAR},
-      </if>
-      <if test="comType != null">
-        #{comType,jdbcType=INTEGER},
-      </if>
-      <if test="rule != null">
-        #{rule,jdbcType=CHAR},
-      </if>
-      <if test="distribution != null">
-        #{distribution,jdbcType=CHAR},
-      </if>
-      <if test="discount != null">
-        #{discount,jdbcType=DOUBLE},
-      </if>
-      <if test="deliveryDays != null">
-        #{deliveryDays,jdbcType=INTEGER},
-      </if>
-      <if test="shippingState != null">
-        #{shippingState,jdbcType=CHAR},
-      </if>
-      <if test="freight != null">
-        #{freight,jdbcType=DOUBLE},
-      </if>
-      <if test="sampleState != null">
-        #{sampleState,jdbcType=CHAR},
-      </if>
-      <if test="shelfState != null">
-        #{shelfState,jdbcType=CHAR},
-      </if>
-      <if test="shelfTimed != null">
-        #{shelfTimed,jdbcType=TIMESTAMP},
-      </if>
-      <if test="roofState != null">
-        #{roofState,jdbcType=CHAR},
-      </if>
-      <if test="addDate != null">
-        #{addDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addBis != null">
-        #{addBis,jdbcType=VARCHAR},
-      </if>
-      <if test="addCli != null">
-        #{addCli,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="updateCli != null">
-        #{updateCli,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
-      </if>
-      <if test="seqNo != null">
-        #{seqNo,jdbcType=INTEGER},
-      </if>
-      <if test="recommend != null">
-        #{recommend,jdbcType=CHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=CHAR},
-      </if>
-      <if test="comDetaPic != null">
-        #{comDetaPic,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="cmsRemark != null">
-        #{cmsRemark,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Goods">
-    update cms_goods
-    <set>
-      <if test="comMainPic != null">
-        com_main_pic = #{comMainPic,jdbcType=VARCHAR},
-      </if>
-      <if test="comName != null">
-        com_name = #{comName,jdbcType=VARCHAR},
-      </if>
-      <if test="comType != null">
-        com_type = #{comType,jdbcType=INTEGER},
-      </if>
-      <if test="rule != null">
-        rule = #{rule,jdbcType=CHAR},
-      </if>
-      <if test="distribution != null">
-        distribution = #{distribution,jdbcType=CHAR},
-      </if>
-      <if test="discount != null">
-        discount = #{discount,jdbcType=DOUBLE},
-      </if>
-      <if test="deliveryDays != null">
-        delivery_days = #{deliveryDays,jdbcType=INTEGER},
-      </if>
-      <if test="shippingState != null">
-        shipping_state = #{shippingState,jdbcType=CHAR},
-      </if>
-      <if test="freight != null">
-        freight = #{freight,jdbcType=DOUBLE},
-      </if>
-      <if test="sampleState != null">
-        sample_state = #{sampleState,jdbcType=CHAR},
-      </if>
-      <if test="shelfState != null">
-        shelf_state = #{shelfState,jdbcType=CHAR},
-      </if>
-      <if test="shelfTimed != null">
-        shelf_timed = #{shelfTimed,jdbcType=TIMESTAMP},
-      </if>
-      <if test="roofState != null">
-        roof_state = #{roofState,jdbcType=CHAR},
-      </if>
-      <if test="addDate != null">
-        add_date = #{addDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addBis != null">
-        add_bis = #{addBis,jdbcType=VARCHAR},
-      </if>
-      <if test="addCli != null">
-        add_cli = #{addCli,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="stock != null">
-        stock = #{stock,jdbcType=INTEGER},
-      </if>
-      <if test="updateCli != null">
-        update_cli = #{updateCli,jdbcType=VARCHAR},
-      </if>
-      <if test="updateDate != null">
-        update_date = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
-      </if>
-      <if test="seqNo != null">
-        seq_no = #{seqNo,jdbcType=INTEGER},
-      </if>
-      <if test="recommend != null">
-        recommend = #{recommend,jdbcType=CHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=CHAR},
-      </if>
-      <if test="comDetaPic != null">
-        com_deta_pic = #{comDetaPic,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="cmsRemark != null">
-        cms_remark = #{cmsRemark,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Goods">
+    <insert id="insert" parameterType="com.miquankj.api.entity.Goods">
+        insert into cms_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="comMainPic != null">
+                com_main_pic,
+            </if>
+            <if test="comName != null">
+                com_name,
+            </if>
+            <if test="comType != null">
+                com_type,
+            </if>
+            <if test="rule != null">
+                rule,
+            </if>
+            <if test="distribution != null">
+                distribution,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="deliveryDays != null">
+                delivery_days,
+            </if>
+            <if test="shippingState != null">
+                shipping_state,
+            </if>
+            <if test="freight != null">
+                freight,
+            </if>
+            <if test="sampleState != null">
+                sample_state,
+            </if>
+            <if test="shelfState != null">
+                shelf_state,
+            </if>
+            <if test="shelfTimed != null">
+                shelf_timed,
+            </if>
+            <if test="roofState != null">
+                roof_state,
+            </if>
+            <if test="addDate != null">
+                add_date,
+            </if>
+            <if test="addBis != null">
+                add_bis,
+            </if>
+            <if test="addCli != null">
+                add_cli,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="updateCli != null">
+                update_cli,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="seqNo != null">
+                seq_no,
+            </if>
+            <if test="recommend != null">
+                recommend,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="comDetaPic != null">
+                com_deta_pic,
+            </if>
+            <if test="cmsRemark != null">
+                cms_remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="comMainPic != null">
+                #{comMainPic,jdbcType=VARCHAR},
+            </if>
+            <if test="comName != null">
+                #{comName,jdbcType=VARCHAR},
+            </if>
+            <if test="comType != null">
+                #{comType,jdbcType=INTEGER},
+            </if>
+            <if test="rule != null">
+                #{rule,jdbcType=CHAR},
+            </if>
+            <if test="distribution != null">
+                #{distribution,jdbcType=CHAR},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=DOUBLE},
+            </if>
+            <if test="deliveryDays != null">
+                #{deliveryDays,jdbcType=INTEGER},
+            </if>
+            <if test="shippingState != null">
+                #{shippingState,jdbcType=CHAR},
+            </if>
+            <if test="freight != null">
+                #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="sampleState != null">
+                #{sampleState,jdbcType=CHAR},
+            </if>
+            <if test="shelfState != null">
+                #{shelfState,jdbcType=CHAR},
+            </if>
+            <if test="shelfTimed != null">
+                #{shelfTimed,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roofState != null">
+                #{roofState,jdbcType=CHAR},
+            </if>
+            <if test="addDate != null">
+                #{addDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addBis != null">
+                #{addBis,jdbcType=VARCHAR},
+            </if>
+            <if test="addCli != null">
+                #{addCli,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="updateCli != null">
+                #{updateCli,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="seqNo != null">
+                #{seqNo,jdbcType=INTEGER},
+            </if>
+            <if test="recommend != null">
+                #{recommend,jdbcType=CHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=CHAR},
+            </if>
+            <if test="comDetaPic != null">
+                #{comDetaPic,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="cmsRemark != null">
+                #{cmsRemark,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertSelective" parameterType="com.miquankj.api.entity.Goods">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select last_insert_id()
+        </selectKey>
+        insert into cms_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="comMainPic != null">
+                com_main_pic,
+            </if>
+            <if test="comName != null">
+                com_name,
+            </if>
+            <if test="comType != null">
+                com_type,
+            </if>
+            <if test="rule != null">
+                rule,
+            </if>
+            <if test="distribution != null">
+                distribution,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="deliveryDays != null">
+                delivery_days,
+            </if>
+            <if test="shippingState != null">
+                shipping_state,
+            </if>
+            <if test="freight != null">
+                freight,
+            </if>
+            <if test="sampleState != null">
+                sample_state,
+            </if>
+            <if test="shelfState != null">
+                shelf_state,
+            </if>
+            <if test="shelfTimed != null">
+                shelf_timed,
+            </if>
+            <if test="roofState != null">
+                roof_state,
+            </if>
+            <if test="addDate != null">
+                add_date,
+            </if>
+            <if test="addBis != null">
+                add_bis,
+            </if>
+            <if test="addCli != null">
+                add_cli,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="updateCli != null">
+                update_cli,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="seqNo != null">
+                seq_no,
+            </if>
+            <if test="recommend != null">
+                recommend,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="comDetaPic != null">
+                com_deta_pic,
+            </if>
+            <if test="cmsRemark != null">
+                cms_remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="comMainPic != null">
+                #{comMainPic,jdbcType=VARCHAR},
+            </if>
+            <if test="comName != null">
+                #{comName,jdbcType=VARCHAR},
+            </if>
+            <if test="comType != null">
+                #{comType,jdbcType=INTEGER},
+            </if>
+            <if test="rule != null">
+                #{rule,jdbcType=CHAR},
+            </if>
+            <if test="distribution != null">
+                #{distribution,jdbcType=CHAR},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=DOUBLE},
+            </if>
+            <if test="deliveryDays != null">
+                #{deliveryDays,jdbcType=INTEGER},
+            </if>
+            <if test="shippingState != null">
+                #{shippingState,jdbcType=CHAR},
+            </if>
+            <if test="freight != null">
+                #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="sampleState != null">
+                #{sampleState,jdbcType=CHAR},
+            </if>
+            <if test="shelfState != null">
+                #{shelfState,jdbcType=CHAR},
+            </if>
+            <if test="shelfTimed != null">
+                #{shelfTimed,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roofState != null">
+                #{roofState,jdbcType=CHAR},
+            </if>
+            <if test="addDate != null">
+                #{addDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addBis != null">
+                #{addBis,jdbcType=VARCHAR},
+            </if>
+            <if test="addCli != null">
+                #{addCli,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="updateCli != null">
+                #{updateCli,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="seqNo != null">
+                #{seqNo,jdbcType=INTEGER},
+            </if>
+            <if test="recommend != null">
+                #{recommend,jdbcType=CHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=CHAR},
+            </if>
+            <if test="comDetaPic != null">
+                #{comDetaPic,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="cmsRemark != null">
+                #{cmsRemark,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Goods">
+        update cms_goods
+        <set>
+            <if test="comMainPic != null">
+                com_main_pic = #{comMainPic,jdbcType=VARCHAR},
+            </if>
+            <if test="comName != null">
+                com_name = #{comName,jdbcType=VARCHAR},
+            </if>
+            <if test="comType != null">
+                com_type = #{comType,jdbcType=INTEGER},
+            </if>
+            <if test="rule != null">
+                rule = #{rule,jdbcType=CHAR},
+            </if>
+            <if test="distribution != null">
+                distribution = #{distribution,jdbcType=CHAR},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=DOUBLE},
+            </if>
+            <if test="deliveryDays != null">
+                delivery_days = #{deliveryDays,jdbcType=INTEGER},
+            </if>
+            <if test="shippingState != null">
+                shipping_state = #{shippingState,jdbcType=CHAR},
+            </if>
+            <if test="freight != null">
+                freight = #{freight,jdbcType=DOUBLE},
+            </if>
+            <if test="sampleState != null">
+                sample_state = #{sampleState,jdbcType=CHAR},
+            </if>
+            <if test="shelfState != null">
+                shelf_state = #{shelfState,jdbcType=CHAR},
+            </if>
+            <if test="shelfTimed != null">
+                shelf_timed = #{shelfTimed,jdbcType=TIMESTAMP},
+            </if>
+            <if test="roofState != null">
+                roof_state = #{roofState,jdbcType=CHAR},
+            </if>
+            <if test="addDate != null">
+                add_date = #{addDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addBis != null">
+                add_bis = #{addBis,jdbcType=VARCHAR},
+            </if>
+            <if test="addCli != null">
+                add_cli = #{addCli,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="updateCli != null">
+                update_cli = #{updateCli,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="seqNo != null">
+                seq_no = #{seqNo,jdbcType=INTEGER},
+            </if>
+            <if test="recommend != null">
+                recommend = #{recommend,jdbcType=CHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=CHAR},
+            </if>
+            <if test="comDetaPic != null">
+                com_deta_pic = #{comDetaPic,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="cmsRemark != null">
+                cms_remark = #{cmsRemark,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Goods">
     update cms_goods
     set com_main_pic = #{comMainPic,jdbcType=VARCHAR},
       com_name = #{comName,jdbcType=VARCHAR},

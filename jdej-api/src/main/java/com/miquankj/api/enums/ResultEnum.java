@@ -31,6 +31,8 @@ public enum ResultEnum {
     USER_LOGINED(28,"您的账号已在另一个地方登录，如果不是您本人操作，请联系店铺管理员修改密码"),
     ROLE_STATUS_ERROR(29,"角色状态异常"),
     ROLE_NOT_EXIST(30,"角色不存在"),
+    CUSTOMER_NOT_EXIST(31,"客户不存在"),
+    APPLICATION_ERROR(32,"审核明细异常"),
     ;
     private Integer code;
 

@@ -16,11 +16,13 @@
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="is_admin" jdbcType="TINYINT" property="isAdmin" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
   </resultMap>
   <sql id="Base_Column_List">
-   user_id, store_id, store_name, role_id, account, password, name, status, create_time,
-    is_login, error_pass, login_time, last_login_time, is_admin
+    user_id, store_id, store_name, role_id, account, password, name, status, create_time,
+    is_login, error_pass, login_time, last_login_time, is_admin, user_type
   </sql>
+
 
   <select id="selectByUser" parameterType="com.miquankj.api.entity.User" resultMap="BaseResultMap">
     select
@@ -28,48 +30,48 @@
     from jdej_user
     where
     <trim prefix="" suffix="" prefixOverrides="" suffixOverrides="and">
-    <if test="userId != null">
-      user_id = #{userId,jdbcType=INTEGER} and
-    </if>
-    <if test="storeId != null">
-      store_id = #{storeId,jdbcType=INTEGER} and
-    </if>
-    <if test="storeName != null and storeName != ''">
-      store_name = #{storeName,jdbcType=VARCHAR} and
-    </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER} and
+      </if>
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER} and
+      </if>
+      <if test="storeName != null and storeName != ''">
+        store_name = #{storeName,jdbcType=VARCHAR} and
+      </if>
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=INTEGER} and
       </if>
-    <if test="account != null and account != ''">
-      account = #{account,jdbcType=VARCHAR} and
-    </if>
-    <if test="password != null and password != ''">
-      password = #{password,jdbcType=VARCHAR} and
-    </if>
-    <if test="name != null and name != ''">
-      name = #{name,jdbcType=VARCHAR} and
-    </if>
-    <if test="status != null">
-      status = #{status,jdbcType=TINYINT} and
-    </if>
-    <if test="createTime != null">
-      create_time = #{createTime,jdbcType=TIMESTAMP} and
-    </if>
-    <if test="isLogin != null">
-      is_login = #{isLogin,jdbcType=TINYINT} and
-    </if>
-    <if test="errorPass != null">
-      error_pass = #{errorPass,jdbcType=INTEGER} and
-    </if>
-    <if test="loginTime != null">
-      login_time = #{loginTime,jdbcType=TIMESTAMP} and
-    </if>
-    <if test="lastLoginTime != null">
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP and
-    </if>
-    <if test="isAdmin != null">
-      is_admin = #{isAdmin,jdbcType=TINYINT}
-    </if>
+      <if test="account != null and account != ''">
+        account = #{account,jdbcType=VARCHAR} and
+      </if>
+      <if test="password != null and password != ''">
+        password = #{password,jdbcType=VARCHAR} and
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR} and
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT} and
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP} and
+      </if>
+      <if test="isLogin != null">
+        is_login = #{isLogin,jdbcType=TINYINT} and
+      </if>
+      <if test="errorPass != null">
+        error_pass = #{errorPass,jdbcType=INTEGER} and
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP} and
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP and
+      </if>
+      <if test="isAdmin != null">
+        is_admin = #{isAdmin,jdbcType=TINYINT}
+      </if>
     </trim>
   </select>
   <update id="updateErrorPass" parameterType="java.lang.Integer">
@@ -77,6 +79,7 @@
      set error_pass = error_pass + 1
      where user_id = #{userId}
   </update>
+
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -90,16 +93,18 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.miquankj.api.entity.User">
-    insert into jdej_user (user_id, store_id, store_name, 
+    insert into jdej_user (user_id, store_id, store_name,
       role_id, account, password,
       name, status, create_time,
       is_login, error_pass, login_time,
-      last_login_time, is_admin)
+      last_login_time, is_admin, user_type
+      )
     values (#{userId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR},
       #{roleId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{name,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
       #{isLogin,jdbcType=TINYINT}, #{errorPass,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP},
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{isAdmin,jdbcType=TINYINT})
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{isAdmin,jdbcType=TINYINT}, #{userType,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.miquankj.api.entity.User">
     insert into jdej_user
@@ -146,6 +151,9 @@
       <if test="isAdmin != null">
         is_admin,
       </if>
+      <if test="userType != null">
+        user_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -189,6 +197,9 @@
       </if>
       <if test="isAdmin != null">
         #{isAdmin,jdbcType=TINYINT},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -234,6 +245,9 @@
       <if test="isAdmin != null">
         is_admin = #{isAdmin,jdbcType=TINYINT},
       </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -251,7 +265,8 @@
       error_pass = #{errorPass,jdbcType=INTEGER},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      is_admin = #{isAdmin,jdbcType=TINYINT}
+      is_admin = #{isAdmin,jdbcType=TINYINT},
+      user_type = #{userType,jdbcType=TINYINT}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

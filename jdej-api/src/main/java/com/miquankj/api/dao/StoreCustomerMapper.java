@@ -26,4 +26,6 @@ public interface StoreCustomerMapper {
     List<Integer> selectCusIds(@Param("storeId") Integer storeId,@Param("listType") Integer listType);
 
     List<Integer> selectCusByCondition(Map<String,Object> map);
+
+    int selectCountById(int storeId, int isApply);
 }

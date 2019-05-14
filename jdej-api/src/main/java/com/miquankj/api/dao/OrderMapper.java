@@ -29,4 +29,6 @@ public interface OrderMapper {
     Integer changetOrderStatus(Map<String,Object> map);
 
     List<Order> selectOrdersByCondition(Map<String,Object> map);
+
+    int selectCounts(Order order);
 }

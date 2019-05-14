@@ -1,7 +1,7 @@
 package com.miquankj.api.service.impl;
 
 import com.miquankj.api.dao.StoreCustomerMapper;
-import com.miquankj.api.dto.Customerdto;
+import com.miquankj.api.dto.CusCondidto;
 import com.miquankj.api.service.StoreCustomerService;
 import com.miquankj.api.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +28,15 @@ public class StoreCustomerServiceImpl implements StoreCustomerService {
     }
 
     @Override
-    public List<Integer> findCusByCondition(Customerdto customerdto) {
+    public List<Integer> findCusByCondition(CusCondidto customerdto) {
         Map<String, Object> map = MapUtil.entityToMap(customerdto);
         List<Integer>  Ids = storeCustomerMapper.selectCusByCondition(map);
         return Ids;
+    }
+
+    @Override
+    public int findCountById(int storeId, int isApply) {
+        int applyAmount = storeCustomerMapper.selectCountById(storeId,isApply);
+        return applyAmount;
     }
 }

@@ -50,5 +50,7 @@ public class User {
     @ApiModelProperty(value = "店铺管理员 0 否 1 是")
     private Byte isAdmin = 0;
 
+    @ApiModelProperty(value = "用户类型 0 生产厂商 1 经销商 2 代理商")
+    private Byte userType;
 
 }

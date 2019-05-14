@@ -27,7 +27,18 @@ public class TimeUtil {
         return cal.getTime();
     }
 
-
+    /**
+     * 获取今天日期
+     * @return
+     */
+    public static String getToday(){
+        int y,m,d;
+        Calendar cal=Calendar.getInstance();
+        y=cal.get(Calendar.YEAR);
+        m=cal.get(Calendar.MONTH);
+        d=cal.get(Calendar.DATE);
+        return y +"-"+ m + "-" + d;
+    }
     /**
      * 获取当天结束时间
      * @return

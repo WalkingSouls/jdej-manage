@@ -1,8 +1,9 @@
 package com.miquankj.api.service.impl;
 
 import com.miquankj.api.dao.GrpInfoMapper;
-import com.miquankj.api.entity.GrpInfo;
+import com.miquankj.api.dto.*;
 import com.miquankj.api.service.MemberService;
+import com.miquankj.api.utils.MapUtil;
 import com.miquankj.api.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,21 +22,62 @@ public class MemberServiceImpl implements MemberService {
     private GrpInfoMapper grpInfoMapper;
 
     @Override
-    public Map<String, Object> findCustomersByIds(List<Integer> cusIdList, Integer pageNum, Integer pageSize) {
-        Integer totalRecord = cusIdList.size();
-        ArrayList<GrpInfo> grpInfoList = new ArrayList<>();
-        for (int i = pageNum * pageSize; i <= pageSize; i++) {
-            GrpInfo grpInfo = grpInfoMapper.selectByPrimaryKey(cusIdList.get(i));
+    public Map<String, Object> findCusByCon(List<Integer> cusIds, Condto consumerdto) {
+        Map<String, Object> map = MapUtil.entityToMap(consumerdto);
+        Integer totalRecord = cusIds.size();
+        ArrayList<ConReturndto> grpInfoList = new ArrayList<>();
+        Integer pageNum = consumerdto.getPageNum();
+        Integer pageSize = consumerdto.getPageSize();
+        Integer length = pageSize >= cusIds.size() ? cusIds.size() : pageSize;
+        for (int i = pageNum * pageSize; i < length; i++) {
+            map.put("customerId",cusIds.get(i));
+            ConReturndto grpInfo = grpInfoMapper.selectByCon(map);
             grpInfoList.add(grpInfo);
         }
-        PageUtil<GrpInfo> grpInfoPageUtil = new PageUtil<GrpInfo>();
-        Map<String, Object> map = grpInfoPageUtil.objectPageToMap(pageNum, pageSize, totalRecord, grpInfoList);
-        return map;
+        PageUtil<ConReturndto> grpInfoPageUtil = new PageUtil<>();
+        Map<String, Object> grpInfoMap = grpInfoPageUtil.objectPageToMap(pageNum, pageSize, totalRecord, grpInfoList);
+        return grpInfoMap;
     }
 
     @Override
-    public GrpInfo findApplyDetail(Integer storeId, Integer cliId) {
-        GrpInfo grpInfo = grpInfoMapper.selectByPrimaryKey(cliId);
-        return grpInfo;
+    public Map<String, Object> findCusByDealer(List<Integer> cusIds, Dealerdto dealerdto) {
+        Map<String, Object> map = MapUtil.entityToMap(dealerdto);
+        Integer totalRecord = cusIds.size();
+        ArrayList<DealerReturndto> grpInfoList = new ArrayList<>();
+        Integer pageNum = dealerdto.getPageNum();
+        Integer pageSize = dealerdto.getPageSize();
+        Integer length = pageSize >= cusIds.size() ? cusIds.size() : pageSize;
+        for (int i = pageNum * pageSize; i < length; i++) {
+            map.put("customerId",cusIds.get(i));
+            DealerReturndto grpInfo = grpInfoMapper.selectByDealer(map);
+            grpInfoList.add(grpInfo);
+        }
+        PageUtil<DealerReturndto> grpInfoPageUtil = new PageUtil<>();
+        Map<String, Object> grpInfoMap = grpInfoPageUtil.objectPageToMap(pageNum, pageSize, totalRecord, grpInfoList);
+        return grpInfoMap;
+    }
+
+    @Override
+    public Map<String, Object> findCusByApply(List<Integer> cusIds, Applydto applydto) {
+        Map<String, Object> map = MapUtil.entityToMap(applydto);
+        Integer totalRecord = cusIds.size();
+        ArrayList<ApplyReturndto> grpInfoList = new ArrayList<>();
+        Integer pageNum = applydto.getPageNum();
+        Integer pageSize = applydto.getPageSize();
+        Integer length = pageSize >= cusIds.size() ? cusIds.size() : pageSize;
+        for (int i = pageNum * pageSize; i < length; i++) {
+            map.put("customerId", cusIds.get(i));
+            ApplyReturndto grpInfo = grpInfoMapper.selectByApply(map);
+            grpInfoList.add(grpInfo);
+        }
+        PageUtil<ApplyReturndto> grpInfoPageUtil = new PageUtil<>();
+        Map<String, Object> grpInfoMap = grpInfoPageUtil.objectPageToMap(pageNum, pageSize, totalRecord, grpInfoList);
+        return grpInfoMap;
+//        return  null;
+    }
+
+    @Override
+    public ApplyDetaildto findByPK(Integer customerId) {
+        return grpInfoMapper.selectByPK(customerId);
     }
 }

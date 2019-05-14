@@ -52,7 +52,7 @@ public class OrderController {
     @GetMapping("/findOrders")
     public ResultVO findOrdersByCondition(OrderConditiondto orderCondition) {
         Map<String, Object> orderMap = orderService.findOrderByCondition(orderCondition);
-        if (orderMap.get("orderList") == null) {
+        if (orderMap.get("list") == null) {
             log.error("【订单】 订单不存在，order={}", orderMap);
             return ResultVOUtil.error(ResultEnum.ORDER_NOT_EXIST.getCode(), ResultEnum.ORDER_NOT_EXIST.getMsg());
         }

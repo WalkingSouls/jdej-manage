@@ -128,4 +128,10 @@ public class OrderServiceImpl implements OrderService {
     public Integer updateOrder(Order order) {
         return null;
     }
+
+    @Override
+    public int findCounts(Order order) {
+        int counts = orderMapper.selectCounts(order);
+        return counts;
+    }
 }

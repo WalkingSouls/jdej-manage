@@ -1,6 +1,6 @@
 package com.miquankj.api.service;
 
-import com.miquankj.api.dto.Customerdto;
+import com.miquankj.api.dto.CusCondidto;
 
 import java.util.List;
 
@@ -12,5 +12,7 @@ import java.util.List;
 public interface StoreCustomerService {
     List<Integer> findCusIds(Integer storeId, Integer listType);
 
-    List<Integer> findCusByCondition(Customerdto customerdto);
+    List<Integer> findCusByCondition(CusCondidto customerdto);
+
+    int findCountById(int storeId, int isApply);
 }

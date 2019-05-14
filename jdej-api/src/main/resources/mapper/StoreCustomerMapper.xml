@@ -21,8 +21,14 @@
     cli_tel, sub_type, status, add_time, valid
   </sql>
 
+  <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from jdej_store_customer
+    where store_id = #{storeId} and is_apply = #{isApply}
+  </select>
+
   <select id="selectCusByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select customer_id from dej_store_customer
+    select customer_id from jdej_store_customer
     where
     <trim suffixOverrides="and">
       <if test="storeId != null">
@@ -50,13 +56,15 @@
         status = #{status,jdbcType=CHAR} and
       </if>
       <if test="timeStart != null and timeEnd != null">
-        add_time between  #{timeStart} and #{timeEnd}
+        DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;=  DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
+        and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;=  DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
+
       </if>
     </trim>
   </select>
 
   <select id="selectCusIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select customer_id from dej_store_customer
+    select customer_id from jdej_store_customer
     where store_id= #{storeId} and valid = 1 and
     <choose>
       <when test="listType == 0">

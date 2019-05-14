@@ -22,10 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -71,16 +68,16 @@ public class UserController {
             @ApiResponse(code = 11, message = "店铺状态异常"),
 
     })
-    @GetMapping("/login")
-    public ResultVO login(Userdto userdto, HttpServletResponse response, HttpServletRequest request) {
+    @PostMapping("/login")
+    public ResultVO login(@RequestBody Userdto userdto, HttpServletResponse response, HttpServletRequest request) {
         User user = userService.findUser(userdto);
-        System.out.println(user.toString());
-        String encryptBASE64 = MD5Util.encryptBASE64(userdto.getPassword());
-        String passInput = MD5Util.decryptBASE64(encryptBASE64);
         if (user == null) {
             log.error("【用户】 账号不存在，user={}", userdto);
             return ResultVOUtil.error(ResultEnum.USER_NOT_EXIST.getCode(), ResultEnum.USER_NOT_EXIST.getMsg());
         }
+        System.out.println(user.toString());
+        String encryptBASE64 = MD5Util.encryptBASE64(userdto.getPassword());
+        String passInput = MD5Util.decryptBASE64(encryptBASE64);
         try {
             if (user.getErrorPass() > 3) {
                 log.error("【用户】 密码输错次数超过3次，请明日再来或联系店铺管理员，user={}", user);
@@ -102,10 +99,10 @@ public class UserController {
             log.error("【用户】 账号状态异常，请联系店铺管理员，user={}", user);
             return ResultVOUtil.error(ResultEnum.USER_STATUS_ERROR.getCode(), ResultEnum.USER_STATUS_ERROR.getMsg());
         }
-        if (user.getIsLogin() == 1) {
-            log.error("【用户】 您的账号已在另一个地方登录，如果不是您本人操作，请联系店铺管理员修改密码，user={}", user);
-            return ResultVOUtil.error(ResultEnum.USER_LOGINED.getCode(), ResultEnum.USER_LOGINED.getMsg());
-        }
+//        if (user.getIsLogin() == 1) {
+//            log.error("【用户】 您的账号已在另一个地方登录，如果不是您本人操作，请联系店铺管理员修改密码，user={}", user);
+//            return ResultVOUtil.error(ResultEnum.USER_LOGINED.getCode(), ResultEnum.USER_LOGINED.getMsg());
+//        }
         Role role = roleServcie.findRole(user.getRoleId());
         if(role == null){
             log.error("【用户】 角色不存在，role={}", role);
@@ -140,6 +137,8 @@ public class UserController {
         userService.changeLogin(user.getUserId(),userdto.getAccount(),new Byte("1"),new Date());
         request.getSession().setAttribute("userLogin",userdto.getAccount());
         HashMap<String, Object> map = new HashMap<>();
+        map.put("userId",user.getUserId());
+        map.put("userType",user.getUserType());
         map.put("account",user.getAccount());
         map.put("storeId",user.getStoreId());
         map.put("storeName",user.getStoreName());
