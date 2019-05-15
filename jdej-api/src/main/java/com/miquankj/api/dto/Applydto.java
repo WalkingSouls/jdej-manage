@@ -3,7 +3,6 @@ package com.miquankj.api.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
 
 /**
  * 代理审核筛选条件
@@ -15,20 +14,17 @@ public class Applydto {
     @ApiModelProperty(value = "店铺id", required = true)
     private Integer storeId;
 
-    @ApiModelProperty(value = "id", required = true)
-    private Integer id;
-
-    @ApiModelProperty(value = "客户号")
-    private Integer cliId;
+//    @ApiModelProperty(value = "客户号")
+//    private Integer cliId;
 
     @ApiModelProperty(value = "商家名称")
     private String grpName;
 
-    @ApiModelProperty(value = "消费者姓名/联系人")
-    private String cliName;
+    @ApiModelProperty(value = "真实姓名")
+    private String grpLinkName;
 
     @ApiModelProperty(value = "联系方式")
-    private String cliTel;
+    private String grpLinkTel;
 
     @ApiModelProperty(value = "申请类型： 1-代理商 2-经销商 3-厂家")
     private String subType;
@@ -43,7 +39,7 @@ public class Applydto {
     private String timeEnd;
 
     @ApiModelProperty(value = "当前页码，从0开始", required = true)
-    private Integer pageNum;
+    private Integer pageNum = 0;
 
     @ApiModelProperty(value = "分页大小", required = true)
     private Integer pageSize = 10;

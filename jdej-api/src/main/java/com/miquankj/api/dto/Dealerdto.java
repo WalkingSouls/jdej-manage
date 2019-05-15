@@ -15,9 +15,6 @@ public class Dealerdto {
     @ApiModelProperty(value = "店铺id", required = true)
     private Integer storeId;
 
-    @ApiModelProperty(value = "id", required = true)
-    private Integer id;
-
     @ApiModelProperty(value = "客户号")
     private Integer cliId;
 
@@ -28,7 +25,7 @@ public class Dealerdto {
     private String cliName;
 
     @ApiModelProperty(value = "会员类型 0-消费者 1-代理商 2-经销商 3-厂家")
-    private String type;
+    private String type = "1";
 
     @ApiModelProperty(value = "开始时间")
     private String timeStart;
@@ -37,7 +34,7 @@ public class Dealerdto {
     private String  timeEnd;
 
     @ApiModelProperty(value = "当前页码，从0开始", required = true)
-    private Integer pageNum;
+    private Integer pageNum = 0;
 
     @ApiModelProperty(value = "分页大小", required = true)
     private Integer pageSize = 10;

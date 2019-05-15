@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liuyadong
@@ -21,11 +23,18 @@ public class OrderDataServiceImpl implements OrderDataService {
 
     @Override
     public OrderData findDataByDate(int storeId, Date yesterday) {
-        return orderDataMapper.selectByDate(storeId,yesterday);
+        Map<String, Object> map = new HashMap<>();
+        map.put("storeId", storeId);
+        map.put("yesterday",yesterday);
+        return orderDataMapper.selectByDate(map);
     }
 
     @Override
     public List<OrderData> findDataByDates(int storeId, Date begin, Date end) {
-        return orderDataMapper.selectByDates(storeId,begin,end);
+        Map<String, Object> map = new HashMap<>();
+        map.put("storeId", storeId);
+        map.put("begin",begin);
+        map.put("end",end);
+        return orderDataMapper.selectByDates(map);
     }
 }

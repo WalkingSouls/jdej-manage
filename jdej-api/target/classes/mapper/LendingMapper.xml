@@ -1,112 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miquankj.api.dao.LendingMapper">
-  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Lending">
-    <id column="led_id" jdbcType="INTEGER" property="ledId" />
-    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
-    <result column="store_id" jdbcType="INTEGER" property="storeId" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    led_id, customer_id, store_id, phone, money, apply_time, status
+    <resultMap id="BaseResultMap" type="com.miquankj.api.entity.Lending">
+        <id column="led_id" jdbcType="INTEGER" property="ledId"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_name" jdbcType="VARCHAR" property="customerName"/>
+        <result column="store_id" jdbcType="INTEGER" property="storeId"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="money" jdbcType="DECIMAL" property="money"/>
+        <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    led_id, customer_id, customer_name, store_id, phone, money, apply_time, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from jdej_lending
-    where led_id = #{ledId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <select id="selectCounts" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from jdej_lending
+        where store_id = #{storeId}
+        <trim suffixOverrides="and" prefix="and">
+            <if test="customerName != null and customerName != ''">
+                customer_name = #{customerName} and
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone} and
+            </if>
+            <if test="timeStart != null and timeEnd != ''">
+                apply_time between #{timeStart} and #{timeEnd}
+            </if>
+        </trim>
+
+    </select>
+    <select id="selectByCon" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jdej_lending
+        where store_id = #{storeId}
+        <trim suffixOverrides="and" prefix="and">
+            <if test="customerName != null and customerName != ''">
+                customer_name = #{customerName} and
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone} and
+            </if>
+            <if test="timeStart != null and timeEnd != ''">
+                apply_time between #{timeStart} and #{timeEnd}
+            </if>
+        </trim>
+        order by apply_time desc
+        limit #{startRecord},#{pageSize}
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jdej_lending
+        where led_id = #{ledId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jdej_lending
     where led_id = #{ledId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.miquankj.api.entity.Lending">
-    insert into jdej_lending (led_id, customer_id, store_id, 
-      phone, money, apply_time, 
-      status)
-    values (#{ledId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
-      #{phone,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{applyTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=TINYINT})
+    <insert id="insert" parameterType="com.miquankj.api.entity.Lending">
+    insert into jdej_lending (led_id, customer_id, customer_name, 
+      store_id, phone, money, 
+      apply_time, status)
+    values (#{ledId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{storeId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.miquankj.api.entity.Lending">
-    insert into jdej_lending
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ledId != null">
-        led_id,
-      </if>
-      <if test="customerId != null">
-        customer_id,
-      </if>
-      <if test="storeId != null">
-        store_id,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="applyTime != null">
-        apply_time,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ledId != null">
-        #{ledId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null">
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="applyTime != null">
-        #{applyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Lending">
-    update jdej_lending
-    <set>
-      <if test="customerId != null">
-        customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="applyTime != null">
-        apply_time = #{applyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
-    </set>
-    where led_id = #{ledId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Lending">
+    <insert id="insertSelective" parameterType="com.miquankj.api.entity.Lending">
+        insert into jdej_lending
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ledId != null">
+                led_id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="customerName != null">
+                customer_name,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="applyTime != null">
+                apply_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ledId != null">
+                #{ledId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.Lending">
+        update jdej_lending
+        <set>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+        </set>
+        where led_id = #{ledId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.Lending">
     update jdej_lending
     set customer_id = #{customerId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
       store_id = #{storeId,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
       money = #{money,jdbcType=DECIMAL},

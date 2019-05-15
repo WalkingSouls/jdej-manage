@@ -93,7 +93,6 @@ public class GoodsServiceImpl implements GoodsService {
         int pageNum = conditiondto.getPageNum();
         int pageSize = conditiondto.getPageSize();
         Map<String, Object> map = PageUtil.goodsPageToMap(pageNum, pageSize, totalRecord, goodsList);
-        System.out.println("_____________________"+map.size());
         return map;
     }
 

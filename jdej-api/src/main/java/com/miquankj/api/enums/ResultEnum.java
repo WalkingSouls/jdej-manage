@@ -33,6 +33,7 @@ public enum ResultEnum {
     ROLE_NOT_EXIST(30,"角色不存在"),
     CUSTOMER_NOT_EXIST(31,"客户不存在"),
     APPLICATION_ERROR(32,"审核明细异常"),
+    LENDING_NOT_EXIST(33,"申请列表为空"),
     ;
     private Integer code;
 

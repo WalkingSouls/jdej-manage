@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miquankj.api.dao.MtrlTypeMapper">
+  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.MtrlType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="GRP_ID" jdbcType="VARCHAR" property="grpId" />
+    <result column="brandno" jdbcType="INTEGER" property="brandno" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="brandtype" jdbcType="CHAR" property="brandtype" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="add_operid" jdbcType="VARCHAR" property="addOperid" />
+    <result column="adddate_time" jdbcType="TIMESTAMP" property="adddateTime" />
+    <result column="state" jdbcType="CHAR" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, GRP_ID, brandno, name, brandtype, version, add_operid, adddate_time, state
+  </sql>
+
+
+  <select id="selectByGrpId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stk_mtrl_type
+    where GRP_ID = #{grpId}
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stk_mtrl_type
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stk_mtrl_type
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.miquankj.api.entity.MtrlType">
+    insert into stk_mtrl_type (id, GRP_ID, brandno, 
+      name, brandtype, version, 
+      add_operid, adddate_time, state
+      )
+    values (#{id,jdbcType=INTEGER}, #{grpId,jdbcType=VARCHAR}, #{brandno,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{brandtype,jdbcType=CHAR}, #{version,jdbcType=INTEGER}, 
+      #{addOperid,jdbcType=VARCHAR}, #{adddateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.miquankj.api.entity.MtrlType">
+    insert into stk_mtrl_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="grpId != null">
+        GRP_ID,
+      </if>
+      <if test="brandno != null">
+        brandno,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="brandtype != null">
+        brandtype,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="addOperid != null">
+        add_operid,
+      </if>
+      <if test="adddateTime != null">
+        adddate_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="grpId != null">
+        #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandno != null">
+        #{brandno,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brandtype != null">
+        #{brandtype,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="addOperid != null">
+        #{addOperid,jdbcType=VARCHAR},
+      </if>
+      <if test="adddateTime != null">
+        #{adddateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.MtrlType">
+    update stk_mtrl_type
+    <set>
+      <if test="grpId != null">
+        GRP_ID = #{grpId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandno != null">
+        brandno = #{brandno,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="brandtype != null">
+        brandtype = #{brandtype,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="addOperid != null">
+        add_operid = #{addOperid,jdbcType=VARCHAR},
+      </if>
+      <if test="adddateTime != null">
+        adddate_time = #{adddateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.MtrlType">
+    update stk_mtrl_type
+    set GRP_ID = #{grpId,jdbcType=VARCHAR},
+      brandno = #{brandno,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      brandtype = #{brandtype,jdbcType=CHAR},
+      version = #{version,jdbcType=INTEGER},
+      add_operid = #{addOperid,jdbcType=VARCHAR},
+      adddate_time = #{adddateTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

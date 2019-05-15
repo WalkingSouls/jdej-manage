@@ -1,5 +1,6 @@
 package com.miquankj.api.dao;
 
+import com.miquankj.api.dto.Condto;
 import com.miquankj.api.entity.StoreCustomer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,5 +28,11 @@ public interface StoreCustomerMapper {
 
     List<Integer> selectCusByCondition(Map<String,Object> map);
 
-    int selectCountById(int storeId, int isApply);
+    int selectCountById(@Param("storeId") int storeId,@Param("isApply") int isApply);
+
+    List<Integer> selectCusCon(Map<String,Object> map);
+
+    List<Integer> selectCusIds(Map<String,Object> map);
+
+    List<Integer> selectCusIdsApply(Map<String,Object> map);
 }

@@ -46,72 +46,158 @@
     total_money, actual_price, red_env_id, red_price, order_status, is_specimen, express_com,
     express_num, freight_price, message, order_time, update_time, update_operid, version
   </sql>
-
+    <select id="selectCounts" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count(*)
+      from jdej_order
+      where 1=1
+      <trim prefix="and" suffixOverrides="and">
+          <if test="id != null">
+              id = #{id} and
+          </if>
+          <if test="orderNum != null and orderNum != ''">
+              order_num = #{orderNum,jdbcType=VARCHAR} and
+          </if>
+          <if test="storeId != null">
+              store_id = #{storeId,jdbcType=INTEGER} and
+          </if>
+          <if test="storeName != null">
+              store_name = #{storeName,jdbcType=INTEGER} and
+          </if>
+          <if test="customerId != null">
+              customer_id = #{customerId,jdbcType=INTEGER} and
+          </if>
+          <if test="customerName != null and customerName != ''">
+              customer_name = #{customerName,jdbcType=VARCHAR} and
+          </if>
+          <if test="customerType != null">
+              customer_type = #{customerType,jdbcType=TINYINT} and
+          </if>
+          <if test="addrId != null">
+              addr_id = #{addrId,jdbcType=INTEGER} and
+          </if>
+          <if test="totalMoney != null">
+              total_money = #{totalMoney,jdbcType=DECIMAL} and
+          </if>
+          <if test="actualPrice != null">
+              actual_price = #{actualPrice,jdbcType=DECIMAL} and
+          </if>
+          <if test="redEnvId != null">
+              red_env_id = #{redEnvId,jdbcType=INTEGER} and
+          </if>
+          <if test="redPrice != null">
+              red_price = #{redPrice,jdbcType=DECIMAL} and
+          </if>
+          <if test="orderStatus != null">
+              order_status = #{orderStatus,jdbcType=TINYINT} and
+          </if>
+          <if test="isSpecimen != null">
+              is_specimen = #{isSpecimen,jdbcType=TINYINT} and
+          </if>
+          <if test="expressCom != null and expressCom != ''">
+              express_com = #{expressCom,jdbcType=VARCHAR} and
+          </if>
+          <if test="expressNum != null and expressNum != ''">
+              express_num = #{expressNum,jdbcType=VARCHAR} and
+          </if>
+          <if test="freightPrice != null">
+              freight_price = #{freightPrice,jdbcType=DECIMAL} and
+          </if>
+          <if test="message != null and message != ''">
+              message = #{message,jdbcType=VARCHAR} and
+          </if>
+          <if test="orderTime != null">
+              order_time = #{orderTime,jdbcType=TIMESTAMP} and
+          </if>
+          <if test="updateTime != null">
+              update_time = #{updateTime,jdbcType=TIMESTAMP} and
+          </if>
+          <if test="updateOperid != null">
+              update_operid = #{updateOperid,jdbcType=INTEGER} and
+          </if>
+          <if test="version != null">
+              version = #{version} and
+          </if>
+      </trim>
+    </select>
     <select id="selectOrdersByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from jdej_order
-        where store_id = #{storeId} and
-        <if test="orderNum != null and orderNum != ''">
-            order_num = #{orderNum} and
-        </if>
-        <if test="customerId != null">
-            customer_id = #{customerId} and
-        </if>
-        <if test="customerName != null and customerName!= ''">
-            customer_name = #{customerName} and
-        </if>
-        <if test="orderStatus != null">
-            order_status = #{orderStatus} and
-        </if>
-        <if test="isSpecimen != null">
-            is_specimen = #{isSpecimen} and
-        </if>
-        order_time between #{orderTimeStart} and #{orderTimeEnd}
+        where store_id = #{storeId}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="orderNum != null and orderNum != ''">
+                order_num = #{orderNum} and
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId} and
+            </if>
+            <if test="customerName != null and customerName!= ''">
+                customer_name = #{customerName} and
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus} and
+            </if>
+            <if test="isSpecimen != null">
+                is_specimen = #{isSpecimen} and
+            </if>
+            <if test="orderTimeStart != null and orderTimeEnd != null">
+                order_time between #{orderTimeStart} and #{orderTimeEnd}
+            </if>
+        </trim>
         order by order_time desc
     </select>
     <select id="selectCountsByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
         select
         count(*)
         from jdej_order
-        where store_id = #{storeId} and
-        <if test="orderNum != null and orderNum != ''">
-           order_num = #{orderNum} and
-        </if>
-        <if test="customerName != null and customerName!= ''">
-            customer_name = #{customerName} and
-        </if>
-        <if test="customerId != null">
-            customer_id = #{customerId} and
-        </if>
-        <if test="orderStatus != null">
-            order_status = #{orderStatus} and
-        </if>
-        <if test="isSpecimen != null">
-            is_specimen = #{isSpecimen} and
-        </if>
-        order_time between #{orderTimeStart} and #{orderTimeEnd}
+        where store_id = #{storeId}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="orderNum != null and orderNum != ''">
+                order_num = #{orderNum} and
+            </if>
+            <if test="customerName != null and customerName!= ''">
+                customer_name = #{customerName} and
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId} and
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus} and
+            </if>
+            <if test="isSpecimen != null">
+                is_specimen = #{isSpecimen} and
+            </if>
+            <if test="orderTimeStart != null and orderTimeEnd != null">
+                order_time between #{orderTimeStart} and #{orderTimeEnd}
+            </if>
+        </trim>
     </select>
 
     <select id="selectByCondition" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from jdej_order
-        where store_id = #{storeId} and
-        <if test="orderNum != null and orderNum != ''">
-            order_num = #{orderNum} and
-        </if>
-        <if test="customerName != null and customerName!= ''">
-            customer_name = #{customerName} and
-        </if>
-        <if test="customerId != null">
-            customer_id = #{customerId} and
-        </if>
-        <if test="orderStatus != null">
-            order_status = #{orderStatus} and
-        </if>
-        <if test="isSpecimen != null">
-            is_specimen = #{isSpecimen} and
-        </if>
-         order_time between #{orderTimeStart} and #{orderTimeEnd}
+        where store_id = #{storeId}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="orderNum != null and orderNum != ''">
+                order_num = #{orderNum} and
+            </if>
+            <if test="customerName != null and customerName!= ''">
+                customer_name = #{customerName} and
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId} and
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus} and
+            </if>
+            <if test="isSpecimen != null">
+                is_specimen = #{isSpecimen} and
+            </if>
+            <if test="orderTimeStart != null and orderTimeEnd != null">
+                order_time between #{orderTimeStart} and #{orderTimeEnd}
+            </if>
+        </trim>
         order by order_time desc
         limit #{startRecord,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </select>

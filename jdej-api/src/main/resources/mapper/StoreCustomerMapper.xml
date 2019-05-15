@@ -1,235 +1,313 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miquankj.api.dao.StoreCustomerMapper">
-  <resultMap id="BaseResultMap" type="com.miquankj.api.entity.StoreCustomer">
-    <id column="sto_cus_id" jdbcType="INTEGER" property="stoCusId" />
-    <result column="store_id" jdbcType="INTEGER" property="storeId" />
-    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
-    <result column="cli_id" jdbcType="INTEGER" property="cliId" />
-    <result column="customer_type" jdbcType="CHAR" property="customerType" />
-    <result column="is_apply" jdbcType="TINYINT" property="isApply" />
-    <result column="grp_name" jdbcType="VARCHAR" property="grpName" />
-    <result column="cli_name" jdbcType="VARCHAR" property="cliName" />
-    <result column="cli_tel" jdbcType="VARCHAR" property="cliTel" />
-    <result column="sub_type" jdbcType="CHAR" property="subType" />
-    <result column="status" jdbcType="CHAR" property="status" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="valid" jdbcType="TINYINT" property="valid" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.miquankj.api.entity.StoreCustomer">
+        <id column="sto_cus_id" jdbcType="INTEGER" property="stoCusId"/>
+        <result column="store_id" jdbcType="INTEGER" property="storeId"/>
+        <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="cli_id" jdbcType="INTEGER" property="cliId"/>
+        <result column="customer_type" jdbcType="CHAR" property="customerType"/>
+        <result column="is_apply" jdbcType="TINYINT" property="isApply"/>
+        <result column="grp_name" jdbcType="VARCHAR" property="grpName"/>
+        <result column="cli_name" jdbcType="VARCHAR" property="cliName"/>
+        <result column="cli_tel" jdbcType="VARCHAR" property="cliTel"/>
+        <result column="sub_type" jdbcType="CHAR" property="subType"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="valid" jdbcType="TINYINT" property="valid"/>
+        <result column="grp_link_name" jdbcType="VARCHAR" property="grpLinkName"/>
+        <result column="grp_link_tel" jdbcType="VARCHAR" property="grpLinkTel"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     sto_cus_id, store_id, customer_id, cli_id, customer_type, is_apply, grp_name, cli_name,
-    cli_tel, sub_type, status, add_time, valid
+    cli_tel, sub_type, status, add_time, valid, grp_link_name, grp_link_tel
   </sql>
 
-  <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+
+    <select id="selectCusIdsApply" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select customer_id from jdej_store_customer
+        where store_id= #{storeId}
+        and valid = 1
+        and is_apply = #{isApply}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="grpName != null and grpName != ''">
+                grp_name = #{grpName} and
+            </if>
+            <if test="grpLinkName != null and grpLinkName != ''">
+                grp_link_name = #{grpLinkName} and
+            </if>
+            <if test="grpLinkTel != null and grpLinkTel != ''">
+                grp_link_tel = #{grpLinkTel} and
+            </if>
+            <if test="subType != null and subType != ''">
+                sub_type = #{subType} and
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status} and
+            </if>
+            <if test="timeStart != null and timeEnd != null">
+                DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;= DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
+                and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;= DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectCusIds" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select customer_id from jdej_store_customer
+        where store_id= #{storeId} and valid = 1 and
+        <choose>
+            <when test="type == 1">
+                customer_type != "0"
+            </when>
+            <otherwise>
+                is_apply = 1
+            </otherwise>
+        </choose>
+        <trim prefix="and" suffixOverrides="and">
+            <if test="cliId != null">
+                cli_id = #{cliId} and
+            </if>
+            <if test="grpName != null and grpName != ''">
+                grp_name = #{grpName} and
+            </if>
+            <if test="cliName != null and cliName != ''">
+                cli_name = #{cliName} and
+            </if>
+            <if test="timeStart != null and timeEnd != null">
+                DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;= DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
+                and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;= DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectCusCon" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select customer_id from jdej_store_customer
+        where store_id = #{storeId} and customer_type = #{customerType}
+        <trim prefix="and" suffixOverrides="and">
+            <if test="cliName != null and cliName != ''">
+                cli_name = #{cliName} and
+            </if>
+            <if test="timeStart != null and timeEnd != null">
+                DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;= DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
+                and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;= DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
+
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select count(*)
     from jdej_store_customer
     where store_id = #{storeId} and is_apply = #{isApply}
   </select>
 
-  <select id="selectCusByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select customer_id from jdej_store_customer
-    where
-    <trim suffixOverrides="and">
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=INTEGER} and
-      </if>
-      <if test="cliId != null">
-        cli_id = #{cliId,jdbcType=INTEGER} and
-      </if>
-      <if test="customerType != null">
-        customer_type = #{type,jdbcType=CHAR} and
-      </if>
-      <if test="grpName != null">
-        grp_name = #{grpName,jdbcType=VARCHAR} and
-      </if>
-      <if test="cliName != null">
-        cli_name = #{cliName,jdbcType=VARCHAR} and
-      </if>
-      <if test="cliTel != null">
-        cli_tel = #{cliTel,jdbcType=VARCHAR} and
-      </if>
-      <if test="subType != null">
-        sub_type = #{subType,jdbcType=CHAR} and
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=CHAR} and
-      </if>
-      <if test="timeStart != null and timeEnd != null">
-        DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;=  DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
-        and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;=  DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
+    <select id="selectCusByCondition" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select customer_id from jdej_store_customer
+        where
+        <trim suffixOverrides="and">
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER} and
+            </if>
+            <if test="cliId != null">
+                cli_id = #{cliId,jdbcType=INTEGER} and
+            </if>
+            <if test="customerType != null">
+                customer_type = #{type,jdbcType=CHAR} and
+            </if>
+            <if test="grpName != null">
+                grp_name = #{grpName,jdbcType=VARCHAR} and
+            </if>
+            <if test="cliName != null">
+                cli_name = #{cliName,jdbcType=VARCHAR} and
+            </if>
+            <if test="cliTel != null">
+                cli_tel = #{cliTel,jdbcType=VARCHAR} and
+            </if>
+            <if test="subType != null">
+                sub_type = #{subType,jdbcType=CHAR} and
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR} and
+            </if>
+            <if test="timeStart != null and timeEnd != null">
+                DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;= DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
+                and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;= DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
 
-      </if>
-    </trim>
-  </select>
-
-  <select id="selectCusIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select customer_id from jdej_store_customer
-    where store_id= #{storeId} and valid = 1 and
-    <choose>
-      <when test="listType == 0">
-        customer_type = "0"
-      </when>
-      <when test="listType == 1">
-        customer_type != "0"
-      </when>
-      <otherwise>
-        is_apply = 1
-      </otherwise>
-    </choose>
-  </select>
+            </if>
+        </trim>
+    </select>
 
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from jdej_store_customer
-    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from jdej_store_customer
+        where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from jdej_store_customer
     where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.miquankj.api.entity.StoreCustomer">
+    <insert id="insert" parameterType="com.miquankj.api.entity.StoreCustomer">
     insert into jdej_store_customer (sto_cus_id, store_id, customer_id,
       cli_id, customer_type, is_apply,
       grp_name, cli_name, cli_tel,
       sub_type, status, add_time,
-      valid)
+      valid, grp_link_name, grp_link_tel
+      )
     values (#{stoCusId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER},
       #{cliId,jdbcType=INTEGER}, #{customerType,jdbcType=CHAR}, #{isApply,jdbcType=TINYINT},
       #{grpName,jdbcType=VARCHAR}, #{cliName,jdbcType=VARCHAR}, #{cliTel,jdbcType=VARCHAR},
       #{subType,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{addTime,jdbcType=TIMESTAMP},
-      #{valid,jdbcType=TINYINT})
+      #{valid,jdbcType=TINYINT}, #{grpLinkName,jdbcType=VARCHAR}, #{grpLinkTel,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.miquankj.api.entity.StoreCustomer">
-    insert into jdej_store_customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="stoCusId != null">
-        sto_cus_id,
-      </if>
-      <if test="storeId != null">
-        store_id,
-      </if>
-      <if test="customerId != null">
-        customer_id,
-      </if>
-      <if test="cliId != null">
-        cli_id,
-      </if>
-      <if test="customerType != null">
-        customer_type,
-      </if>
-      <if test="isApply != null">
-        is_apply,
-      </if>
-      <if test="grpName != null">
-        grp_name,
-      </if>
-      <if test="cliName != null">
-        cli_name,
-      </if>
-      <if test="cliTel != null">
-        cli_tel,
-      </if>
-      <if test="subType != null">
-        sub_type,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="valid != null">
-        valid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="stoCusId != null">
-        #{stoCusId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null">
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null">
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="cliId != null">
-        #{cliId,jdbcType=INTEGER},
-      </if>
-      <if test="customerType != null">
-        #{customerType,jdbcType=CHAR},
-      </if>
-      <if test="isApply != null">
-        #{isApply,jdbcType=TINYINT},
-      </if>
-      <if test="grpName != null">
-        #{grpName,jdbcType=VARCHAR},
-      </if>
-      <if test="cliName != null">
-        #{cliName,jdbcType=VARCHAR},
-      </if>
-      <if test="cliTel != null">
-        #{cliTel,jdbcType=VARCHAR},
-      </if>
-      <if test="subType != null">
-        #{subType,jdbcType=CHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=CHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="valid != null">
-        #{valid,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.StoreCustomer">
-    update jdej_store_customer
-    <set>
-      <if test="storeId != null">
-        store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null">
-        customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="cliId != null">
-        cli_id = #{cliId,jdbcType=INTEGER},
-      </if>
-      <if test="customerType != null">
-        customer_type = #{customerType,jdbcType=CHAR},
-      </if>
-      <if test="isApply != null">
-        is_apply = #{isApply,jdbcType=TINYINT},
-      </if>
-      <if test="grpName != null">
-        grp_name = #{grpName,jdbcType=VARCHAR},
-      </if>
-      <if test="cliName != null">
-        cli_name = #{cliName,jdbcType=VARCHAR},
-      </if>
-      <if test="cliTel != null">
-        cli_tel = #{cliTel,jdbcType=VARCHAR},
-      </if>
-      <if test="subType != null">
-        sub_type = #{subType,jdbcType=CHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=CHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="valid != null">
-        valid = #{valid,jdbcType=TINYINT},
-      </if>
-    </set>
-    where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.StoreCustomer">
+    <insert id="insertSelective" parameterType="com.miquankj.api.entity.StoreCustomer">
+        insert into jdej_store_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stoCusId != null">
+                sto_cus_id,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="cliId != null">
+                cli_id,
+            </if>
+            <if test="customerType != null">
+                customer_type,
+            </if>
+            <if test="isApply != null">
+                is_apply,
+            </if>
+            <if test="grpName != null">
+                grp_name,
+            </if>
+            <if test="cliName != null">
+                cli_name,
+            </if>
+            <if test="cliTel != null">
+                cli_tel,
+            </if>
+            <if test="subType != null">
+                sub_type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="valid != null">
+                valid,
+            </if>
+            <if test="grpLinkName != null">
+                grp_link_name,
+            </if>
+            <if test="grpLinkTel != null">
+                grp_link_tel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stoCusId != null">
+                #{stoCusId,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="cliId != null">
+                #{cliId,jdbcType=INTEGER},
+            </if>
+            <if test="customerType != null">
+                #{customerType,jdbcType=CHAR},
+            </if>
+            <if test="isApply != null">
+                #{isApply,jdbcType=TINYINT},
+            </if>
+            <if test="grpName != null">
+                #{grpName,jdbcType=VARCHAR},
+            </if>
+            <if test="cliName != null">
+                #{cliName,jdbcType=VARCHAR},
+            </if>
+            <if test="cliTel != null">
+                #{cliTel,jdbcType=VARCHAR},
+            </if>
+            <if test="subType != null">
+                #{subType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="valid != null">
+                #{valid,jdbcType=TINYINT},
+            </if>
+            <if test="grpLinkName != null">
+                #{grpLinkName,jdbcType=VARCHAR},
+            </if>
+            <if test="grpLinkTel != null">
+                #{grpLinkTel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.miquankj.api.entity.StoreCustomer">
+        update jdej_store_customer
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="cliId != null">
+                cli_id = #{cliId,jdbcType=INTEGER},
+            </if>
+            <if test="customerType != null">
+                customer_type = #{customerType,jdbcType=CHAR},
+            </if>
+            <if test="isApply != null">
+                is_apply = #{isApply,jdbcType=TINYINT},
+            </if>
+            <if test="grpName != null">
+                grp_name = #{grpName,jdbcType=VARCHAR},
+            </if>
+            <if test="cliName != null">
+                cli_name = #{cliName,jdbcType=VARCHAR},
+            </if>
+            <if test="cliTel != null">
+                cli_tel = #{cliTel,jdbcType=VARCHAR},
+            </if>
+            <if test="subType != null">
+                sub_type = #{subType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="valid != null">
+                valid = #{valid,jdbcType=TINYINT},
+            </if>
+            <if test="grpLinkName != null">
+                grp_link_name = #{grpLinkName,jdbcType=VARCHAR},
+            </if>
+            <if test="grpLinkTel != null">
+                grp_link_tel = #{grpLinkTel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.miquankj.api.entity.StoreCustomer">
     update jdej_store_customer
     set store_id = #{storeId,jdbcType=INTEGER},
       customer_id = #{customerId,jdbcType=INTEGER},
@@ -242,7 +320,9 @@
       sub_type = #{subType,jdbcType=CHAR},
       status = #{status,jdbcType=CHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
-      valid = #{valid,jdbcType=TINYINT}
+      valid = #{valid,jdbcType=TINYINT},
+      grp_link_name = #{grpLinkName,jdbcType=VARCHAR},
+      grp_link_tel = #{grpLinkTel,jdbcType=VARCHAR}
     where sto_cus_id = #{stoCusId,jdbcType=INTEGER}
   </update>
 </mapper>

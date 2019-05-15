@@ -23,7 +23,7 @@ import java.util.Map;
  * @since 2019/5/7
  */
 @Slf4j
-@Api(value = "红包的管理，列表")
+@Api(value = "红包的管理，列表",description = "红包的管理，列表")
 @RestController
 @RequestMapping("/redEnvelope")
 public class RedEnvelopeController {

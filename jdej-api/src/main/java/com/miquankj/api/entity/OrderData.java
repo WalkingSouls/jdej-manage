@@ -14,21 +14,21 @@ public class OrderData {
     private Integer id;
 
     @ApiModelProperty(value = "订单日期",required = true)
-    private Date orderDate;
+    private Date orderDate = new Date();
 
     @ApiModelProperty(value = "商铺ID",required = true)
     private Integer storeId;
 
     @ApiModelProperty(value = "成交订单数",required = true)
-    private Integer orderDeal;
+    private Integer orderDeal = 0;
 
     @ApiModelProperty(value = "成交额",required = true)
-    private BigDecimal dealMoney;
+    private BigDecimal dealMoney = new BigDecimal(0);
 
     @ApiModelProperty(value = "下单笔数",required = true)
-    private Integer orderAmount;
+    private Integer orderAmount = 0;
 
     @ApiModelProperty(value = "下单人数",required = true)
-    private Integer dealPeople;
+    private Integer dealPeople = 0;
 
 }

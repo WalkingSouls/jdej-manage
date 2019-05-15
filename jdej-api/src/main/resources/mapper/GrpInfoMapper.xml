@@ -138,7 +138,7 @@
         <include refid="ApplyReturndto_List"/>
         from sys_grp_info
         where id = #{customerId}
-        <trim suffixOverrides="and" prefix="and">
+        <!--<trim suffixOverrides="and" prefix="and">
             <if test="grpName != null and grpName != ''">
                 grp_name = #{grpName} and
             </if>
@@ -161,7 +161,7 @@
                 DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;=  DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
                 and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;=  DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
             </if>
-        </trim>
+        </trim>-->
     </select>
 
     <select id="selectByDealer" parameterType="java.util.Map" resultMap="DealerReturndto">
@@ -169,24 +169,24 @@
         <include refid="DealerReturndto_List"/>
         from sys_grp_info
         where id = #{customerId}
-        <trim suffixOverrides="and" prefix="and">
-            <if test="grpName != null and grpName != ''">
-                grp_name = #{grpName} and
-            </if>
-            <if test="cliId != null">
-                cli_id = #{cli_id} and
-            </if>
-            <if test="cliName != null and cliName != ''">
-                cli_name = #{cliName} and
-            </if>
-            <if test="type != null and type != ''">
-                type = #{type} and
-            </if>
-            <if test="timeStart != null and timeEnd != null">
-                DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;=  DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')
-                and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;=  DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')
-            </if>
-        </trim>
+        <!--<trim suffixOverrides="and" prefix="and">-->
+            <!--<if test="grpName != null and grpName != ''">-->
+                <!--grp_name = #{grpName} and-->
+            <!--</if>-->
+            <!--<if test="cliId != null">-->
+                <!--cli_id = #{cli_id} and-->
+            <!--</if>-->
+            <!--<if test="cliName != null and cliName != ''">-->
+                <!--cli_name = #{cliName} and-->
+            <!--</if>-->
+            <!--<if test="type != null and type != ''">-->
+                <!--type = #{type} and-->
+            <!--</if>-->
+            <!--<if test="timeStart != null and timeEnd != null">-->
+                <!--DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &gt;=  DATE_FORMAT(#{timeStart},'%Y-%m-%d %H:%i:%s')-->
+                <!--and DATE_FORMAT(add_Time,'%Y-%m-%d %H:%i:%s') &lt;=  DATE_FORMAT(#{timeEnd},'%Y-%m-%d %H:%i:%s')-->
+            <!--</if>-->
+        <!--</trim>-->
     </select>
 
     <select id="selectByCon" parameterType="java.util.Map" resultMap="ConReturndto">

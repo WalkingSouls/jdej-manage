@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -75,8 +77,11 @@ public class test {
     }
     public static void test3(){
         String today = TimeUtil.getToday();
-        System.out.println(today);
-        String nextDay = TimeUtil.getNextDay(today, "-3");
-        System.out.println(nextDay);
+        Date begin = TimeUtil.strToDate(TimeUtil.getNextDay(today, "-7"));
+        Date end = TimeUtil.strToDate(TimeUtil.getNextDay(today, "-1"));
+        List<Date> betweenDates = TimeUtil.getBetweenDates(begin, end);
+        ArrayList<String> dates = new ArrayList<>();
+        betweenDates.forEach(x->dates.add(TimeUtil.dateFormatMD0(x)));
+        dates.forEach(x-> System.out.println(x));
     }
 }

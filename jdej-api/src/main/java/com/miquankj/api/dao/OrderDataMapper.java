@@ -2,10 +2,12 @@ package com.miquankj.api.dao;
 
 import com.miquankj.api.entity.OrderData;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
@@ -22,7 +24,11 @@ public interface OrderDataMapper {
 
     int updateByPrimaryKey(OrderData record);
 
-    OrderData selectByDate(int storeId, Date yesterday);
+//    OrderData selectByDate(@Param("storeId") int storeId,@Param("yesterday") Date yesterday);
+//
+//    List<OrderData> selectByDates(@Param("storeId") int storeId,@Param("begin") Date begin,@Param("end") Date end);
 
-    List<OrderData> selectByDates(int storeId, Date begin, Date end);
+    OrderData selectByDate(Map<String,Object> map);
+
+    List<OrderData> selectByDates(Map<String,Object> map);
 }
