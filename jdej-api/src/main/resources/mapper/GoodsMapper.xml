@@ -129,7 +129,10 @@
                 update_cli = #{updateMan},
             </if>
             <if test="updateTime != null">
-                update_date = #{updateTime}
+                update_date = #{updateTime},
+            </if>
+            <if test="account != null and account != ''">
+                update_cli = #{account}
             </if>
         </set>
         where id = #{goodsId} and add_bis = #{storeId}

@@ -23,4 +23,6 @@ public interface UserMapper {
     User selectByUser(User user);
 
     Integer updateErrorPass(Integer userId);
+
+    int resetErrorPass(Integer userId);
 }

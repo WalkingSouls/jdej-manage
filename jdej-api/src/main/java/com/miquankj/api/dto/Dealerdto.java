@@ -11,7 +11,7 @@ import java.util.Date;
  * @since 2019/5/14
  */
 @Data
-public class Dealerdto {
+public class Dealerdto extends FileterBase{
     @ApiModelProperty(value = "店铺id", required = true)
     private Integer storeId;
 
@@ -27,15 +27,4 @@ public class Dealerdto {
     @ApiModelProperty(value = "会员类型 0-消费者 1-代理商 2-经销商 3-厂家")
     private String type = "1";
 
-    @ApiModelProperty(value = "开始时间")
-    private String timeStart;
-
-    @ApiModelProperty(value = "结束时间")
-    private String  timeEnd;
-
-    @ApiModelProperty(value = "当前页码，从0开始", required = true)
-    private Integer pageNum = 0;
-
-    @ApiModelProperty(value = "分页大小", required = true)
-    private Integer pageSize = 10;
 }

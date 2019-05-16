@@ -17,4 +17,6 @@ public interface UserService {
     Integer changeUserStatus(Integer userId, Byte opertionType);
 
     Integer changeLogin(Integer userId, String account, Byte isLogined, Date loginTime);
+
+    int resetErrorPass(Integer userId);
 }

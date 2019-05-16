@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer changeErrorPass(Integer userId) {
-        userMapper.updateErrorPass(userId);
-        return 1;
+        return  userMapper.updateErrorPass(userId);
     }
 
     @Override
@@ -41,8 +40,7 @@ public class UserServiceImpl implements UserService {
         user.setIsAdmin(null);
         user.setUserId(userId);
         user.setStatus(opertionType);
-        userMapper.updateByPrimaryKeySelective(user);
-        return 1;
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
@@ -53,7 +51,11 @@ public class UserServiceImpl implements UserService {
         user.setAccount(account);
         user.setLoginTime(loginTime);
         user.setIsLogin(isLogined);
-        userMapper.updateByPrimaryKeySelective(user);
-        return 1;
+        return  userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public int resetErrorPass(Integer userId) {
+        return  userMapper.resetErrorPass(userId);
     }
 }

@@ -13,6 +13,7 @@ import com.miquankj.api.service.StoreService;
 import com.miquankj.api.service.UserService;
 import com.miquankj.api.utils.MD5Util;
 import com.miquankj.api.utils.ResultVOUtil;
+import com.miquankj.api.utils.UserThreadLocal;
 import com.miquankj.api.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -131,8 +133,8 @@ public class UserController {
         } catch (JsonProcessingException e) {
             log.error("【用户】 转换json出错，user={}", user);
         }
-        redisTemplate.opsForHash().put(token, user.hashCode(), userJson);
-        redisTemplate.expire(token, 3600, TimeUnit.DAYS.SECONDS);
+//        redisTemplate.opsForHash().put(token, user.hashCode(), userJson);
+//        redisTemplate.expire(token, 3600, TimeUnit.DAYS.SECONDS);
         response.addCookie(cookie);
         userService.changeLogin(user.getUserId(),userdto.getAccount(),new Byte("1"),new Date());
         request.getSession().setAttribute("userLogin",userdto.getAccount());
@@ -143,8 +145,8 @@ public class UserController {
         map.put("storeId",user.getStoreId());
         map.put("storeName",user.getStoreName());
         map.put("permissions",role.getPermissions());
-        ThreadLocal threadLocal = new ThreadLocal();
-        threadLocal.set(map);
+        UserThreadLocal.set(user);
+        userService.resetErrorPass(user.getUserId());
         return ResultVOUtil.success(map);
     }
     @ApiOperation(value = "用户登出")
@@ -166,9 +168,9 @@ public class UserController {
 //            cookie.setMaxAge(0);
 //        }
         String account = (String) request.getSession().getAttribute("userLogin");
-        System.out.println(account);
         userService.changeLogin(userId, account, new Byte("0"), null);
         request.getSession().removeAttribute("userLogin");
+        UserThreadLocal.remove();
         return ResultVOUtil.success();
     }
 

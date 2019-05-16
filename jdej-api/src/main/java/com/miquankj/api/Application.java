@@ -12,8 +12,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @ServletComponentScan
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-    
-    
+
+
     @Override
     public void run(String... args) {
         System.out.println();
@@ -24,9 +24,9 @@ public class Application implements CommandLineRunner {
         System.out.println("===================================================");
         System.out.println();
     }
-    
+
     public static void main(String[] args) {
-        
+
         SpringApplication.run(Application.class, args);
     }
 }

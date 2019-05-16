@@ -88,21 +88,21 @@ public class OrderController {
         return findOrdersByCondition(orderConditiondto);
     }
 
-    @ApiOperation(value = "创建订单")
-    @PostMapping("/createOrder")
-    public ResultVO createOrder(@Valid @RequestBody Order order, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.error("【订单】 参数有误，order={}", order);
-            return ResultVOUtil.error(ResultEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
-        }
-        orderService.createOrder(order);
-        return ResultVOUtil.success();
-    }
-
-    @ApiOperation(value = "更新订单")
-    @PostMapping("/updateOrder")
-    public ResultVO updateOrder(@RequestBody Order order) {
-        orderService.updateOrder(order);
-        return ResultVOUtil.success();
-    }
+//    @ApiOperation(value = "创建订单")
+//    @PostMapping("/createOrder")
+//    public ResultVO createOrder(@Valid @RequestBody Order order, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            log.error("【订单】 参数有误，order={}", order);
+//            return ResultVOUtil.error(ResultEnum.PARAM_ERROR.getCode(), bindingResult.getFieldError().getDefaultMessage());
+//        }
+//        orderService.createOrder(order);
+//        return ResultVOUtil.success();
+//    }
+//
+//    @ApiOperation(value = "更新订单")
+//    @PostMapping("/updateOrder")
+//    public ResultVO updateOrder(@RequestBody Order order) {
+//        orderService.updateOrder(order);
+//        return ResultVOUtil.success();
+//    }
 }

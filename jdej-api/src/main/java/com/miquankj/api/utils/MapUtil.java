@@ -41,7 +41,7 @@ public class MapUtil {
                     fields[i].setAccessible(true);
                     if (fields[i].get(object) == null) continue;
                     map.put(fields[i].getName(), fields[i].get(object));
-                    System.out.println(fields[i].getName() + ":" + fields[i].get(object));
+//                    System.out.println(fields[i].getName() + ":" + fields[i].get(object));
                 }
             }
         } catch (Exception e) {

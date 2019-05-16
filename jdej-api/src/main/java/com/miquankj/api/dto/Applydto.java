@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2019/5/14
  */
 @Data
-public class Applydto {
+public class Applydto  extends FileterBase{
     @ApiModelProperty(value = "店铺id", required = true)
     private Integer storeId;
 
@@ -32,15 +32,4 @@ public class Applydto {
     @ApiModelProperty(value = "状态 0-正常 1-注销")
     private String status;
 
-    @ApiModelProperty(value = "开始时间")
-    private String timeStart;
-
-    @ApiModelProperty(value = "结束时间")
-    private String timeEnd;
-
-    @ApiModelProperty(value = "当前页码，从0开始", required = true)
-    private Integer pageNum = 0;
-
-    @ApiModelProperty(value = "分页大小", required = true)
-    private Integer pageSize = 10;
 }

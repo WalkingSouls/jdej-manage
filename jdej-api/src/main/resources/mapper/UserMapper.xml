@@ -29,7 +29,7 @@
     <include refid="Base_Column_List" />
     from jdej_user
     where
-    <trim prefix="" suffix="" prefixOverrides="" suffixOverrides="and">
+    <trim  suffixOverrides="and">
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER} and
       </if>
@@ -67,7 +67,7 @@
         login_time = #{loginTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="lastLoginTime != null">
-        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP and
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP} and
       </if>
       <if test="isAdmin != null">
         is_admin = #{isAdmin,jdbcType=TINYINT}
@@ -79,7 +79,11 @@
      set error_pass = error_pass + 1
      where user_id = #{userId}
   </update>
-
+  <update id="resetErrorPass" parameterType="java.lang.Integer">
+     update jdej_user
+     set error_pass = 0
+     where user_id = #{userId}
+  </update>
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

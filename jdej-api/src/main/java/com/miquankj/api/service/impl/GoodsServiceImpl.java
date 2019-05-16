@@ -11,6 +11,7 @@ import com.miquankj.api.entity.GoodsPrice;
 import com.miquankj.api.service.GoodsService;
 import com.miquankj.api.utils.MapUtil;
 import com.miquankj.api.utils.PageUtil;
+import com.miquankj.api.utils.UserThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,8 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     @Override
     public Integer createNewGoods(Goods goods) {
-        // todo goods.setAddCli(); 设置商品录入人
+        String account = UserThreadLocal.get().getAccount();
+        goods.setAddCli(account);
         goodsMapper.insertSelective(goods);
         createNewGoodsPrice(goods);
         return 1;
@@ -64,7 +66,8 @@ public class GoodsServiceImpl implements GoodsService {
         if(goodsPriceList.size() != 0){
             goodsPriceList.forEach(x->goodsPriceMapper.deleteByPrimaryKey(x.getId()));
         }
-        // todo goods.setUpdateCli(); 设置商品修改人
+        String account = UserThreadLocal.get().getAccount();
+        goods.setAddCli(account);
         goods.setUpdateDate(new Date());
         goodsMapper.insert(goods);
         createNewGoodsPrice(goods);
@@ -100,10 +103,11 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Integer changeGoodsStatus(int storeId, int goodsId, int operationType) {
         HashMap<String, Object> map = new HashMap<>();
+        String account = UserThreadLocal.get().getAccount();
         map.put("storeId", storeId);
         map.put("goodsId", goodsId);
         map.put("updateTime",new Date());
-        // todo map.put("updateMan",); 添加修改人
+        map.put("account",account);
         if(operationType != 2 && operationType != -2){
             map.put("state",operationType);
             map.put("recommend",null);
